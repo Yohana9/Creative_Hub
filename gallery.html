@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.6/plyr.css">
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome -->
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
+    <!-- Include particles.js -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+</head>
+<body class="light-theme">
+    <div id="stars-container"></div>
+
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" id="themeToggle">🌞</button>
+
+
+    <div id="particle2"></div>
+   <!-- Header -->
+   <header class="header d-flex align-items-center">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+        <div class="header-logo d-flex align-items-center">
+            <img src="assets/images/Logo/YR.png" alt="My Logo" class="logo">
+            <span class="website-name ms-3"> Yohan Records </span>
+        </div>
+        <div class="header-features d-flex align-items-center">
+            <!-- Theme Toggle Button -->
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle Theme">🌞</button>
+              <div class="menu-icon" id="menuToggle">☰</div>
+        </div>
+
+    </div>
+</header>
+
+<!-- Sidebar -->
+<div id="sidebar" class="sidebar">
+    <ul class="sidebar-nav">
+        <li class="sidebar-item S-Home">
+            <a href="index.html" class="sidebar-link">
+                <i class="fas fa-home"></i> Home
+            </a>
+        </li>
+        <li class="sidebar-item S-Music">
+            <a href="Music.html" class="sidebar-link">
+                <i class="fas fa-music"></i> Music <i class="fas fa-chevron-down"></i>
+            </a>
+            <ul class="submenu">
+                <li><a href="albums.html" class="submenu-link">Albums</a></li>
+                <li><a href="singles.html" class="submenu-link">Singles</a></li>
+                <li><a href="remixes.html" class="submenu-link">Remixes</a></li>
+            </ul>
+        </li>
+        <li class="sidebar-item S-Video">
+            <a href="Video.html" class="sidebar-link">
+                <i class="fas fa-video"></i> Videos
+            </a>
+        </li>
+        <li class="sidebar-item S-Gallery">
+            <a href="gallery.html" class="sidebar-link">
+                <i class="fas fa-images"></i> Gallery
+            </a>
+        </li>
+        <li class="sidebar-item S-Software">
+            <a href="Software.html" class="sidebar-link">
+                <i class="fas fa-cog"></i> Software
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+
+    <!-- Content -->
+    <div class="content">
+        <!-- Hero Section -->
+        <section id="hero" class="hero">
+            <div id="particles-js"></div>
+            <div class="container-fluid">
+                <img src="assets/images/Logo/YR.png" alt="My Logo" class="logo-heroic glow" >
+    
+                <h1 class="glow">Welcome to My Gallery Art </h1>
+                <p> gallery of my artwork. Sketch By PenciL and Saturated, Contrast and Hue effect Only. </p>
+                <!-- <a href="#gallery" class="btn btn-prime btn-lg ">Explore Now</a> -->
+            </div>
+        </section>
+
+
+        
+        <!-- <a href="assets/gallery/hope.jpg" data-fancybox="gallery" data-caption="Gallery Image 3" class="gallery-item">
+            <img src="assets/gallery/hope.jpg" alt="With God Scatch Paper Draw">
+            <div class="overlay">
+                <div class="overlay-text">With God</div>
+            </div>
+        </a>
+         -->
+    
+<!-- Gallery Section -->
+<section id="gallery" class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5 h-Title"> My Sketch Gallery </h2>
+
+ <!-- Gallery Section 1 -->
+        <div class="gallery mt-5 mb-5">
+            <a href="assets/gallery/Legends.jpg" data-fancybox="gallery" data-caption="አልዋቅ HoteL" class="gallery-item">
+                <img src="assets/gallery/Legends.jpg" alt="Scatch Paper Draw">
+                <div class="overlay">
+                    <div class="overlay-text"> Abstract Ethiopian Legends Name </div>
+                </div>
+            </a>
+
+            <a href="assets/gallery/tana.jpg" data-fancybox="gallery" data-caption="ጣና በለስ" class="gallery-item">
+                <img src="assets/gallery/tana.jpg" alt="Scatch Paper Draw">
+                <div class="overlay">
+                    <div class="overlay-text"> ጣና </div>
+                </div>
+            </a>
+
+            <a href="assets/gallery/suc.jpg" data-fancybox="gallery" data-caption="sucess" class="gallery-item">
+                <img src="assets/gallery/suc.jpg" alt="Scatch Paper Draw">
+                <div class="overlay">
+                    <div class="overlay-text"> Success </div>
+                </div>
+            </a>
+            
+            <a href="assets/gallery/possible.jpg" data-fancybox="gallery" data-caption="Possible" class="gallery-item">
+                <img src="assets/gallery/possible.jpg" alt="Scatch Paper Draw">
+                <div class="overlay">
+                    <div class="overlay-text"> Everything is Possible. </div>
+                </div>
+            </a>
+        </div>
+
+<!-- Gallery Section 2-->
+        <div class="gallery mb-5">
+            <a href="assets/gallery/jm.jpg" data-fancybox="gallery" data-caption="JMC Reta" class="gallery-item">
+                <img src="assets/gallery/jm.jpg" alt="JMC Reta Scatch Paper Draw">
+                <div class="overlay">
+                    <div class="overlay-text">JMC Reta</div>
+                </div>
+            </a>
+
+            <a href="assets/gallery/ynegal.jpg" data-fancybox="gallery" data-caption="YnegaL" class="gallery-item">
+                <img src="assets/gallery/ynegal.jpg" alt="YnegaL Scatch Paper Draw">
+                <div class="overlay">
+                    <div class="overlay-text"> ይነጋል </div>
+                </div>
+            </a>
+
+            <a href="assets/gallery/heart.jpg" data-fancybox="gallery" data-caption="Heart Attack" class="gallery-item">
+                <img src="assets/gallery/heart.jpg" alt="Heart Attack Scatch Paper Draw">
+                <div class="overlay">
+                    <div class="overlay-text">Heart Attack</div>
+                </div>
+            </a>
+
+            <a href="assets/gallery/mesk.jpg" data-fancybox="gallery" data-caption="መስከረም ጠባ" class="gallery-item">
+                <img src="assets/gallery/mesk.jpg" alt="With God Scatch Paper Draw">
+                <div class="overlay">
+                    <div class="overlay-text"> መስከረም ጠባ </div>
+                </div>
+            </a>
+        
+        </div>
+
+<!-- Gallery Section 3 -->
+         <div class="gallery mt-5">
+            <a href="assets/gallery/watch.jpg" data-fancybox="gallery" data-caption="Watch" class="gallery-item">
+                <img src="assets/gallery/watch.jpg" alt="JMC Reta Scatch Paper Draw">
+                <div class="overlay">
+                    <div class="overlay-text"> Watch </div>
+                </div>
+            </a>
+
+            <a href="assets/gallery/stars.jpg" data-fancybox="gallery" data-caption="Stars" class="gallery-item">
+                <img src="assets/gallery/stars.jpg" alt="YnegaL Scatch Paper Draw">
+                <div class="overlay">
+                    <div class="overlay-text"> Stars </div>
+                </div>
+            </a>
+
+            <a href="assets/gallery/Kana.jpg" data-fancybox="gallery" data-caption=" Kana Movies " class="gallery-item">
+                <img src="assets/gallery/kana.jpg" alt="Scatch Paper Draw">
+                <div class="overlay">
+                    <div class="overlay-text"> Kana Movie Titles </div>
+                </div>
+            </a>
+            
+            <a href="assets/gallery/efra.jpg" data-fancybox="gallery" data-caption="Efrata" class="gallery-item">
+                <img src="assets/gallery/efra.jpg" alt="Scatch Paper Draw">
+                <div class="overlay">
+                    <div class="overlay-text"> ኤፍራታ </div>
+                </div>
+            </a>
+        </div>
+        
+ <!-- Gallery Section 4 -->
+        <div class="gallery mt-5">
+            <a href="assets/gallery/alwak.jpg" data-fancybox="gallery" data-caption="አልዋቅ HoteL" class="gallery-item">
+                <img src="assets/gallery/alwak.jpg" alt="JMC Reta Scatch Paper Draw">
+                <div class="overlay">
+                    <div class="overlay-text"> አልዋቅ </div>
+                </div>
+            </a>
+
+            <a href="assets/gallery/bdr.jpg" data-fancybox="gallery" data-caption="ሰማእታት" class="gallery-item">
+                <img src="assets/gallery/bdr.jpg" alt="ሰማእታት">
+                <div class="overlay">
+                    <div class="overlay-text"> ሰማእታት </div>
+                </div>
+            </a>
+
+            <a href="assets/gallery/fasil.jpg" data-fancybox="gallery" data-caption="ጎንደር" class="gallery-item">
+                <img src="assets/gallery/fasil.jpg" alt="With God Scatch Paper Draw">
+                <div class="overlay">
+                    <div class="overlay-text"> ጎንደር </div>
+                </div>
+            </a>
+            
+            <a href="assets/gallery/dbr.jpg" data-fancybox="gallery" data-caption="Gallery Image 4" class="gallery-item">
+                <img src="assets/gallery/dbr.jpg" alt="Heart Attack Scatch Paper Draw">
+                <div class="overlay">
+                    <div class="overlay-text"> ደብረዘይት </div>
+                </div>
+            </a>
+        </div>
+           
+
+ <!-- Gallery Section 5 -->
+        <div class="gallery mt-5">
+            <a href="assets/gallery/world.jpg" data-fancybox="gallery" data-caption=" Secret World" class="gallery-item">
+                <img src="assets/gallery/world.jpg" alt="Scatch Paper Draw">
+                <div class="overlay">
+                    <div class="overlay-text"> The Secret World </div>
+                </div>
+            </a>
+
+            <a href="assets/gallery/hope.jpg" data-fancybox="gallery" data-caption="Hope" class="gallery-item">
+                <img src="assets/gallery/hope.jpg" alt="Scatch Paper Draw After">
+                <div class="overlay">
+                    <div class="overlay-text"> Hope </div>
+                </div>
+            </a>
+
+            <a href="assets/gallery/god.jpg" data-fancybox="gallery" data-caption="With God" class="gallery-item">
+                <img src="assets/gallery/god.jpg" alt=" Scatch Paper Draw">
+                <div class="overlay">
+                    <div class="overlay-text"> God </div>
+                </div>
+            </a>
+            
+            <a href="assets/gallery/love.jpg" data-fancybox="gallery" data-caption="ፍቅር" class="gallery-item">
+                <img src="assets/gallery/love.jpg" alt="Scatch Paper Draw">
+                <div class="overlay">
+                    <div class="overlay-text"> ፍቅር </div>
+                </div>
+            </a>
+        </div>
+        
+<!-- Gallery Section 6 -->
+        <div class="gallery mt-5">
+            <a href="assets/gallery/naz.jpg" data-fancybox="gallery" data-caption="ናዝራዊት" class="gallery-item">
+                <img src="assets/gallery/naz.jpg" alt="Scatch Paper Draw">
+                <div class="overlay">
+                    <div class="overlay-text"> ናዝራዊት </div>
+                </div>
+            </a>
+
+            <a href="assets/gallery/cross2.jpg" data-fancybox="gallery" data-caption="መስቀል" class="gallery-item">
+                <img src="assets/gallery/cross2.jpg" alt="Scatch Paper Draw After">
+                <div class="overlay">
+                    <div class="overlay-text"> መስቀል </div>
+                </div>
+            </a>
+
+            <a href="assets/gallery/giveup.jpg" data-fancybox="gallery" data-caption="Never giveup" class="gallery-item">
+                <img src="assets/gallery/giveup.jpg" alt=" Scatch Paper Draw">
+                <div class="overlay">
+                    <div class="overlay-text"> Dont giveup </div>
+                </div>
+            </a>
+            
+            <a href="assets/gallery/fallen.jpg" data-fancybox="gallery" data-caption="Fallen" class="gallery-item">
+                <img src="assets/gallery/fallen.jpg" alt="Scatch Paper Draw">
+                <div class="overlay">
+                    <div class="overlay-text"> Fallin </div>
+                </div>
+            </a>
+        </div>
+
+<!-- Gallery Section 7 -->
+        <div class="gallery mt-5">
+            <a href="assets/gallery/flower.jpg" data-fancybox="gallery" data-caption="Flower Before" class="gallery-item">
+                <img src="assets/gallery/flower.jpg" alt="Scatch Paper Draw">
+                <div class="overlay">
+                    <div class="overlay-text"> Flower Before </div>
+                </div>
+            </a>
+
+            <a href="assets/gallery/flower2.jpg" data-fancybox="gallery" data-caption="Flower After" class="gallery-item">
+                <img src="assets/gallery/flower2.jpg" alt="Scatch Paper Draw After">
+                <div class="overlay">
+                    <div class="overlay-text"> Flower After </div>
+                </div>
+            </a>
+
+            <a href="assets/gallery/question2.jpg" data-fancybox="gallery" data-caption="question" class="gallery-item">
+                <img src="assets/gallery/question2.jpg" alt=" Scatch Paper Draw">
+                <div class="overlay">
+                    <div class="overlay-text"> Question Before </div>
+                </div>
+            </a>
+            
+            <a href="assets/gallery/question.jpg" data-fancybox="gallery" data-caption="Question" class="gallery-item">
+                <img src="assets/gallery/question.jpg" alt="Scatch Paper Draw">
+                <div class="overlay">
+                    <div class="overlay-text"> Question After </div>
+                </div>
+            </a>
+        </div>
+
+<!-- Gallery Section 8 -->
+<div class="gallery mt-5">
+    <a href="assets/gallery/life.jpg" data-fancybox="gallery" data-caption="Complicated" class="gallery-item">
+        <img src="assets/gallery/life.jpg" alt="Scatch Paper Draw">
+        <div class="overlay">
+            <div class="overlay-text"> Complicated </div>
+        </div>
+    </a>
+
+    <a href="assets/gallery/beyond.jpg" data-fancybox="gallery" data-caption="Beyond" class="gallery-item">
+        <img src="assets/gallery/beyond.jpg" alt="Scatch Paper Draw After">
+        <div class="overlay">
+            <div class="overlay-text"> Beyond </div>
+        </div>
+    </a>
+
+    <a href="assets/gallery/self.jpg" data-fancybox="gallery" data-caption="self" class="gallery-item">
+        <img src="assets/gallery/self.jpg" alt=" Scatch Paper Draw">
+        <div class="overlay">
+            <div class="overlay-text"> Confidence </div>
+        </div>
+    </a>
+    
+    <a href="assets/gallery/to.jpg" data-fancybox="gallery" data-caption="begin" class="gallery-item">
+        <img src="assets/gallery/to.jpg" alt="Scatch Paper Draw">
+        <div class="overlay">
+            <div class="overlay-text"> Begin </div>
+        </div>
+    </a>
+</div>
+
+
+
+    </div>
+</section>
+
+</div>
+
+
+    
+
+
+
+
+
+
+
+
+<!-- Footer Section -->
+<footer class="footer bg-dark text-white pt-5">
+    <div class="container">
+        <div class="row">
+            <!-- About Section -->
+            <div class="col-md-4">
+                <h5>About Us</h5>
+                <p>Explore a world of creativity where music, art, technology, and innovation converge. Stay tuned for exciting new features and updates.</p>
+            </div>
+
+            <!-- Contact Section -->
+            <div class="col-md-4">
+                <h5>Contact Us</h5>
+                <ul class="list-unstyled">
+                    <li>Email: <a href="mailto:info@yourwebsite.com" class="text-white"> yohanreta9@gmail.com</a></li>
+                    <li>Phone: <a href="tel:+1234567890" class="text-white">+251 940 38 24 15 </a></li>
+                    <li>Address: Dire Dawa, Ethiopia. PO.Box:1543 </li>
+                </ul>
+            </div>
+
+            <!-- Newsletter Subscription -->
+            <div class="col-md-4">
+                <h5>Newsletter</h5>
+                <form id="newsletterForm">
+                    <div class="mb-3">
+                        <input type="email" class="form-control" id="newsletterEmail" placeholder="Enter your email" required>
+                    </div>
+                    <button type="submit" class="btn btn-prime w-100">Subscribe</button>
+                </form>
+                <p class="mt-3">Stay updated with our latest news and releases.</p>
+            </div>
+        </div>
+        
+        <!-- Social Media Icons -->
+        <div class="row mt-4">
+            <div class="col text-center">
+                <div class="social-icons">
+                    <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-white me-3"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://github.com/yourusername" class="text-white"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer Bottom -->
+        <div class="row mt-4">
+            <div class="col text-center">
+                <p class="mb-0">&copy; 2024 Yohan Records. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+
+        
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.6/plyr.polyfilled.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Fancybox CSS and JS -->
+    <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script>
+
+    <script src="scripts/main.js"></script>
+    
+    <script src="scripts/particles.js"></script>
+ 
+    <script>
+        function createStars() {
+            const starsContainer = document.getElementById('stars-container');
+          
+            for (let i = 0; i < 200; i++) {
+              const star = document.createElement('div');
+              star.classList.add('star');
+              star.style.left = Math.random() * 100 + 'vw';
+              star.style.top = Math.random() * 100 + 'vh';
+              star.style.animationDuration = Math.random() * 5 + 2 + 's';
+              starsContainer.appendChild(star);
+            }
+          }
+          
+          window.onload = createStars;
+    </script>
+
+
+</body>
+</html>

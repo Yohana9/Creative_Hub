@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yohan Records </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.6/plyr.css">
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome -->
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
+    <!-- Include particles.js -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+</head>
+<body class="light-theme">
+    <div id="stars-container"></div>
+
+   <!-- Header -->
+   <header class="header d-flex align-items-center">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+        <div class="header-logo d-flex align-items-center">
+            <img src="assets/images/Logo/YR.png" alt="My Logo" class="logo">
+            <span class="website-name ms-3"> Yohan Records </span>
+        </div>
+        <div class="header-features d-flex align-items-center">
+            <!-- Theme Toggle Button -->
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle Theme">🌞</button>
+              <div class="menu-icon" id="menuToggle">☰</div>
+        </div>
+
+    </div>
+</header>
+
+<!-- Sidebar -->
+<div id="sidebar" class="sidebar">
+    <ul class="sidebar-nav">
+        <li class="sidebar-item S-Home">
+            <a href="index.html" class="sidebar-link">
+                <i class="fas fa-home"></i> Home
+            </a>
+        </li>
+        <li class="sidebar-item S-Music">
+            <a href="Music.html" class="sidebar-link">
+                <i class="fas fa-music"></i> Music <i class="fas fa-chevron-down"></i>
+            </a>
+            <ul class="submenu">
+                <li><a href="albums.html" class="submenu-link">Albums</a></li>
+                <li><a href="singles.html" class="submenu-link">Singles</a></li>
+                <li><a href="remixes.html" class="submenu-link">Remixes</a></li>
+            </ul>
+        </li>
+        <li class="sidebar-item S-Video">
+            <a href="Video.html" class="sidebar-link">
+                <i class="fas fa-video"></i> Videos
+            </a>
+        </li>
+        <li class="sidebar-item S-Gallery">
+            <a href="gallery.html" class="sidebar-link">
+                <i class="fas fa-images"></i> Gallery
+            </a>
+        </li>
+        <li class="sidebar-item S-Software">
+            <a href="Software.html" class="sidebar-link">
+                <i class="fas fa-cog"></i> Software
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+    <!-- Content -->
+    <div class="content">
+        <!-- Hero Section -->
+        <section id="hero" class="hero hero-section mt-5">
+            <div id="particles-js"></div>
+            <div id="particle2"></div>
+            <div class="container-fluid">
+                <img src="assets/images/Logo/YR.png" alt="My Logo" class="logo-heroic glow" >
+    
+                <h1 class="glow">Welcome to My Music Portfolio</h1>
+                <p>Explore my EP albums, singles, remixes, videos, and gallery of artwork.</p>
+                <a href="#singles" class="btn btn-prime btn-lg ">Explore Now</a>
+            </div>
+        </section>
+
+
+
+
+
+<!-- Singles Section -->
+<!-- Singles Section -->
+<section id="singles" class="container mt-5">
+    <h2 class="text-center mb-4 h-Title"> Singles </h2>
+    <div class="row">
+        <!-- Repeat this card for each Single -->
+        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-4">
+            <div class="card h-100">
+                <img src="assets/images/thumbnail/AguL2.jpg" class="card-img-top" alt="Single 1">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title"> AguL | አጉል </h5>
+                    <p class="card-subtitle">Music, lyrics & Melody | Yohannes R. </p>
+                    <audio id="audio1" controls>
+                        <source src="assets/audio/Singles/AguL.mp3" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-4">
+            <div class="card h-100">
+                <img src="assets/images/Logo/Blogo22.png" class="card-img-top" alt="Single 2">
+                <div class="card-body d-flex flex-column mx-5">
+                    <h5 class="card-title">MusiKa | ሙዚቃ</h5>
+                    <p class="card-subtitle">| Yohannes R. ft. Lili (ሊሊ)</p>
+                    <audio id="audio2" controls>
+                        <source src="assets/audio/Singles/Musika.mp3" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-4">
+            <div class="card h-100">
+                <img src="assets/images/Logo/LOgg.jpg" class="card-img-top" alt="Single 3">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title"> Wedo | ወዶ </h5>
+                    <p class="card-subtitle">Music, lyrics & Melody | Yohannes R. </p>
+                    <audio id="audio3" controls>
+                        <source src="assets/audio/ANCHIN WEDO.mp3" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-4">
+            <div class="card h-100">
+                <img src="assets/images/Logo/Blogo22.png" class="card-img-top" alt="Single 4">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title"> MusiKa | ሙዚቃ </h5>
+                    <p class="card-subtitle">| Yohannes R. ft. Lili (ሊሊ) </p>
+                    <audio id="audio4" controls>
+                        <source src="assets/audio/Singles/Musika.mp3" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-4">
+            <div class="card h-100">
+                <img src="assets/images/thumbnail/4Saba.jpg" class="card-img-top" alt="Single 5">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title"> BeyLef KaL | በይለፍ ቃል </h5>
+                    <p class="card-subtitle"> Yohannes R. ft. Saba Berhe </p>
+                    <audio id="audio5" controls>
+                        <source src="assets/audio/BEYLEF KAL (NEW VERSION) x YOHAN STUDIO.mp3" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-4">
+            <div class="card h-100">
+                <img src="assets/images/thumbnail/Hewane.jpg" class="card-img-top" alt="Single 6">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title"> Hewane | ሄዋኔ </h5>
+                    <p class="card-subtitle">Music, lyrics & Melody | Yohannes R. </p>
+                    <audio id="audio6" controls>
+                        <source src="assets/audio/Singles/Hewanw_AfroV.mp3" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-4">
+            <div class="card h-100 ">
+                <img src="assets/images/thumbnail/hiw.jpg" class="card-img-top" alt="Single 7">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title"> Nikat II | ንቃት II </h5>
+                    <p class="card-subtitle"> | Yohannes R. ft HiWot  </p>
+                    <audio id="audio7" controls>
+                        <source src="assets/audio/Singles/NIKAT.mp3" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-4">
+            <div class="card h-100">
+                <img src="assets/images/Logo/Blogo22.png" class="card-img-top" alt="Single 8">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title"> Fkrn Enawga | ፍቅርን ዕናውጋ </h5>
+                    <p class="card-subtitle">Music, lyrics & Melody | Yohannes R. </p>
+                    <audio id="audio8" controls>
+                        <source src="assets/audio/Singles/Enawga.mp3" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-4">
+            <div class="card h-100">
+                <img src="assets/images/thumbnail/Hayal.jpg" class="card-img-top" alt="Single 9">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title"> Hayal | ሃያል </h5>
+                    <p class="card-subtitle"> lyrics: Zoro B.| Yohan ft. King & Fever </p>
+                    <audio id="audio9" controls>
+                        <source src="assets/audio/Singles/Hayal.wav" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-4">
+            <div class="card h-100">
+                <img src="assets/images/thumbnail/NIKAT.jpg" class="card-img-top" alt="Single 10">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title"> Nikat I | ንቃት I </h5>
+                    <p class="card-subtitle">Music, lyrics & Melody | Yohannes R. </p>
+                    <audio id="audio10" controls>
+                        <source src="assets/audio/Singles/NIKAT I.mp3" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-4">
+            <div class="card h-100">
+                <img src="assets/images/thumbnail/P.jpg" class="card-img-top" alt="Single 11">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title"> Meslo Wedaj Mashup Version| መስሎ ወዳጅ </h5>
+                    <p class="card-subtitle"> Lost Track | Yohannes R. </p>
+                    <audio id="audio11" controls>
+                        <source src="assets/audio/Remix/Meslo Wedaj.mp3" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-4">
+            <div class="card h-100">
+                <img src="assets/images/thumbnail/FIK.png" class="card-img-top" alt="Single 12">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Fiker Selam | ፍቅር ሰላም </h5>
+                    <p class="card-subtitle">Yohannes R. ft Dejen A. </p>
+                    <audio id="audio12" controls>
+                        <source src="assets/audio/Singles/Fiker Selam.mp3" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CSS to make sure all cards are of equal height -->
+<!-- <style>
+    .card {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .card-body {
+        flex-grow: 1;
+    }
+
+    audio {
+        margin-top: auto;
+    }
+</style> -->
+
+   
+
+  
+
+</div>
+
+
+    
+<!-- Footer Section -->
+<footer class="footer bg-dark text-white pt-5">
+    <div class="container">
+        <div class="row">
+            <!-- About Section -->
+            <div class="col-md-4">
+                <h5>About Us</h5>
+                <p>Explore a world of creativity where music, art, technology, and innovation converge. Stay tuned for exciting new features and updates.</p>
+            </div>
+
+            <!-- Contact Section -->
+            <div class="col-md-4">
+                <h5>Contact Us</h5>
+                <ul class="list-unstyled">
+                    <li>Email: <a href="mailto:info@yourwebsite.com" class="text-white"> yohanreta9@gmail.com</a></li>
+                    <li>Phone: <a href="tel:+1234567890" class="text-white">+251 940 38 24 15 </a></li>
+                    <li>Address: Dire Dawa, Ethiopia. PO.Box:1543 </li>
+                </ul>
+            </div>
+
+            <!-- Newsletter Subscription -->
+            <div class="col-md-4">
+                <h5>Newsletter</h5>
+                <form id="newsletterForm" action="newsletter.php" method="POST">
+                    <div class="mb-3">
+                        <input type="email" class="form-control" id="newsletterEmail" placeholder="Enter your email" required>
+                    </div>
+                    <button type="submit" class="btn btn-prime w-100">Subscribe</button>
+                </form>
+                <p class="mt-3">Stay updated with our latest news and releases.</p>
+            </div>
+        </div>
+        
+        <!-- Social Media Icons -->
+        <div class="row mt-4">
+            <div class="col text-center">
+                <div class="social-icons">
+                    <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-white me-3"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://github.com/yourusername" class="text-white"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer Bottom -->
+        <div class="row mt-4">
+            <div class="col text-center">
+                <p class="mb-0">&copy; 2024 Yohan Records. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.6/plyr.polyfilled.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Fancybox CSS and JS -->
+    <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="scripts/main.js"></script>
+    <script src="scripts/particles.js"></script>
+    <script src="scripts/sidebar.js" defer></script>
+
+
+    <script>
+function createStars() {
+    const starsContainer = document.getElementById('stars-container');
+  
+    for (let i = 0; i < 200; i++) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      star.style.left = Math.random() * 100 + 'vw';
+      star.style.top = Math.random() * 100 + 'vh';
+      star.style.animationDuration = Math.random() * 5 + 2 + 's';
+      starsContainer.appendChild(star);
+    }
+  }
+  
+  window.onload = createStars;
+    </script>
+
+
+<!-- <script src="scripts/confetti.js"></script>
+<script src="scripts/bubbles.js"></script>
+<script src="scripts/waves.js"></script>
+<script src="scripts/stars.js"></script> -->
+
+
+<!-- <div id="wave-container"></div>
+<div id="bubble-container"></div>
+<div id="confetti-container"></div>
+<div id="stars-container"></div> -->
+
+</body>
+</html>

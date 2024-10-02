@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.6/plyr.css">
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome -->
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+</head>
+<body class="light-theme">
+    <div id="stars-container"></div>
+
+    
+<style>
+.album-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    transition: all 0.3s ease;
+}
+
+.album-card {
+    background-color: var(--card-bg-color);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+}
+
+.album-card.active {
+    grid-column: span 4;
+    position: relative;
+    z-index: 10;
+}
+
+.album-card:not(.active) {
+    grid-column: span 1;
+    opacity: 0.7;
+}
+
+.album-cover {
+    height: 200px;
+    background-color: #222;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.album-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.album-info {
+    padding: 15px;
+    text-align: center;
+    background-color: var(--info-bg-color); /* Updated to use theme variable */
+}
+
+.album-title {
+    font-size: 20px;
+    color: var(--text-color);
+}
+
+.album-artist, .card-subtitle {
+    font-size: 16px;
+    color: var(--secondary-text-color);
+}
+
+.album-details {
+    display: none;
+    padding: 15px;
+    background-color: var(--details-bg-color); /* Updated to use theme variable */
+}
+
+.album-card.active .album-details {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+.tracklist {
+    list-style: none;
+    padding: 0;
+    background-color: var(--details-bg-color); /* Updated to use theme variable */
+}
+
+.tracklist li {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-top: 1px solid #444;
+    color: var(--text-color);
+}
+
+audio {
+    width: 100%;
+    margin-top: 5px;
+    background-color: var(--audio-bg-color); /* Updated to use theme variable */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Dark and light theme variables */
+body.dark-theme {
+    --card-bg-color: #0f0936  !important;
+    --text-color: #FFFFFF !important;
+    --secondary-text-color: #AAAAAA !important;
+}
+
+/* background: linear-gradient(45deg, #6e0a66, #0d1e44, #0a0a49, #faf4f4);  */
+.dark-theme .plyr__controls , .details-bg-color,
+.info-bg-color, .audio-bg-color, .album-details-1 ,
+.album-details, .tracklist
+ {
+    background-color: transparent; /* Dark background for controls */
+}
+
+/* body.light-theme {
+    --card-bg-color: #F0F0F0 !important;
+    --text-color: #000000 !important;
+    --secondary-text-color: #555555 !important;
+    --details-bg-color: #DDDDDD !important;
+    --info-bg-color: #FFFFFF !important; /
+    --audio-bg-color: #FFFFFF !important; 
+}
+ */
+
+
+/* Responsive Adjustments */
+@media (max-width: 1200px) {
+    .album-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .album-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .album-card.active {
+        grid-column: span 2;
+    }
+}
+
+@media (max-width: 576px) {
+    .album-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .album-card.active {
+        grid-column: span 1;
+    }
+
+    .album-cover {
+        height: 150px;
+    }
+}
+
+</style>
+
+
+   <!-- Header -->
+   <header class="header d-flex align-items-center">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+        <div class="header-logo d-flex align-items-center">
+            <img src="assets/images/Logo/YR.png" alt="My Logo" class="logo">
+            <span class="website-name ms-3"> Yohan Records </span>
+        </div>
+        <div class="header-features d-flex align-items-center">
+            <!-- Theme Toggle Button -->
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle Theme">🌞</button>
+              <div class="menu-icon" id="menuToggle">☰</div>
+        </div>
+
+    </div>
+</header>
+
+<!-- Sidebar -->
+<div id="sidebar" class="sidebar">
+    <ul class="sidebar-nav">
+        <li class="sidebar-item S-Home">
+            <a href="index.html" class="sidebar-link">
+                <i class="fas fa-home"></i> Home
+            </a>
+        </li>
+        <li class="sidebar-item S-Music">
+            <a href="Music.html" class="sidebar-link">
+                <i class="fas fa-music"></i> Music <i class="fas fa-chevron-down"></i>
+            </a>
+            <ul class="submenu">
+                <li><a href="albums.html" class="submenu-link">Albums</a></li>
+                <li><a href="singles.html" class="submenu-link">Singles</a></li>
+                <li><a href="remixes.html" class="submenu-link">Remixes</a></li>
+            </ul>
+        </li>
+        <li class="sidebar-item S-Video">
+            <a href="Video.html" class="sidebar-link">
+                <i class="fas fa-video"></i> Videos
+            </a>
+        </li>
+        <li class="sidebar-item S-Gallery">
+            <a href="gallery.html" class="sidebar-link">
+                <i class="fas fa-images"></i> Gallery
+            </a>
+        </li>
+        <li class="sidebar-item S-Software">
+            <a href="Software.html" class="sidebar-link">
+                <i class="fas fa-cog"></i> Software
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+    <!-- Content -->
+    <div class="content">
+
+        <section id="hero" class="hero mt-5">
+
+            <div id="particles-js"></div>
+            <div id="particle2"></div>
+            <div class="container-fluid">
+                <img src="assets/images/Logo/YR.png" alt="My Logo" class="logo-heroic glow" >
+            
+                <h1 class="glow">Welcome to Our Albums Hub </h1>
+                <p>Explore my EP albums, singles, remixes, videos, and gallery of artwork.</p>
+                <!-- <a href="#remixes" class="btn btn-prime btn-lg ">Explore Now</a> -->
+            </div>
+        </section>
+
+
+<!-- EP Albums Section -->
+<section id="albums" class="album-section py-5">
+    <div class="container-fluid">
+        <h2 class="text-center mb-4 p-2 glow2 text-light">Albums</h2>
+        <div class="album-grid">
+            <!-- Album 1 -->
+            <div class="album-card" data-album="1">
+                <div class="album-cover">
+                    <img src="assets/images/Background/Album.jpg" alt="Album 1 Cover">
+                </div>
+                <div class="album-info">
+                    <h5 class="album-title">አጉል  |  Ep - Album </h5>
+                    <p class="album-artist">Yohannes R.</p>
+                </div>
+                <div id="album-details-1" class="album-details collapse">
+                    <ul class="tracklist">
+                        <li>
+                            <span>Track 1: AguL | አጉል</span>
+                            <audio controls>
+                                <source src="assets/audio/Singles/AguL.mp3" type="audio/mp3">
+                            </audio>
+                        </li>
+                        <!-- Add more tracks as needed -->
+                    </ul>
+                </div>
+            </div>
+
+            <div class="album-card" data-album="1">
+                <div class="album-cover">
+                    <img src="assets/images/thumbnail/zerihun-album.jpg" alt="Album 1 Cover">
+                </div>
+                <div class="album-info">
+                    <h5 class="album-title"> ኖቶርዳም ፍለፊት | የግጥም አልበም </h5>
+                    <p class="album-artist"> ገጣሚ - ዘሪሁን ብርሃኑ </p>
+                </div>
+                <div id="album-details-1" class="album-details collapse">
+                    <ul class="tracklist">
+                        <li>
+                            <span>Track 1: AguL | አጉል</span>
+                            <audio controls>
+                                <source src="assets/audio/Singles/AguL.mp3" type="audio/mp3">
+                            </audio>
+                        </li>
+                        <!-- Add more tracks as needed -->
+                    </ul>
+                </div>
+            </div>
+
+            <div class="album-card" data-album="1">
+                <div class="album-cover">
+                    <img src="assets/images/Background/Album.jpg" alt="Album 1 Cover">
+                </div>
+                <div class="album-info">
+                    <h5 class="album-title">AguL Ep-Tracks</h5>
+                    <p class="album-artist">Yohannes R.</p>
+                </div>
+                <div id="album-details-1" class="album-details collapse">
+                    <ul class="tracklist">
+                        <li>
+                            <span>Track 1: AguL | አጉል</span>
+                            <audio controls>
+                                <source src="assets/audio/Singles/AguL.mp3" type="audio/mp3">
+                            </audio>
+                        </li>
+                        <!-- Add more tracks as needed -->
+                    </ul>
+                </div>
+            </div>
+
+            <div class="album-card" data-album="1">
+                <div class="album-cover">
+                    <img src="assets/images/Background/Album.jpg" alt="Album 1 Cover">
+                </div>
+                <div class="album-info">
+                    <h5 class="album-title">AguL Ep-Tracks</h5>
+                    <p class="album-artist">Yohannes R.</p>
+                </div>
+                <div id="album-details-1" class="album-details collapse">
+                    <ul class="tracklist">
+                        <li>
+                            <span>Track 1: AguL | አጉል</span>
+                            <audio controls>
+                                <source src="assets/audio/Singles/AguL.mp3" type="audio/mp3">
+                            </audio>
+                        </li>
+                        <!-- Add more tracks as needed -->
+                    </ul>
+                </div>
+            </div>
+
+            <div class="album-card" data-album="1">
+                <div class="album-cover">
+                    <img src="assets/images/Background/Album.jpg" alt="Album 1 Cover">
+                </div>
+                <div class="album-info">
+                    <h5 class="album-title">AguL Ep-Tracks</h5>
+                    <p class="album-artist">Yohannes R.</p>
+                </div>
+                <div id="album-details-1" class="album-details collapse">
+                    <ul class="tracklist">
+                        <li>
+                            <span>Track 1: AguL | አጉል</span>
+                            <audio controls>
+                                <source src="assets/audio/Singles/AguL.mp3" type="audio/mp3">
+                            </audio>
+                        </li>
+                        <!-- Add more tracks as needed -->
+                    </ul>
+                </div>
+            </div>
+
+            <div class="album-card" data-album="1">
+                <div class="album-cover">
+                    <img src="assets/images/Background/Album.jpg" alt="Album 1 Cover">
+                </div>
+                <div class="album-info">
+                    <h5 class="album-title">AguL Ep-Tracks</h5>
+                    <p class="album-artist">Yohannes R.</p>
+                </div>
+                <div id="album-details-1" class="album-details collapse">
+                    <ul class="tracklist">
+                        <li>
+                            <span>Track 1: AguL | አጉል</span>
+                            <audio controls>
+                                <source src="assets/audio/Singles/AguL.mp3" type="audio/mp3">
+                            </audio>
+                        </li>
+                        <!-- Add more tracks as needed -->
+                    </ul>
+                </div>
+            </div>
+            <!-- Repeat album cards for Album 2, Album 3, Album 4 -->
+        </div>
+    </div>
+</section>
+
+    
+</div>
+
+
+
+<!-- Footer Section -->
+<footer class="footer bg-dark text-white pt-5">
+    <div class="container">
+        <div class="row">
+            <!-- About Section -->
+            <div class="col-md-4">
+                <h5>About Us</h5>
+                <p>Explore a world of creativity where music, art, technology, and innovation converge. Stay tuned for exciting new features and updates.</p>
+            </div>
+
+            <!-- Contact Section -->
+            <div class="col-md-4">
+                <h5>Contact Us</h5>
+                <ul class="list-unstyled">
+                    <li>Email: <a href="mailto:info@yourwebsite.com" class="text-white"> yohanreta9@gmail.com</a></li>
+                    <li>Phone: <a href="tel:+1234567890" class="text-white">+251 940 38 24 15 </a></li>
+                    <li>Address: Dire Dawa, Ethiopia. PO.Box:1543 </li>
+                </ul>
+            </div>
+
+            <!-- Newsletter Subscription -->
+            <div class="col-md-4">
+                <h5>Newsletter</h5>
+                <form id="newsletterForm" action="newsletter.php" method="POST">
+                    <div class="mb-3">
+                        <input type="email" class="form-control" id="newsletterEmail" placeholder="Enter your email" required>
+                    </div>
+                    <button type="submit" class="btn btn-prime w-100">Subscribe</button>
+                </form>
+                <p class="mt-3">Stay updated with our latest news and releases.</p>
+            </div>
+        </div>
+        
+        <!-- Social Media Icons -->
+        <div class="row mt-4">
+            <div class="col text-center">
+                <div class="social-icons">
+                    <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-white me-3"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://github.com/yourusername" class="text-white"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer Bottom -->
+        <div class="row mt-4">
+            <div class="col text-center">
+                <p class="mb-0">&copy; 2024 Yohan Records. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    var albumCards = document.querySelectorAll('.album-card');
+    
+    albumCards.forEach(function(card) {
+        card.addEventListener('click', function(event) {
+            // Prevent collapsing when clicking inside the album details (e.g., on the audio player)
+            if (event.target.closest('.album-details') || event.target.closest('audio')) {
+                return;
+            }
+
+            // Remove active class from any other album
+            albumCards.forEach(function(otherCard) {
+                if (otherCard !== card) {
+                    otherCard.classList.remove('active');
+                    $(otherCard.querySelector('.album-details')).collapse('hide');
+                }
+            });
+
+            // Toggle active class on clicked album
+            card.classList.toggle('active');
+            $(card.querySelector('.album-details')).collapse('toggle');
+        });
+    });
+
+    // Ensure clicking inside the audio player does not collapse the album
+    document.querySelectorAll('.album-details audio').forEach(function(audio) {
+        audio.addEventListener('click', function(event) {
+            event.stopPropagation(); // Prevent the click from bubbling up to the album card
+        });
+    });
+});
+
+</script>
+
+
+        
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.6/plyr.polyfilled.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Fancybox CSS and JS -->
+    <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+    <script src="scripts/main.js"></script>
+ 
+
+    <script src="script/particles.js"></script>
+ 
+
+
+    <script>
+
+        
+
+// jQuery for Collapse with Font Awesome icon rotation
+// jQuery for Collapse with Font Awesome icon rotation
+$(document).ready(function() {
+    $('.folder-header').click(function() {
+        $(this).find('.folder-icon').toggleClass('fa-rotate-180');
+    });
+
+    // Theme Toggle Functionality
+    $('#theme-toggle').click(function() {
+        $('body').toggleClass('dark-theme');
+    });
+
+    // Optional: Add smooth scroll to album details when clicking the "Listen Now" button
+    $('.album-toggle-btn').on('click', function() {
+        var target = $(this).attr('data-target');
+        $('html, body').animate({
+            scrollTop: $(target).offset().top - 100
+        }, 600);
+    });
+});
+
+// Initialize Bootstrap collapse plugin
+document.addEventListener('DOMContentLoaded', function() {
+    var collapseElements = document.querySelectorAll('[data-toggle="collapse"]');
+    collapseElements.forEach(function(el) {
+        el.addEventListener('click', function() {
+            var target = document.querySelector(el.getAttribute('data-target'));
+            if (target) {
+                target.classList.toggle('show');
+            }
+        });
+    });
+});
+
+
+
+        // Initialize Plyr with specific controls
+const players = Plyr.setup('audio', {
+    controls: ['play', 'progress', 'current-time', 'mute', 'volume'],
+});
+
+    </script>
+
+
+
+<script src="scripts/particles.js"></script>
+
+
+
+<script>
+    function createStars() {
+        const starsContainer = document.getElementById('stars-container');
+      
+        for (let i = 0; i < 200; i++) {
+          const star = document.createElement('div');
+          star.classList.add('star');
+          star.style.left = Math.random() * 100 + 'vw';
+          star.style.top = Math.random() * 100 + 'vh';
+          star.style.animationDuration = Math.random() * 5 + 2 + 's';
+          starsContainer.appendChild(star);
+        }
+      }
+      
+      window.onload = createStars;
+        </script>
+    
+</body>
+</html>

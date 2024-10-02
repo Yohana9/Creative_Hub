@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.6/plyr.css">
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome -->
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
+    
+</head>
+<body class="dark-theme">
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" id="themeToggle">🌞</button>
+
+
+  <!-- Sidebar -->
+  <div id="sidebar" class="sidebar">
+    <ul class="sidebar-nav">
+        <li class="sidebar-item S-Home">
+            <a href="#hero" class="sidebar-link">
+                <i class="fas fa-home"></i> Home
+            </a>
+        </li>
+        <li class="sidebar-item S-Music">
+            <a href="Music.html" class="sidebar-link">
+                <i class="fas fa-music"></i> Music <i class="fas fa-chevron-down"></i>
+            </a>
+            <ul class="submenu">
+                <li><a href="#albums" class="submenu-link">EP Albums</a></li>
+                <li><a href="#singles" class="submenu-link">Singles</a></li>
+                <li><a href="#remixes" class="submenu-link">Remixes</a></li>
+            </ul>
+        </li>
+        <li class="sidebar-item S-Video">
+            <a href="Video.html" class="sidebar-link">
+                <i class="fas fa-video"></i> Videos
+            </a>
+        </li>
+        <li class="sidebar-item S-Gallery">
+            <a href="gallery.html" class="sidebar-link">
+                <i class="fas fa-images"></i> Gallery
+            </a>
+        </li>
+        <li class="sidebar-item S-Software">
+            <a href="Software.html" class="sidebar-link">
+                <i class="fas fa-cog"></i> Settings
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+    <!-- Content -->
+    <div class="content">
+        <!-- Hero Section -->
+        <section id="hero" class="hero">
+            <div class="container-fluid">
+                <h1 class="glow">Welcome to My Music Portfolio</h1>
+                <p>Explore my EP albums, singles, remixes, videos, and gallery of artwork.</p>
+                <a href="#albums" class="btn btn-prime btn-lg ">Explore Now</a>
+            </div>
+        </section>
+
+
+<!-- EP Albums Section -->
+<section id="albums" class="py-5 album-bg">
+    <div class="container-fluid">
+        <h2 class="text-center mb-4">EP Albums</h2>
+        <div class="row">
+            <!-- Example Album Card -->
+            <div class="col-md-6 mb-4">
+                <div class="album-card text-center">
+                    <img src="assets/images/Background/Album.jpg" class="card-img-top" alt="Album 1">
+                    <div class="card-body">
+                        <h5 class="card-title"> AguL Ep-Tracks </h5>
+                        <p class="card-subtitle">Music, Lyrics & Melody | Yohannes R.</p>
+                        <button class="btn btn-primary" data-toggle="collapse" data-target="#album-details-1"> Listen Now</button>
+                        <div id="album-details-1" class="collapse album-details">
+                            <div class="track-container">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <ul class="list-group">
+                                            <li class="list-group-item">
+                                                <div class="track-info">
+                                                    <div class="track-details">
+                                                    <p class="track-subtitle"> Track 1</p>
+                                                    <p class="track-title"> AguL | አጉል  </p>
+                                                    </div>
+                                                    <audio class="track-audio" controls>
+                                                        <source src="assets/audio/Singles/AguL.mp3" type="audio/mp3">
+                                                        Your browser does not support the audio element.
+                                                    </audio>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <div class="track-info">
+                                                    <div class="track-details">
+                                                        <p class="track-subtitle"> Track 2</p>
+                                                        <p class="track-title"> MusiKa | ሙዚቃ   </p>
+                                                    </div>
+                                                    <audio class="track-audio" controls>
+                                                        <source src="assets/audio/Singles/Musika.mp3" type="audio/mp3">
+                                                        Your browser does not support the audio element.
+                                                    </audio>
+                                                </div>
+                                            </li>
+
+                                            <li class="list-group-item">
+                                                <div class="track-info">
+                                                    <div class="track-details">
+                                                        <p class="track-subtitle"> Track 3 </p>
+                                                        <p class="track-title"> YhuDA | ይሁዳ   </p>
+                                                    </div>
+                                                    <audio class="track-audio" controls>
+                                                        <source src="assets/audio/Singles/Yhuda_Best_Version.mp3" type="audio/mp3">
+                                                        Your browser does not support the audio element.
+                                                    </audio>
+                                                </div>
+                                            </li>
+
+                                            <li class="list-group-item">
+                                                <div class="track-info">
+                                                    <div class="track-details">
+                                                        <p class="track-subtitle"> Track 4 </p>
+                                                        <p class="track-title"> Hewane | ሄዋኔ   </p>
+                                                    </div>
+                                                    <audio class="track-audio" controls>
+                                                        <source src="assets/audio/Singles/H e w a n e.mp3" type="audio/mp3">
+                                                        Your browser does not support the audio element.
+                                                    </audio>
+                                                </div>
+                                            </li>
+                                            <!-- Add more tracks as needed -->
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Repeat album cards as needed -->
+        </div>
+    </div>
+</section>
+
+
+
+<!-- Singles Section -->
+<section id="singles" class="container mt-5 py-5 ">
+    <h2 class="text-center mb-4 h-Title"> Singles </h2>
+    <div class="row">
+        <!-- Repeat this card for each Single -->
+        <div class="col-md-3 mb-4">
+            <div class="card">
+                <img src="assets/images/thumbnail/AguL2.jpg" class="card-img-top" alt="Single 1">
+                <div class="card-body">
+                    <h5 class="card-title"> AguL | አጉል </h5>
+                    <p class="card-subtitle">Music, lyrics & Melody | Yohannes R. </p>
+                    <audio id="audio1" controls>
+                        <source src="assets/audio/Singles/AguL.mp3" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-4">
+            <div class="card">
+                <img src="assets/images/Logo/LOgg.jpg" class="card-img-top" alt="Single 3">
+                <div class="card-body">
+                    <h5 class="card-title"> Wedo | ወዶ </h5>
+                    <p class="card-subtitle">Music, lyrics & Melody | Yohannes R. </p>
+                    <audio id="audio3" controls>
+                        <source src="assets/audio/ANCHIN WEDO.mp3" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-4">
+            <div class="card">
+                <img src="assets/images/Logo/Blogo22.png" class="card-img-top" alt="Single 2">
+                <div class="card-body">
+                    <h5 class="card-title"> MusiKa | ሙዚቃ </h5>
+                    <p class="card-subtitle">| Yohannes R. ft. Lili (ሊሊ) </p>
+                    <audio id="audio2" controls>
+                        <source src="assets/audio/Singles/Musika.mp3" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-4">
+            <div class="card">
+                <img src="assets/images/thumbnail/4Saba.jpg" class="card-img-top" alt="Single 4">
+                <div class="card-body">
+                    <h5 class="card-title"> BeyLef KaL | በይለፍ ቃል </h5>
+                    <p class="card-subtitle"> Yohannes R. ft. Saba Berhe </p>
+                    <audio id="audio4" controls>
+                        <source src="assets/audio/BEYLEF KAL (NEW VERSION) x YOHAN STUDIO.mp3" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-4">
+            <div class="card">
+                <img src="assets/images/thumbnail/Hewane.jpg" class="card-img-top" alt="Single 4">
+                <div class="card-body">
+                    <h5 class="card-title"> Hewane | ሄዋኔ </h5>
+                    <p class="card-subtitle">Music, lyrics & Melody | Yohannes R. </p>
+                    <audio id="audio4" controls>
+                        <source src="assets/audio/Singles/Hewanw_AfroV.mp3" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-4">
+            <div class="card">
+                <img src="assets/images/thumbnail/hiw.jpg" class="card-img-top" alt="Single 4">
+                <div class="card-body">
+                    <h5 class="card-title"> Nikat II | ንቃት II </h5>
+                    <p class="card-subtitle"> | Yohannes R. ft HiWot  </p>
+                    <audio id="audio4" controls>
+                        <source src="assets/audio/Singles/NIKAT.mp3" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-4">
+            <div class="card">
+                <img src="assets/images/Logo/Blogo22.png" class="card-img-top" alt="Single 4">
+                <div class="card-body">
+                    <h5 class="card-title"> Fkrn Enawga | ፍቅርን ዕናውጋ </h5>
+                    <p class="card-subtitle">Music, lyrics & Melody | Yohannes R. </p>
+                    <audio id="audio4" controls>
+                        <source src="assets/audio/Singles/Enawga.mp3" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-4">
+            <div class="card">
+                <img src="assets/images/thumbnail/Hayal.jpg" class="card-img-top" alt="Single 4">
+                <div class="card-body">
+                    <h5 class="card-title"> Hayal | ሃያል </h5>
+                    <p class="card-subtitle"> lyrics: Zoro B.| Yohan ft. King & Fever </p>
+                    <audio id="audio4" controls>
+                        <source src="assets/audio/Singles/Hayal.wav" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-4">
+            <div class="card">
+                <img src="assets/images/thumbnail/NIKAT.jpg" class="card-img-top" alt="Single 4">
+                <div class="card-body">
+                    <h5 class="card-title"> Nikat I | ንቃት I </h5>
+                    <p class="card-subtitle">Music, lyrics & Melody | Yohannes R. </p>
+                    <audio id="audio4" controls>
+                        <source src="assets/audio/Singles/NIKAT I.mp3" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-4">
+            <div class="card">
+                <img src="assets/images/thumbnail/P.jpg" class="card-img-top" alt="Single 4">
+                <div class="card-body">
+                    <h5 class="card-title"> Meslo Wedaj Mashup Version| መስሎ ወዳጅ </h5>
+                    <p class="card-subtitle"> Lost Track | Yohannes R. </p>
+                    <audio id="audio4" controls>
+                        <source src="assets/audio/Remix/Meslo Wedaj.mp3" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add more single cards as needed -->
+    </div>
+</section>
+
+        <!-- Remixes Section -->
+        <section id="remixes" class="py-5">
+            <div class="container">
+                <h2 class="text-center mb-4 h-Title"> Remix and Unreleased Tracks </h2>
+                <div class="row">
+                    <div class="col-lg-6 col-md-2 mb-4">
+                        <div class="video-card">
+                            <video controls poster="assets/images/thumbnail/Mikaya2.jpg">
+                                <source src="assets/videos/Remix/Mikaya.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                        <div class="remix-card-body">
+                            <h5 class="card-title"> ይድረስ ለማስብህ </h5>
+                            <p class="card-subtitle"> ሚካያ X Yohan R. </p>
+                        </div>
+                    </div>
+        
+                    <div class="col-lg-6 col-md-2 mb-4">
+                        <div class="video-card">
+                            <video controls poster="assets/images/thumbnail/Babure.jpg">
+                                <source src="assets/videos/Remix/Babure.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                        <div class="remix-card-body">
+                            <h5 class="card-title"> ባቡሬ </h5>
+                            <p class="card-subtitle"> Lafonten X Yohan R. </p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-2 mb-4">
+                        <div class="video-card">
+                            <video controls poster="assets/images/thumbnail/music3.jpg">
+                                <source src="assets/videos/Remix/Come.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                        <div class="remix-card-body">
+                            <h5 class="card-title"> Sorry </h5>
+                            <p class="card-subtitle"> Type Beat by | Yohan R. </p>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-6 col-md-2 mb-4">
+                        <div class="video-card">
+                            <video controls poster="assets/images/thumbnail/nahom2.jpg">
+                                <source src="assets/videos/Remix/Lij_Nahom.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                        <div class="remix-card-body">
+                            <h5 class="card-title"> አበደ ይሉኛል </h5>
+                            <p class="card-subtitle">Music by | Yohan R. </p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-2 mb-4">
+                        <div class="video-card">
+                            <video controls poster="assets/images/thumbnail/yohana1.jpg">
+                                <source src="assets/audio/Remix/Kasat.mp3" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                        <div class="remix-card-body">
+                            <h5 class="card-title"> ካሳት - YOHANA </h5>
+                            <p class="card-subtitle"> Remix by | Yohan R. </p>
+                        </div>
+                    </div>                
+            
+                </div>
+            </div>
+        </section>
+        
+
+        <section id="singles" class="container mt-1">
+ 
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                     
+                        <div class="card-body">
+                            <h5 class="card-title"> ቆይቻለው </h5>
+                            <p class="card-subtitle">Music, lyrics & Melody | Yohannes R. </p>
+                            <audio id="audio1" controls>
+                                <source src="assets/audio/Remix/Koychal + w.mp3" type="audio/mp3">
+                                Your browser does not support the audio element.
+                            </audio>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                     
+                        <div class="card-body">
+                            <h5 class="card-title"> Karma </h5>
+                            <p class="card-subtitle"> Mashup Track By Yohan Studio </p>
+                            <audio id="audio1" controls>
+                                <source src="assets/audio/Remix/Karma.mp3" type="audio/mp3">
+                                Your browser does not support the audio element.
+                            </audio>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                     
+                        <div class="card-body">
+                            <h5 class="card-title"> Type Beat </h5>
+                            <p class="card-subtitle"> Mashup by | Yohannes R. </p>
+                            <audio id="audio1" controls>
+                                <source src="assets/audio/Remix/Type_beat.mp3" type="audio/mp3">
+                                Your browser does not support the audio element.
+                            </audio>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                     
+                        <div class="card-body">
+                            <h5 class="card-title"> John Legend X Tiz Alegn </h5>
+                            <p class="card-subtitle"> Mashup - Type Beat by | Yohannes R. </p>
+                            <audio id="audio1" controls>
+                                <source src="assets/audio/Remix/JohnLegend.mp3" type="audio/mp3">
+                                Your browser does not support the audio element.
+                            </audio>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                     
+                        <div class="card-body">
+                            <h5 class="card-title"> New Vibe (Sampler) </h5>
+                            <p class="card-subtitle"> Type Beat by | Yohannes R. </p>
+                            <audio id="audio1" controls>
+                                <source src="assets/audio/Remix/New Vibe.mp3" type="audio/mp3">
+                                Your browser does not support the audio element.
+                            </audio>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- Videos Section -->
+        <section id="videos" class="py-5">
+            <div class="container">
+                <h2 class="text-center mb-4 h-Title">Videos</h2>
+                <div class="row">
+                    <div class="col-lg-6 col-md-2 mb-4">
+                        <div class="video-card">
+                            <video controls poster="assets/images/thumbnail/yeken.jpg">
+                                <source src="assets/videos/Yeken.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                        <div class="remix-card-body">
+                            <h5 class="card-title"> Yeken Kijet </h5>
+                            <p class="card-subtitle"> screen Play by Abel | Director Yohan.R </p>
+                        </div>
+                    </div>
+        
+                    <div class="col-lg-6 col-md-2 mb-4">
+                        <div class="video-card">
+                            <video controls poster="assets/images/thumbnail/AguL2.jpg">
+                                <source src="assets/videos/AguL.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                        <div class="remix-card-body">
+                            <h5 class="card-title"> AguL </h5>
+                            <p class="card-subtitle">Music by: Yohannes | Lyrics Zerihun Birhanu </p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-2 mb-4">
+                        <div class="video-card">
+                            <video controls poster="assets/images/thumbnail/nahom2.jpg">
+                                <source src="assets/videos/Remix/Lij_Nahom.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                        <div class="remix-card-body">
+                            <h5 class="card-title"> Abede YilugnaL </h5>
+                            <p class="card-subtitle">Music by| Yohan R. </p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-2 mb-4">
+                        <div class="video-card">
+                            <video controls poster="assets/images/thumbnail/Music.jpg">
+                                <source src="assets/videos/Hlina.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                        <div class="remix-card-body">
+                            <h5 class="card-title">  ህሊና </h5>
+                            <p class="card-subtitle">  Music by: | Yohan Reta </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        
+<!-- Gallery Section -->
+<section id="gallery" class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5 h-Title"> Gallery</h2>
+        <div class="gallery">
+            <!-- Example Gallery Image -->
+            <a href="assets/gallery/jm.jpg" data-fancybox="gallery" data-caption="Gallery Image 1" class="gallery-item">
+                <img src="assets/gallery/jm.jpg" alt=" JMC Reta Scatch Paper Draw">
+                <div class="overlay">
+                    <div class="overlay-text">JMC Reta </div>
+                </div>
+            </a>
+            <a href="assets/gallery/ynegal.jpg" data-fancybox="gallery" data-caption="Gallery Image 2" class="gallery-item">
+                <img src="assets/gallery/ynegal.jpg" alt="YnegaL Scatch Paper Draw">
+                <div class="overlay">
+                    <div class="overlay-text"> YnegaL  </div>
+                </div>
+            </a>
+            <a href="assets/gallery/hope.jpg" data-fancybox="gallery" data-caption="Gallery Image 3" class="gallery-item">
+                <img src="assets/gallery/hope.jpg" alt=" With God Scatch Paper Draw">
+                <div class="overlay">
+                    <div class="overlay-text"> With God </div>
+                </div>
+            </a>
+            <a href="assets/gallery/heart.jpg" data-fancybox="gallery" data-caption="Gallery Image 4" class="gallery-item">
+                <img src="assets/gallery/heart.jpg" alt=" Heart Attack Scatch Paper Draw">
+                <div class="overlay">
+                    <div class="overlay-text"> Heart Attack </div>
+                </div>
+            </a>
+            <a href="assets/gallery/heart.jpg" data-fancybox="gallery" data-caption="Gallery Image 4" class="gallery-item">
+                <img src="assets/gallery/heart.jpg" alt=" Fasil Scatch Paper Draw">
+                <div class="overlay">
+                    <div class="overlay-text"> Fasil  </div>
+                </div>
+            </a>
+
+            <a href="assets/gallery/heart.jpg" data-fancybox="gallery" data-caption="Gallery Image 4" class="gallery-item">
+                <img src="assets/gallery/flower.jpg" alt=" Flower 1 Scatch Paper Draw">
+                <div class="overlay">
+                    <div class="overlay-text"> Flower 1</div>
+                </div>
+            </a>
+
+            <a href="assets/gallery/heart.jpg" data-fancybox="gallery" data-caption="Gallery Image 4" class="gallery-item">
+                <img src="assets/gallery/flower2.jpg" alt=" Flower 2 Attack Scatch Paper Draw">
+                <div class="overlay">
+                    <div class="overlay-text"> Flower 2 </div>
+                </div>
+            </a>
+
+            <a href="assets/gallery/heart.jpg" data-fancybox="gallery" data-caption="Gallery Image 4" class="gallery-item">
+                <img src="assets/gallery/tana.jpg" alt=" Tana Scatch Paper Draw">
+                <div class="overlay">
+                    <div class="overlay-text"> Tana </div>
+                </div>
+            </a>
+
+            <a href="assets/gallery/heart.jpg" data-fancybox="gallery" data-caption="Gallery Image 4" class="gallery-item">
+                <img src="assets/gallery/stars.jpg" alt=" Stars Scatch Paper Draw">
+                <div class="overlay">
+                    <div class="overlay-text"> Stars </div>
+                </div>
+            </a>
+
+            <a href="assets/gallery/heart.jpg" data-fancybox="gallery" data-caption="Gallery Image 4" class="gallery-item">
+                <img src="assets/gallery/me\.jpg" alt=" መስከረም Scatch Paper Draw">
+                <div class="overlay">
+                    <div class="overlay-text"> መስከረም </div>
+                </div>
+            </a>
+
+
+            <a href="assets/gallery/heart.jpg" data-fancybox="gallery" data-caption="Gallery Image 4" class="gallery-item">
+                <img src="assets/gallery/beyond.jpg" alt=" Beyond Scatch Paper Draw">
+                <div class="overlay">
+                    <div class="overlay-text"> Beyond </div>
+                </div>
+            </a>
+
+            <a href="assets/gallery/heart.jpg" data-fancybox="gallery" data-caption="Gallery Image 4" class="gallery-item">
+                <img src="assets/gallery/watch.jpg" alt=" watch Scatch Paper Draw">
+                <div class="overlay">
+                    <div class="overlay-text"> Watch </div>
+                </div>
+            </a>
+
+            <a href="assets/gallery/heart.jpg" data-fancybox="gallery" data-caption="Gallery Image 4" class="gallery-item">
+                <img src="assets/gallery/soul.jpg" alt=" soul Scatch Paper Draw">
+                <div class="overlay">
+                    <div class="overlay-text"> SouL </div>
+                </div>
+            </a>
+
+            <a href="assets/gallery/heart.jpg" data-fancybox="gallery" data-caption="Gallery Image 4" class="gallery-item">
+                <img src="assets/gallery/fasil.jpg" alt="  FasiL Scatch Paper Draw">
+                <div class="overlay">
+                    <div class="overlay-text"> FasiL </div>
+                </div>
+            </a>
+
+            <a href="assets/gallery/heart.jpg" data-fancybox="gallery" data-caption="Gallery Image 4" class="gallery-item">
+                <img src="assets/gallery/cross.jpg" alt=" Cross 1 Scatch Paper Draw">
+                <div class="overlay">
+                    <div class="overlay-text"> Cross 1</div>
+                </div>
+            </a>
+
+            <a href="assets/gallery/heart.jpg" data-fancybox="gallery" data-caption="Gallery Image 4" class="gallery-item">
+                <img src="assets/gallery/cross2.jpg" alt=" Cross 2 Scatch Paper Draw">
+                <div class="overlay">
+                    <div class="overlay-text"> Cross 2 </div>
+                </div>
+            </a>
+
+            <a href="assets/gallery/heart.jpg" data-fancybox="gallery" data-caption="Gallery Image 4" class="gallery-item">
+                <img src="assets/gallery/god.jpg" alt=" God Scatch Paper Draw">
+                <div class="overlay">
+                    <div class="overlay-text"> God (Before) </div>
+                </div>
+            </a>
+
+            <a href="assets/gallery/heart.jpg" data-fancybox="gallery" data-caption="Gallery Image 4" class="gallery-item">
+                <img src="assets/gallery/god2.jpg" alt=" God2 Scatch Paper Draw">
+                <div class="overlay">
+                    <div class="overlay-text">God (After) </div>
+                </div>
+            </a>
+
+            <a href="assets/gallery/heart.jpg" data-fancybox="gallery" data-caption="Gallery Image 4" class="gallery-item">
+                <img src="assets/gallery/world.jpg" alt=" World Scatch Paper Draw">
+                <div class="overlay">
+                    <div class="overlay-text"> World </div>
+                </div>
+            </a>
+
+            <a href="assets/gallery/heart.jpg" data-fancybox="gallery" data-caption="Gallery Image 4" class="gallery-item">
+                <img src="assets/gallery/suc.jpg" alt=" Success Scatch Paper Draw">
+                <div class="overlay">
+                    <div class="overlay-text"> Success </div>
+                </div>
+            </a>
+
+            <a href="assets/gallery/heart.jpg" data-fancybox="gallery" data-caption="Gallery Image 4" class="gallery-item">
+                <img src="assets/gallery/pure.jpg" alt=" No Feel Scatch Paper Draw">
+                <div class="overlay">
+                    <div class="overlay-text"> No FeeL </div>
+                </div>
+            </a>
+
+            <a href="assets/gallery/heart.jpg" data-fancybox="gallery" data-caption="Gallery Image 4" class="gallery-item">
+                <img src="assets/gallery/efra.jpg" alt=" Efrata Scatch Paper Draw">
+                <div class="overlay">
+                    <div class="overlay-text"> ኤፍራታ </div>
+                </div>
+            </a>
+
+            <var>
+                <a href="assets/gallery/heart.jpg" data-fancybox="gallery" data-caption="Gallery Image 4" class="gallery-item">
+                    <img src="assets/gallery/future.jpg" alt=" future Scatch Paper Draw">
+                    <div class="overlay">
+                        <div class="overlay-text"> Future </div>
+                    </div>
+                </a>
+            </var>
+
+
+            <!-- Repeat gallery images as needed -->
+        </div>
+    </div>
+</section>
+
+</div>
+
+
+    
+        <!-- Footer -->
+        <footer class="footer d-flex flex-column align-items-center">
+            <p>&copy; 2024 My Portfolio. All rights reserved.</p>
+            <p>Designed by Me. <a href="#">Privacy Policy</a></p>
+        </footer>
+        
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.6/plyr.polyfilled.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Fancybox CSS and JS -->
+    <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script>
+
+    <script src="scripts/main.js"></script>
+ 
+
+</body>
+</html>

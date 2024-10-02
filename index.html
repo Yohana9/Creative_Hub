@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Yohan Records </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.6/plyr.css">
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
+
+
+</head>
+<body class="light-theme">
+    <div id="stars-container"></div>
+    <div id="particle2"></div>
+
+<!-- Unified Header -->
+   <!-- Header -->
+   <header class="header d-flex align-items-center">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+        <div class="header-logo d-flex align-items-center">
+            <img src="assets/images/Logo/YR.png" alt="My Logo" class="logo">
+            
+            <span class="website-name ms-3">Yohan Records</span>
+        </div>
+        <div class="header-features d-flex align-items-center">
+            <!-- Theme Toggle Button -->
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle Theme">🌞</button>
+              <div class="menu-icon" id="menuToggle">☰</div>
+        </div>
+
+    </div>
+</header>
+
+<!-- Sidebar -->
+<div id="sidebar" class="sidebar">
+    <ul class="sidebar-nav">
+        <li class="sidebar-item S-Home">
+            <a href="index.html" class="sidebar-link">
+                <i class="fas fa-home"></i> Home
+            </a>
+        </li>
+        <li class="sidebar-item S-Music">
+            <a href="Music.html" class="sidebar-link">
+                <i class="fas fa-music"></i> Music <i class="fas fa-chevron-down"></i>
+            </a>
+            <ul class="submenu">
+                <li><a href="albums.html" class="submenu-link">Albums</a></li>
+                <li><a href="singles.html" class="submenu-link">Singles</a></li>
+                <li><a href="remixes.html" class="submenu-link">Remixes</a></li>
+            </ul>
+        </li>
+        <li class="sidebar-item S-Video">
+            <a href="Video.html" class="sidebar-link">
+                <i class="fas fa-video"></i> Videos
+            </a>
+        </li>
+        <li class="sidebar-item S-Gallery">
+            <a href="gallery.html" class="sidebar-link">
+                <i class="fas fa-images"></i> Gallery
+            </a>
+        </li>
+        <li class="sidebar-item S-Software">
+            <a href="Software.html" class="sidebar-link">
+                <i class="fas fa-cog"></i> Software
+            </a>
+        </li>
+    </ul>
+</div>
+
+<!-- Content -->
+<div class="container-fluid">
+    <div class="content">
+        <!-- Hero Section -->
+        <section id="hero" class="hero hero-section mt-5">
+            <!-- Fire Effect Container -->
+
+            <div class="container-fluid d-flex flex-column align-items-center justify-content-center position-relative">
+                <div id="particle2"></div>
+  
+                <!-- Logo -->
+                <img src="assets/images/Logo/Blogo22.png" alt="My Logo" class="hero-logo mb-2">
+                <h1 class="glow">Welcome to My Creative Hub</h1>
+                <p>
+                    Explore a world of creativity, where music, art, technology, and innovation converge. 
+                    Whether you're here to listen to the latest tracks, view stunning galleries, watch engaging videos, 
+                    or discover top-tier software, there's something for everyone. Stay tuned as we expand and release 
+                    new features, including premium and cracked software, set to launch soon. 
+                    This is just the beginning of an exciting journey—get ready for more!
+                </p>
+                <a href="singles.html" class="btn btn-prime btn-lg">Explore Now</a>
+
+                <!-- Social Media Icons -->
+                <div class="social-icons mt-4">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://yohana9.github.io/YohanRec/" class="social-icon"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.6/plyr.polyfilled.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Fancybox CSS and JS -->
+    <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script>
+   <!-- Particles -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+   
+
+
+   <script src="scripts/sidebar.js" defer></script>
+    <script src="scripts/main.js"></script>
+    <!-- <script src="scripts/particles.js"></script> -->
+    <script src="scripts/particle2.js"></script>
+    <script src="scripts/stars.js"></script>
+
+
+</body>
+</html>
