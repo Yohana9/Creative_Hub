@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio</title>
+    <title> Yohan Records </title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.6/plyr.css">
@@ -20,6 +20,7 @@
 
     
 <style>
+    /* Album grid container */
 .album-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -29,22 +30,36 @@
 
 .album-card {
     background-color: var(--card-bg-color);
-    border-radius: 10px;
+    border-radius: 15px;
     overflow: hidden;
     transition: all 0.3s ease;
     cursor: pointer;
     position: relative;
 }
 
+.album-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+}
+
 .album-card.active {
+    margin: 0 auto;
     grid-column: span 4;
     position: relative;
     z-index: 10;
+    background-color: var(--card-bg-color);
+    border-radius: 10px;
+    width: 100%;  /* Ensuring full width for responsiveness */
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
+/* Non-active card opacity */
 .album-card:not(.active) {
     grid-column: span 1;
-    opacity: 0.7;
+    opacity: 0.9;
 }
 
 .album-cover {
@@ -64,7 +79,7 @@
 .album-info {
     padding: 15px;
     text-align: center;
-    background-color: var(--info-bg-color); /* Updated to use theme variable */
+    background-color: var(--info-bg-color);
 }
 
 .album-title {
@@ -73,14 +88,15 @@
 }
 
 .album-artist, .card-subtitle {
-    font-size: 16px;
+    font-size: 17px;
     color: var(--secondary-text-color);
 }
 
 .album-details {
     display: none;
     padding: 15px;
-    background-color: var(--details-bg-color); /* Updated to use theme variable */
+    background-color: var(--details-bg-color);
+    margin-bottom: -15px;
 }
 
 .album-card.active .album-details {
@@ -91,52 +107,164 @@
 .tracklist {
     list-style: none;
     padding: 0;
-    background-color: var(--details-bg-color); /* Updated to use theme variable */
+    background-color: var(--details-bg-color);
 }
 
+/* .tracklist li {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 20px;
+    border-top: 1px solid #444;
+    color: var(--text-color);
+} */
+
+/* Hover effect for tracklist items */
+.tracklist li:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0  20px 20px rgba(0, 0, 0, 0.3);
+}
+
+
+
+
+
+
+
+/* Flex container for track item */
 .tracklist li {
     display: flex;
     justify-content: space-between;
-    padding: 10px 0;
+    align-items: center;
+    padding: 10px 20px;
     border-top: 1px solid #444;
     color: var(--text-color);
 }
 
+/* Title and track info */
+.tracklist li .track-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1; /* Title can grow but with limits */
+    max-width: 200px; /* Maximum width to prevent overflow */
+}
+
+/* Flex container for the audio controls */
+.tracklist li .audio-controls {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+/* Adjust the player controls */
+.plyr__controls {
+    flex: 2; /* Allow more space for the seek bar */
+}
+
+/* Adjust player controls */
+.plyr--audio .plyr__controls {
+    max-width: none; /* Prevent fixed width */
+}
+
+
+/* Responsive behavior for smaller screens */
+@media (max-width: 576px) {
+    .tracklist li .track-title {
+        font-size: 14px; /* Smaller title text */
+        max-width: 50%; /* Limit the title width further */
+        direction: rtl;
+        text-align: left !important; /* Ensures the text aligns to the right */
+        display: inline-block;
+        width: 100%;
+    }
+
+    .plyr--audio .plyr__controls {
+        flex: 2; /* Adjust the size of the player controls */
+    }
+
+    audio {
+        width: 100%; /* Ensure the player bar uses available space */
+    }
+
+    /* If the space is too tight, allow wrapping */
+    .tracklist li {
+        flex-wrap: wrap;
+    }
+
+    .audio-controls {
+        flex: 100%; /* Audio controls take up full width */
+        margin-top: 10px; /* Add space between title and controls */
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* Plyr audio player customization */
 audio {
     width: 100%;
     margin-top: 5px;
-    background-color: var(--audio-bg-color); /* Updated to use theme variable */
+    background-color: transparent;
 }
 
+/* General Plyr styling */
+.plyr__controls {
+    background-color: transparent;
+}
+
+.plyr {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.plyr__controls {
+    background-color: transparent !important;
+}
+
+.plyr--audio {
+    background-color: transparent !important;
+}
+
+/* General Plyr styling */
+.plyr__time {
+    color: #000 !important;
+}
+
+body.dark-theme .plyr__time {
+    color: #fff !important;
+}
+
+/* Fade-in animation */
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
 }
 
-/* Dark and light theme variables */
+
+/* Hide the settings button */
+.plyr__control[data-plyr="settings"] {
+    display: none !important;
+}
+
+
+/* Dark and light theme adjustments */
 body.dark-theme {
-    --card-bg-color: #0f0936  !important;
-    --text-color: #FFFFFF !important;
-    --secondary-text-color: #AAAAAA !important;
+    --card-bg-color: #0a023f;
+    --text-color: #FFFFFF;
+    --secondary-text-color: #AAAAAA;
+    --details-bg-color: #1a1a1a;
+    --info-bg-color: #2a2a2a;
 }
-
-/* background: linear-gradient(45deg, #6e0a66, #0d1e44, #0a0a49, #faf4f4);  */
-.dark-theme .plyr__controls , .details-bg-color,
-.info-bg-color, .audio-bg-color, .album-details-1 ,
-.album-details, .tracklist
- {
-    background-color: transparent; /* Dark background for controls */
-}
-
-/* body.light-theme {
-    --card-bg-color: #F0F0F0 !important;
-    --text-color: #000000 !important;
-    --secondary-text-color: #555555 !important;
-    --details-bg-color: #DDDDDD !important;
-    --info-bg-color: #FFFFFF !important; /
-    --audio-bg-color: #FFFFFF !important; 
-}
- */
 
 
 /* Responsive Adjustments */
@@ -144,15 +272,49 @@ body.dark-theme {
     .album-grid {
         grid-template-columns: repeat(3, 1fr);
     }
+
+    .album-card.active {
+        grid-column: span 3;
+    }
+
+    .album-cover {
+        height: 180px;
+    }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 992px) {
     .album-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 
     .album-card.active {
         grid-column: span 2;
+    }
+
+    .album-cover {
+        height: 160px;
+    }
+}
+
+@media (max-width: 768px) {
+    .album-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .album-card.active {
+        grid-column: span 1;
+    }
+
+    .album-cover {
+        height: 150px;
+    }
+
+    .album-title {
+        font-size: 18px;
+    }
+
+    .album-artist {
+        font-size: 14px;
     }
 }
 
@@ -166,12 +328,19 @@ body.dark-theme {
     }
 
     .album-cover {
-        height: 150px;
+        height: 120px;
+    }
+
+    .album-title {
+        font-size: 16px;
+    }
+
+    .album-artist {
+        font-size: 12px;
     }
 }
 
 </style>
-
 
    <!-- Header -->
    <header class="header d-flex align-items-center">
@@ -259,10 +428,46 @@ body.dark-theme {
                 </div>
                 <div id="album-details-1" class="album-details collapse">
                     <ul class="tracklist">
+
                         <li>
-                            <span>Track 1: AguL | አጉል</span>
+                            <span class="album-artist ">Track 4: </span> <span> Musika | ሙዚቃ </span>
+                            <audio controls>
+                                <source src="assets/audio/Singles/Musika.mp3" type="audio/mp3">
+                            </audio>
+                        </li>
+
+                        <li>
+                            <span class="album-artist ">Track 2: </span> <span> HewaNe | ሄዋኔ </span>
+                            <audio controls>
+                                <source src="assets/audio/Singles/H e w a n e.mp3" type="audio/mp3">
+                            </audio>
+                        </li>
+
+                        <li>
+                            <span class="album-artist ">Track 1: </span> <span> AguL | አጉል</span>
                             <audio controls>
                                 <source src="assets/audio/Singles/AguL.mp3" type="audio/mp3">
+                            </audio>
+                        </li>
+
+                                                <li>
+                            <span class="album-artist ">Track 2: </span> <span> NikaT |  ንቃት </span>
+                            <audio controls>
+                                <source src="assets/audio/Singles/H e w a n e.mp3" type="audio/mp3">
+                            </audio>
+                        </li>
+
+                        <li>
+                            <span class="album-artist ">Track 3: </span> <span> YhudA | ይሁዳ </span>
+                            <audio controls>
+                                <source src="assets/audio/Singles/Yhuda_Best_Version.mp3" type="audio/mp3">
+                            </audio>
+                        </li>
+
+                        <li>
+                            <span class="album-artist ">Track 3: </span> <span>  Tsega New | ፀጋ ነው </span>
+                            <audio controls>
+                                <source src="assets/audio/Ep Album/Tsega New.mp3" type="audio/mp3">
                             </audio>
                         </li>
                         <!-- Add more tracks as needed -->
@@ -270,6 +475,10 @@ body.dark-theme {
                 </div>
             </div>
 
+
+
+
+<!-- Zerihun Album  -->           
             <div class="album-card" data-album="1">
                 <div class="album-cover">
                     <img src="assets/images/thumbnail/zerihun-album.jpg" alt="Album 1 Cover">
@@ -281,99 +490,86 @@ body.dark-theme {
                 <div id="album-details-1" class="album-details collapse">
                     <ul class="tracklist">
                         <li>
-                            <span>Track 1: AguL | አጉል</span>
+                              <span class="album-artist ">Track 1: </span> <span> መግባቢያ / ዲሞር </span>
                             <audio controls>
-                                <source src="assets/audio/Singles/AguL.mp3" type="audio/mp3">
+                                <source src="assets/audio/zerihun - Noterdam/01 - MegbabiyaDimor.mp3" type="audio/mp3">
                             </audio>
                         </li>
-                        <!-- Add more tracks as needed -->
+
+                        <li>
+                            <span class="album-artist ">Track 2: </span> <span> አያሰብኩሽ ሳለሁ </span>
+                            <audio controls>
+                                <source src="assets/audio/zerihun - Noterdam/02 - Eyasebkush Salehu.mp3" type="audio/mp3">
+                            </audio>
+                        </li>
+                        
+                        <li>
+                            <span class="album-artist ">Track 3: </span> <span> ተጠንቀቅ! </span>
+                            <audio controls>
+                                <source src="assets/audio/zerihun - Noterdam/03 - Tetenkek.mp3" type="audio/mp3">
+                            </audio>
+                        </li>
+
+                        <li>
+                            <span class="album-artist ">Track 4: </span> <span> ኖተርዳም </span>
+                            <audio controls>
+                                <source src="assets/audio/zerihun - Noterdam/04 - Noterdam.mp3" type="audio/mp3">
+                            </audio>
+                        </li>
+
+                        <li>
+                            <span class="album-artist ">Track 5: </span> <span> ተውሳክ </span>
+                            <audio controls>
+                                <source src="assets/audio/zerihun - Noterdam/05 - Tewsak.mp3" type="audio/mp3">
+                            </audio>
+                        </li>
+
+                        <li>
+                            <span class="album-artist ">Track 6: </span> <span> ከግርግሙ ውጪ </span>
+                            <audio controls>
+                                <source src="assets/audio/zerihun - Noterdam/06 - Kegirgimu Wuchi.mp3" type="audio/mp3">
+                            </audio>
+                        </li>
+
+                        <li>
+                            <span class="album-artist ">Track 7: </span> <span> ርዕስ አልባ ርዕስ </span>
+                            <audio controls>
+                                <source src="assets/audio/zerihun - Noterdam/07 - Reis Alba Reis.mp3" type="audio/mp3">
+                            </audio>
+                        </li>
+
+                        <li>
+                            <span class="album-artist ">Track 8: </span> <span> ኪሳራ </span>
+                            <audio controls>
+                                <source src="assets/audio/zerihun - Noterdam/08 - Kisara.mp3" type="audio/mp3">
+                            </audio>
+                        </li>
+
+                        <li>
+                            <span class="album-artist ">Track 9: </span> <span> ነብስ ይማር </span>
+                            <audio controls>
+                                <source src="assets/audio/zerihun - Noterdam/09 - Nebs Yimar.mp3" type="audio/mp3">
+                            </audio>
+                        </li>
+
+                        <li>
+                            <span class="album-artist ">Track 10: </span> <span> መሃል ቤት </span>
+                            <audio controls>
+                                <source src="assets/audio/zerihun - Noterdam/10 - Mehalbet.mp3" type="audio/mp3">
+                            </audio>
+                        </li>
+
+                        <li>
+                            <span class="album-artist ">Track 11: </span> <span> ካልሆንክ አይገባህም </span>
+                            <audio controls>
+                                <source src="assets/audio/zerihun - Noterdam/11 - Kalhonk Aygebahm.mp3" type="audio/mp3">
+                            </audio>
+                        </li>
                     </ul>
                 </div>
             </div>
 
-            <div class="album-card" data-album="1">
-                <div class="album-cover">
-                    <img src="assets/images/Background/Album.jpg" alt="Album 1 Cover">
-                </div>
-                <div class="album-info">
-                    <h5 class="album-title">AguL Ep-Tracks</h5>
-                    <p class="album-artist">Yohannes R.</p>
-                </div>
-                <div id="album-details-1" class="album-details collapse">
-                    <ul class="tracklist">
-                        <li>
-                            <span>Track 1: AguL | አጉል</span>
-                            <audio controls>
-                                <source src="assets/audio/Singles/AguL.mp3" type="audio/mp3">
-                            </audio>
-                        </li>
-                        <!-- Add more tracks as needed -->
-                    </ul>
-                </div>
-            </div>
 
-            <div class="album-card" data-album="1">
-                <div class="album-cover">
-                    <img src="assets/images/Background/Album.jpg" alt="Album 1 Cover">
-                </div>
-                <div class="album-info">
-                    <h5 class="album-title">AguL Ep-Tracks</h5>
-                    <p class="album-artist">Yohannes R.</p>
-                </div>
-                <div id="album-details-1" class="album-details collapse">
-                    <ul class="tracklist">
-                        <li>
-                            <span>Track 1: AguL | አጉል</span>
-                            <audio controls>
-                                <source src="assets/audio/Singles/AguL.mp3" type="audio/mp3">
-                            </audio>
-                        </li>
-                        <!-- Add more tracks as needed -->
-                    </ul>
-                </div>
-            </div>
-
-            <div class="album-card" data-album="1">
-                <div class="album-cover">
-                    <img src="assets/images/Background/Album.jpg" alt="Album 1 Cover">
-                </div>
-                <div class="album-info">
-                    <h5 class="album-title">AguL Ep-Tracks</h5>
-                    <p class="album-artist">Yohannes R.</p>
-                </div>
-                <div id="album-details-1" class="album-details collapse">
-                    <ul class="tracklist">
-                        <li>
-                            <span>Track 1: AguL | አጉል</span>
-                            <audio controls>
-                                <source src="assets/audio/Singles/AguL.mp3" type="audio/mp3">
-                            </audio>
-                        </li>
-                        <!-- Add more tracks as needed -->
-                    </ul>
-                </div>
-            </div>
-
-            <div class="album-card" data-album="1">
-                <div class="album-cover">
-                    <img src="assets/images/Background/Album.jpg" alt="Album 1 Cover">
-                </div>
-                <div class="album-info">
-                    <h5 class="album-title">AguL Ep-Tracks</h5>
-                    <p class="album-artist">Yohannes R.</p>
-                </div>
-                <div id="album-details-1" class="album-details collapse">
-                    <ul class="tracklist">
-                        <li>
-                            <span>Track 1: AguL | አጉል</span>
-                            <audio controls>
-                                <source src="assets/audio/Singles/AguL.mp3" type="audio/mp3">
-                            </audio>
-                        </li>
-                        <!-- Add more tracks as needed -->
-                    </ul>
-                </div>
-            </div>
             <!-- Repeat album cards for Album 2, Album 3, Album 4 -->
         </div>
     </div>
