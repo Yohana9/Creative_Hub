@@ -202,3 +202,19 @@ document.getElementById('newsletterForm').addEventListener('submit', function(ev
         alert('Please enter a valid email address.');
     }
 });
+
+
+///  Disabling download files
+
+const player = Plyr.setup('audio', {
+    controls: ['play', 'progress', 'current-time', 'mute', 'volume'],
+    settings: [],  // Empty settings to avoid additional options
+});
+
+
+
+document.querySelectorAll('audio').forEach(function(audio) {
+audio.addEventListener('contextmenu', function(e) {
+  e.preventDefault();
+});
+});
