@@ -1,0 +1,42 @@
+Creative_HUB/
+├── .env                          
+├── .env.example
+├── composer.json                 
+├── README.md                      
+
+│   ├── Assets   
+│   │   │   ├── audio
+│   │   │   |   ├── EP Album       
+│   │   │   |   | ├── Zerihun  
+│   │   │   |   ├── Remixes  
+│   │   │   |   ├── Singles   
+│   │   │   |   ├── Zerihun - Noterdam
+│   │   │   |   ├── EP Album         
+│   │   │   ├── gallery       
+│   │   │   ├── images          
+│   │   │   ├── videos                   
+│   ├── libs                
+│   ├── scripts  
+│   └── styles
+│   ├── core_loader.php            
+│   ├── album.html                 
+│   ├── explore.html                   
+│   ├── Video.html                
+│   ├── singles.html                   
+│   ├── software.html
+│   ├── index.html
+
+
+
+
+
+
+
+
+
+│   │   │   ├── main.js            # General UI behaviors (sidebar, logout)
+│   │   │   ├── dashboard.js       # Charts / widgets
+│   │   │   ├── logout.js          # Secure logout
+│   │   │   ├── ui.js              # 🆕 Shared pagination, toasts, modals
+│   │   │   └── csrf.js            # CSRF helper for AJAX
+│   │   │   └── Settings.js 

@@ -10,12 +10,6 @@
 .animate__animated {
     --animate-duration: 1s;
 }
-/* font-family: "Space Grotesk", sans-serif;
-font-family: "Josefin Sans", sans-serif;
-font-family: "Cinzel", serif;
-font-family: "Montserrat Alternates", sans-serif;
-font-family: "Josefin Sans", sans-serif; */
-
 
 /* Dark and light theme variables */
 body.dark-theme {
