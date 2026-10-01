@@ -1,0 +1,8 @@
+# never commit secrets or one-off tools
+api/config.php
+api/setup.php
+api/diagnose.php
+CHub.sql
+DEPLOY.md
+.DS_Store
+Thumbs.db

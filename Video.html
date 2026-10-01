@@ -1,252 +1,237 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Yohan Records </title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.6/plyr.css">
-    <link rel="stylesheet" href="styles/styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome -->
-    
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" />
-    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
-        <!-- Include particles.js -->
-        <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-
-    
-</head>
-<body class="light-theme">
-    <div id="stars-container"></div>
-
-
-    
-   <!-- Header -->
-   <header class="header d-flex align-items-center">
-    <div class="container-fluid d-flex justify-content-between align-items-center">
-        <div class="header-logo d-flex align-items-center">
-            <img src="assets/images/Logo/YR.png" alt="My Logo" class="logo">
-            <span class="website-name ms-3"> Yohan Records </span>
-        </div>
-        <div class="header-features d-flex align-items-center">
-            <!-- Theme Toggle Button -->
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle Theme">🌞</button>
-              <div class="menu-icon" id="menuToggle">☰</div>
-        </div>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="Watch music videos and short films from Yohan Records.">
+<meta name="theme-color" content="#07070c">
+<title>Videos | Yohan Records</title>
+<link rel="icon" href="favicon.ico" sizes="48x48"><link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"><link rel="manifest" href="site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="styles/styles.css">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic:wght@400;600;800&display=swap"><link rel="canonical" href="https://chub.yeneflow.com/Video.html"><meta property="og:type" content="website"><meta property="og:site_name" content="Yohan Records"><meta property="og:title" content="Videos | Yohan Records"><meta property="og:image" content="https://chub.yeneflow.com/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://chub.yeneflow.com/og-image.png"></head>
+<body class="dark-theme"><script>try{if(localStorage.getItem("yr-theme")==="light"){document.body.className="light-theme"}}catch(e){}</script>
+<div id="stars-container"></div>
+<a href="#main" class="skip-link">Skip to content</a>
+<header class="header">
+  <div class="header-inner">
+    <div class="header-brand">
+      <button class="menu-icon" id="menuToggle" aria-label="Open menu" aria-expanded="false"><i class="fas fa-bars"></i></button>
+      <img src="assets/images/Logo/YR.png" alt="Yohan Records logo" class="logo">
+      <span class="website-name">Yohan Records</span>
     </div>
+    <div class="header-actions">
+      <a href="contact.html" class="btn-mini"><i class="fas fa-paper-plane"></i><span>Contact</span></a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><i class="fas fa-sun"></i></button>
+    </div>
+  </div>
 </header>
 
-<!-- Sidebar -->
 <div id="sidebar" class="sidebar">
-    <ul class="sidebar-nav">
-        <li class="sidebar-item S-Home">
-            <a href="index.html" class="sidebar-link">
-                <i class="fas fa-home"></i> Home
-            </a>
-        </li>
-        <li class="sidebar-item S-Music">
-            <a href="Music.html" class="sidebar-link">
-                <i class="fas fa-music"></i> Music <i class="fas fa-chevron-down"></i>
-            </a>
-            <ul class="submenu">
-                <li><a href="albums.html" class="submenu-link">Albums</a></li>
-                <li><a href="singles.html" class="submenu-link">Singles</a></li>
-                <li><a href="remixes.html" class="submenu-link">Remixes</a></li>
-            </ul>
-        </li>
-        <li class="sidebar-item S-Video">
-            <a href="Video.html" class="sidebar-link">
-                <i class="fas fa-video"></i> Videos
-            </a>
-        </li>
-        <li class="sidebar-item S-Gallery">
-            <a href="gallery.html" class="sidebar-link">
-                <i class="fas fa-images"></i> Gallery
-            </a>
-        </li>
-        <li class="sidebar-item S-Software">
-            <a href="Software.html" class="sidebar-link">
-                <i class="fas fa-cog"></i> Software
-            </a>
-        </li>
-    </ul>
+<div class="sb-head">
+  <div class="header-brand"><img src="assets/images/Logo/YR.png" alt="" class="logo"><span class="website-name">Yohan Records</span></div>
+  <button class="icon-btn" id="sbClose" aria-label="Close menu"><i class="fas fa-xmark"></i></button>
 </div>
-
-
-
-
-
-    <!-- Content -->
-    <div class="content">
-        <!-- Hero Section -->
-        <section id="hero" class="hero mt-5">
-            <div class="container-fluid">            <div id="particles-js"></div>
-            <div id="particle2"></div>
-            <div class="container-fluid">
-                <img src="assets/images/Logo/YR.png" alt="My Logo" class="logo-heroic glow" >
-                    <h1 class="glow">Welcome to Our Videos Hub </h1>
-                <p>Explore my EP albums, singles, remixes, videos, and gallery of artwork.</p>
-                <!-- <a href="#albums" class="btn btn-prime btn-lg ">Explore Now</a> -->
-            </div>
-        </section>
-
-
-
-
-
-        <!-- Videos Section -->
-        <section id="videos" class="py-5">
-            <div class="container">
-                <h2 class="text-center mb-4 h-Title">Videos</h2>
-                <div class="row">
-                    <div class="col-lg-6 col-md-4 col-lg-2 mb-4">
-                        <div class="video-card">
-                            <video controls poster="assets/images/thumbnail/yeken.jpg">
-                                <source src="assets/videos/Yeken.mp4" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
-                        </div>
-                        <div class="remix-card-body">
-                            <h5 class="card-title"> Yeken Kijet | የቀን ቅዥት 2011 E.C </h5>
-                            <p class="card-subtitle"> screen Play by Abel | Director Yohan.R </p>
-                        </div>
-                    </div>
-        
-                    <div class="col-lg-6 col-md-4 col-lg-2 mb-4">
-                        <div class="video-card">
-                            <video controls poster="assets/images/thumbnail/AguL2.jpg">
-                                <source src="assets/videos/AguL.mp4" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
-                        </div>
-                        <div class="remix-card-body">
-                            <h5 class="card-title"> AguL | አጉል </h5>
-                            <p class="card-subtitle">Music by: Yohannes | Lyrics Zerihun Birhanu </p>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 col-md-4 col-lg-2 mb-4">
-                        <div class="video-card">
-                            <video controls poster="assets/images/thumbnail/nahom2.jpg">
-                                <source src="assets/videos/Remix/Lij_Nahom.mp4" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
-                        </div>
-                        <div class="remix-card-body">
-                            <h5 class="card-title"> Abede YilugnaL </h5>
-                            <p class="card-subtitle">  Music Remix by | Yohan R. </p>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 col-md-4 col-lg-2 mb-4">
-                        <div class="video-card">
-                            <video controls poster="assets/images/thumbnail/Music.jpg">
-                                <source src="assets/videos/Hlina.mp4" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
-                        </div>
-                        <div class="remix-card-body">
-                            <h5 class="card-title">  Hlina | ህሊና 2011 E.C </h5>
-                            <p class="card-subtitle">  Music by | Yohan Reta </p>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-        
-
+<div class="sb-scroll">
+<p class="sb-label">Browse</p>
+<ul class="sb-nav">
+<li class="sb-item"><a href="index.html" class="sb-link" data-tip="Home"><span class="sb-ico"><i class="fas fa-house"></i></span><span class="sb-text">Home</span></a></li>
+<li class="sb-item has-sub">
+<button type="button" class="sb-link" aria-expanded="false"><span class="sb-ico"><i class="fas fa-music"></i></span><span class="sb-text">Music</span><i class="fas fa-chevron-down sb-caret"></i></button>
+<ul class="sb-sub">
+<li><a href="albums.html">Albums</a></li>
+<li><a href="singles.html">Singles</a></li>
+<li><a href="remixes.html">Remixes</a></li>
+</ul></li>
+<li class="sb-item active"><a href="Video.html" class="sb-link" data-tip="Videos"><span class="sb-ico"><i class="fas fa-video"></i></span><span class="sb-text">Videos</span></a></li>
+<li class="sb-item"><a href="gallery.html" class="sb-link" data-tip="Gallery"><span class="sb-ico"><i class="fas fa-images"></i></span><span class="sb-text">Gallery</span></a></li>
+<li class="sb-item"><a href="Software.html" class="sb-link" data-tip="Software"><span class="sb-ico"><i class="fas fa-gear"></i></span><span class="sb-text">Software</span></a></li>
+<li class="sb-item"><a href="testimonials.html" class="sb-link" data-tip="Testimonials"><span class="sb-ico"><i class="fas fa-star"></i></span><span class="sb-text">Testimonials</span></a></li>
+<li class="sb-item"><a href="contact.html" class="sb-link" data-tip="Contact"><span class="sb-ico"><i class="fas fa-envelope"></i></span><span class="sb-text">Contact</span></a></li>
+</ul></div>
+<div class="sb-foot"><a href="contact.html" class="sb-cta"><i class="fas fa-paper-plane"></i><span>Get in touch<small>Send a message</small></span></a></div>
 </div>
+<div class="sidebar-backdrop"></div>
 
-
+<div class="content" id="main">
+<section id="hero" class="hero">
+  <div id="particles-js"></div>
+  <div class="hero-inner">
+    <img src="assets/images/Logo/YR.png" alt="Yohan Records" class="hero-logo">
+    <h1 class="glow">Videos</h1>
+    <p>Short films and music videos, directed and produced in house.</p>
     
-<footer class="footer bg-dark text-white pt-5">
-    <div class="container">
-        <div class="row">
-            <!-- About Section -->
-            <div class="col-md-4">
-                <h5>About Us</h5>
-                <p>Explore a world of creativity where music, art, technology, and innovation converge. Stay tuned for exciting new features and updates.</p>
-            </div>
+    
+  </div>
+</section>
 
-            <!-- Contact Section -->
-            <div class="col-md-4">
-                <h5>Contact Us</h5>
-                <ul class="list-unstyled">
-                    <li>Email: <a href="mailto:info@yourwebsite.com" class="text-white"> yohanreta9@gmail.com</a></li>
-                    <li>Phone: <a href="tel:+1234567890" class="text-white">+251 940 38 24 15 </a></li>
-                    <li>Address: Dire Dawa, Ethiopia. PO.Box:1543 </li>
-                </ul>
-            </div>
-
-            <!-- Newsletter Subscription -->
-            <div class="col-md-4">
-                <h5>Newsletter</h5>
-                <form id="newsletterForm" action="newsletter.php" method="POST">
-                    <div class="mb-3">
-                        <input type="email" class="form-control" id="newsletterEmail" placeholder="Enter your email" required>
-                    </div>
-                    <button type="submit" class="btn btn-prime w-100">Subscribe</button>
-                </form>
-                <p class="mt-3">Stay updated with our latest news and releases.</p>
-            </div>
-        </div>
-        
-        <!-- Social Media Icons -->
-        <div class="row mt-4">
-            <div class="col text-center">
-                <div class="social-icons">
-                    <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="text-white me-3"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://github.com/yourusername" class="text-white"><i class="fab fa-github"></i></a>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Footer Bottom -->
-        <div class="row mt-4">
-            <div class="col text-center">
-                <p class="mb-0">&copy; 2024 Yohan Records. All rights reserved.</p>
-            </div>
-        </div>
+<section id="videos" class="section">
+  <p class="section-sub section-sub-lead">Short films and music videos.</p>
+  <div class="filter-bar" data-filter-for="#videoGrid">
+  <div class="search-box"><i class="fas fa-magnifying-glass"></i><input type="search" placeholder="Search by title" aria-label="Search"></div>
+  <select class="sort-select" aria-label="Sort by">
+    <option value="default">Newest first</option>
+    <option value="plays" data-online="1">Most played</option>
+    <option value="likes" data-online="1">Most liked</option>
+    <option value="az">A to Z</option>
+    
+  </select>
+</div>
+  <div class="video-grid" id="videoGrid">
+<div class="video-card" data-key="assets/videos/Yeken.mp4" data-title="Yeken Kizet | የቀን ቅዥት (2011 E.C)">
+  <video preload="metadata" controls poster="assets/images/thumbnail/yeken.jpg" controlslist="nodownload noremoteplayback" disablepictureinpicture oncontextmenu="return false">
+    <source src="assets/videos/Yeken.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <div class="remix-card-body">
+    <div class="txt">
+      <h3 class="card-title">Yeken Kizet | የቀን ቅዥት (2011 E.C)</h3>
+      <p class="card-subtitle">Screenplay: Abel · Director: Yohan R.</p>
     </div>
+    <div class="social-row">
+      <span class="stat online-only"><i class="fas fa-eye"></i><b data-metric="views" data-key="assets/videos/Yeken.mp4"></b></span>
+      <button class="like-btn" data-like-src="assets/videos/Yeken.mp4" data-kind="video" data-title="Yeken Kizet | የቀን ቅዥት (2011 E.C)" aria-label="Like Yeken Kizet | የቀን ቅዥት (2011 E.C)"><i class="fa-regular fa-heart"></i><b data-metric="likes" data-key="assets/videos/Yeken.mp4"></b></button>
+      <button class="cmt-btn online-only" data-comments="assets/videos/Yeken.mp4" data-kind="video" data-title="Yeken Kizet | የቀን ቅዥት (2011 E.C)" aria-label="Comments on Yeken Kizet | የቀን ቅዥት (2011 E.C)"><i class="fa-regular fa-comment"></i><b data-metric="comments" data-key="assets/videos/Yeken.mp4"></b></button>
+      <button class="share-btn" data-share="assets/videos/Yeken.mp4" data-kind="video" data-title="Yeken Kizet | የቀን ቅዥት (2011 E.C)" aria-label="Share Yeken Kizet | የቀን ቅዥት (2011 E.C)"><i class="fas fa-share-nodes"></i></button>
+    </div>
+  </div>
+</div>
+<div class="video-card" data-key="assets/videos/AguL.mp4" data-title="Agul | አጉል">
+  <video preload="metadata" controls poster="assets/images/thumbnail/AguL2.jpg" controlslist="nodownload noremoteplayback" disablepictureinpicture oncontextmenu="return false">
+    <source src="assets/videos/AguL.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <div class="remix-card-body">
+    <div class="txt">
+      <h3 class="card-title">Agul | አጉል</h3>
+      <p class="card-subtitle">Music: Yohannes · Lyrics: Zerihun Birhanu</p>
+    </div>
+    <div class="social-row">
+      <span class="stat online-only"><i class="fas fa-eye"></i><b data-metric="views" data-key="assets/videos/AguL.mp4"></b></span>
+      <button class="like-btn" data-like-src="assets/videos/AguL.mp4" data-kind="video" data-title="Agul | አጉል" aria-label="Like Agul | አጉል"><i class="fa-regular fa-heart"></i><b data-metric="likes" data-key="assets/videos/AguL.mp4"></b></button>
+      <button class="cmt-btn online-only" data-comments="assets/videos/AguL.mp4" data-kind="video" data-title="Agul | አጉል" aria-label="Comments on Agul | አጉል"><i class="fa-regular fa-comment"></i><b data-metric="comments" data-key="assets/videos/AguL.mp4"></b></button>
+      <button class="share-btn" data-share="assets/videos/AguL.mp4" data-kind="video" data-title="Agul | አጉል" aria-label="Share Agul | አጉል"><i class="fas fa-share-nodes"></i></button>
+    </div>
+  </div>
+</div>
+<div class="video-card" data-key="assets/videos/Remix/Lij_Nahom.mp4" data-title="Abede Yilugnal">
+  <video preload="metadata" controls poster="assets/images/thumbnail/nahom2.jpg" controlslist="nodownload noremoteplayback" disablepictureinpicture oncontextmenu="return false">
+    <source src="assets/videos/Remix/Lij_Nahom.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <div class="remix-card-body">
+    <div class="txt">
+      <h3 class="card-title">Abede Yilugnal</h3>
+      <p class="card-subtitle">Remix by Yohan R.</p>
+    </div>
+    <div class="social-row">
+      <span class="stat online-only"><i class="fas fa-eye"></i><b data-metric="views" data-key="assets/videos/Remix/Lij_Nahom.mp4"></b></span>
+      <button class="like-btn" data-like-src="assets/videos/Remix/Lij_Nahom.mp4" data-kind="video" data-title="Abede Yilugnal" aria-label="Like Abede Yilugnal"><i class="fa-regular fa-heart"></i><b data-metric="likes" data-key="assets/videos/Remix/Lij_Nahom.mp4"></b></button>
+      <button class="cmt-btn online-only" data-comments="assets/videos/Remix/Lij_Nahom.mp4" data-kind="video" data-title="Abede Yilugnal" aria-label="Comments on Abede Yilugnal"><i class="fa-regular fa-comment"></i><b data-metric="comments" data-key="assets/videos/Remix/Lij_Nahom.mp4"></b></button>
+      <button class="share-btn" data-share="assets/videos/Remix/Lij_Nahom.mp4" data-kind="video" data-title="Abede Yilugnal" aria-label="Share Abede Yilugnal"><i class="fas fa-share-nodes"></i></button>
+    </div>
+  </div>
+</div>
+<div class="video-card" data-key="assets/videos/Hlina.mp4" data-title="Hlina | ህሊና (2011 E.C)">
+  <video preload="metadata" controls poster="assets/images/thumbnail/Music.jpg" controlslist="nodownload noremoteplayback" disablepictureinpicture oncontextmenu="return false">
+    <source src="assets/videos/Hlina.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <div class="remix-card-body">
+    <div class="txt">
+      <h3 class="card-title">Hlina | ህሊና (2011 E.C)</h3>
+      <p class="card-subtitle">Music by Yohan Reta</p>
+    </div>
+    <div class="social-row">
+      <span class="stat online-only"><i class="fas fa-eye"></i><b data-metric="views" data-key="assets/videos/Hlina.mp4"></b></span>
+      <button class="like-btn" data-like-src="assets/videos/Hlina.mp4" data-kind="video" data-title="Hlina | ህሊና (2011 E.C)" aria-label="Like Hlina | ህሊና (2011 E.C)"><i class="fa-regular fa-heart"></i><b data-metric="likes" data-key="assets/videos/Hlina.mp4"></b></button>
+      <button class="cmt-btn online-only" data-comments="assets/videos/Hlina.mp4" data-kind="video" data-title="Hlina | ህሊና (2011 E.C)" aria-label="Comments on Hlina | ህሊና (2011 E.C)"><i class="fa-regular fa-comment"></i><b data-metric="comments" data-key="assets/videos/Hlina.mp4"></b></button>
+      <button class="share-btn" data-share="assets/videos/Hlina.mp4" data-kind="video" data-title="Hlina | ህሊና (2011 E.C)" aria-label="Share Hlina | ህሊና (2011 E.C)"><i class="fas fa-share-nodes"></i></button>
+    </div>
+  </div>
+</div>
+  </div>
+</section>
+
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h5>About</h5>
+        <p>Yohan Records is the home for Yohannes R.&rsquo;s music, visuals and ongoing projects: albums, singles, remixes, film work and artwork, all in one place.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <ul>
+          <li>Email: <a href="mailto:yohanreta9@gmail.com">yohanreta9@gmail.com</a></li>
+          <li>Phone: <a href="tel:+251940382415">+251 940 38 24 15</a></li>
+          <li>Addis Ababa, Ethiopia &middot; Megenagna</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Get in touch</h5>
+        <div class="footer-cta">
+          <p>Booking, collaborations or just to say hello: send a message and I will get back to you.</p>
+          <a href="contact.html" class="btn-prime" style="width:100%;text-align:center;">Contact Me</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-social">
+      <a href="https://yohana9.github.io/YohanRec/" class="social-icon" aria-label="GitHub" target="_blank" rel="noopener"><i class="fab fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/yohannes-reta/" class="social-icon" aria-label="LinkedIn" target="_blank" rel="noopener"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; <span class="auto-year">2026</span> Yohan Records. All rights reserved.</p>
+    </div>
+  </div>
 </footer>
 
- 
-    <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.6/plyr.polyfilled.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!-- Fancybox CSS and JS -->
-    <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script>
+<div class="player-bar" id="playerBar">
+  <div class="pb-track">
+    <img loading="lazy" decoding="async" id="pArt" class="player-art" src="assets/images/Logo/YR.png" alt="">
+    <div class="player-meta">
+      <div class="t" id="pTitle">Nothing playing</div>
+      <div class="s" id="pSubtitle">Yohan Records</div>
+    </div>
+  </div>
+  <div class="pb-actions">
+    <button class="like-btn" id="pLike" aria-label="Like this track"><i class="fa-regular fa-heart"></i></button>
+    <button class="cmt-btn online-only" id="pComments" aria-label="Comments"><i class="fa-regular fa-comment"></i></button>
+    <button class="share-btn" id="pShare" aria-label="Share"><i class="fas fa-share-nodes"></i></button>
+  </div>
+  <div class="pb-controls">
+    <button class="p-btn shuffle" id="pShuffle" aria-label="Shuffle"><i class="fas fa-shuffle"></i></button>
+    <button class="p-btn" id="pPrev" aria-label="Previous"><i class="fas fa-backward-step"></i></button>
+    <button class="p-btn main" id="pPlay" aria-label="Play or pause"><i class="fas fa-play"></i></button>
+    <button class="p-btn" id="pNext" aria-label="Next"><i class="fas fa-forward-step"></i></button>
+    <button class="p-btn repeat" id="pRepeat" aria-label="Repeat"><i class="fas fa-repeat"></i></button>
+  </div>
+  <div class="pb-seek">
+    <span id="pCur">0:00</span>
+    <div class="seek-track" id="pSeekTrack"><div class="seek-fill" id="pSeekFill"></div><div class="seek-thumb" id="pSeekThumb"></div></div>
+    <span id="pDur">0:00</span>
+  </div>
+  <div class="pb-vol">
+    <i class="fas fa-volume-high"></i>
+    <div class="vol-track" id="pVolTrack"><div class="vol-fill" id="pVolFill"></div></div>
+  </div>
+  <button class="p-btn player-close" id="pClose" aria-label="Close player"><i class="fas fa-xmark"></i></button>
+</div>
 
-    <script src="scripts/main.js"></script>
-    <script src="scripts/particles.js" defer></script>
+<div class="toast-wrap" aria-live="polite"></div>
 
-
-    <script>
-        function createStars() {
-            const starsContainer = document.getElementById('stars-container');
-          
-            for (let i = 0; i < 200; i++) {
-              const star = document.createElement('div');
-              star.classList.add('star');
-              star.style.left = Math.random() * 100 + 'vw';
-              star.style.top = Math.random() * 100 + 'vh';
-              star.style.animationDuration = Math.random() * 5 + 2 + 's';
-              starsContainer.appendChild(star);
-            }
-          }
-          
-          window.onload = createStars;
-    </script>
-
+<script src="scripts/config.js"></script>
+<script src="scripts/api.js"></script>
+<script src="scripts/app.js" defer></script>
+<script src="scripts/social.js" defer></script>
+<script src="scripts/player.js" defer></script>
+<script src="scripts/comments.js" defer></script>
+<script src="scripts/protect.js" defer></script>
+<script src="scripts/stars.js" defer></script>
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js" defer></script>
+<script src="scripts/particles.js" defer></script>
 </body>
 </html>

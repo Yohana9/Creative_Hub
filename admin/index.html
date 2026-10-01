@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="theme-color" content="#f5f4f9">
+<meta name="color-scheme" content="light dark">
+<title>Dashboard | Yohan Records</title>
+<link rel="icon" href="../favicon.ico" sizes="48x48"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<script>
+/* Apply the saved theme before first paint. LIGHT is the default; only an explicit saved "dark" choice changes it. */
+(function(){var t="light";try{if(localStorage.getItem("yr-admin-theme-v2")==="dark")t="dark";}catch(e){}
+document.documentElement.setAttribute("data-theme",t);})();
+</script>
+<style>
+/* Critical rules, inline so they still work if a cached stylesheet is older than this page. */
+[hidden]{ display:none !important; }
+html{ font-size:80%; }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="../styles/styles.css">
+<link rel="stylesheet" href="admin.css?v=4">
+</head>
+<body>
+
+<!-- ============ Login (full-screen layer, never mixes with the dashboard) ============ -->
+<div class="gate" id="gate">
+  <button class="theme-toggle gate-theme" id="themeToggleGate" type="button" aria-label="Switch light/dark theme" title="Switch theme">&#9790;</button>
+  <div class="gate-card">
+    <div class="gate-badge" id="gateBadge">
+      <i class="fas fa-lock"></i>
+      <img src="../assets/images/Logo/YR.png" alt="" onload="document.getElementById('gateBadge').classList.add('has-logo')" onerror="this.remove()">
+    </div>
+    <h1>Private Dashboard</h1>
+    <p class="gate-lead">Enter your admin key to see plays, likes, comments, messages and visitor analytics.</p>
+    <div class="key-field">
+      <input type="password" id="gateKey" name="yr-admin-key-field" placeholder="Admin key" autocomplete="new-password" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="Admin key">
+      <button type="button" class="key-eye" id="gateEye" aria-label="Show or hide key">Show</button>
+    </div>
+    <div class="err" id="gateErr" role="alert"></div>
+    <label class="check"><input type="checkbox" id="gateRemember"> <span>Remember on this device</span></label>
+    <button class="btn-prime btn-lg gate-go" id="gateGo" type="button">Unlock</button>
+    <p class="gate-foot"><i class="fas fa-shield-halved"></i> This page isn't linked on the public site.</p>
+  </div>
+</div>
+
+<!-- ============ Dashboard ============ -->
+<div id="dash" hidden>
+  <header class="adm-top">
+   <div class="adm-top-in">
+    <div class="adm-title">
+      <span class="adm-logo"><i class="fas fa-chart-line"></i></span>
+      <div>
+        <h1>Yohan Records Dashboard</h1>
+        <div class="sub">Private analytics &middot; <span id="updated">loading&hellip;</span></div>
+      </div>
+    </div>
+    <div class="adm-actions">
+      <select class="range-select" id="rangeSelect" aria-label="Date range">
+        <option value="7">Last 7 days</option>
+        <option value="30" selected>Last 30 days</option>
+        <option value="90">Last 90 days</option>
+      </select>
+      <button class="btn-mini" id="refreshBtn" type="button"><i class="fas fa-rotate"></i><span>Refresh</span></button>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch light/dark theme" title="Switch theme">&#9790;</button>
+      <button class="btn-ghost-sm" id="lockBtn" type="button" aria-label="Lock dashboard"><i class="fas fa-lock"></i><span>Lock</span></button>
+    </div>
+   </div>
+  </header>
+<main class="admin-shell">
+
+  <section class="kpis" id="kpis" aria-label="Totals"></section>
+
+  <div class="grid-2">
+    <section class="panel">
+      <h2><span><i class="fas fa-wave-square"></i> Activity</span> <small id="rangeLabel"></small></h2>
+      <div class="chart-wrap" id="chartWrap">
+        <svg class="chart-svg" id="chartSvg" role="img" aria-label="Activity chart"></svg>
+        <div class="chart-tip" id="chartTip" hidden></div>
+      </div>
+      <div class="chart-legend">
+        <span><i style="background:var(--accent-2);"></i> Plays</span>
+        <span><i style="background:var(--accent-3);"></i> Views</span>
+        <span><i style="background:var(--accent);"></i> Site visits</span>
+      </div>
+    </section>
+    <section class="panel">
+      <h2><span><i class="fas fa-users"></i> Audience</span></h2>
+      <p class="mini-h">Device</p>
+      <div class="bars" id="barsDevice"></div>
+      <p class="mini-h">Top countries</p>
+      <div class="bars" id="barsCountry"></div>
+    </section>
+  </div>
+
+  <div class="grid-2">
+    <section class="panel">
+      <h2><span><i class="fas fa-music"></i> Most played &amp; watched</span></h2>
+      <div class="tbl-scroll">
+        <table class="adm-table">
+          <thead><tr><th>Title</th><th>Kind</th><th>Plays / Views</th><th>Likes</th><th>Comments</th></tr></thead>
+          <tbody id="topBody"><tr class="empty-row"><td colspan="5">Loading&hellip;</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+    <section class="panel">
+      <h2><span><i class="fas fa-arrow-trend-up"></i> Traffic sources</span></h2>
+      <div class="bars" id="barsRef"></div>
+      <p class="mini-h">Browser</p>
+      <div class="bars" id="barsBrowser"></div>
+    </section>
+  </div>
+
+  <section class="panel block">
+    <h2><span><i class="fas fa-envelope"></i> Messages</span> <small id="msgCount"></small></h2>
+    <div class="search-mini">
+      <i class="fas fa-magnifying-glass"></i>
+      <input type="search" id="msgSearch" placeholder="Search by name, email, subject or country">
+      <button class="btn-mini" id="exportBtn" type="button"><i class="fas fa-download"></i><span>Export CSV</span></button>
+    </div>
+    <div class="tbl-scroll tall">
+      <table class="adm-table wide">
+        <thead><tr><th>From</th><th>Subject</th><th>Location</th><th>Message</th><th>Received</th><th></th></tr></thead>
+        <tbody id="msgBody"><tr class="empty-row"><td colspan="6">Loading&hellip;</td></tr></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="panel block">
+    <h2><span><i class="fas fa-star"></i> Testimonials</span> <small id="tstCount"></small></h2>
+    <div class="tbl-scroll tall">
+      <table class="adm-table wide">
+        <thead><tr><th>From</th><th>Rating</th><th>Testimonial</th><th>Status</th><th>Received</th><th></th></tr></thead>
+        <tbody id="tstBody"><tr class="empty-row"><td colspan="6">Loading&hellip;</td></tr></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="panel block">
+    <h2><span><i class="fas fa-comments"></i> Comments</span> <small id="cmtCount"></small></h2>
+    <div class="tbl-scroll tall">
+      <table class="adm-table wide">
+        <thead><tr><th>Item</th><th>Author</th><th>Comment</th><th>Status</th><th>Posted</th><th></th></tr></thead>
+        <tbody id="cmtBody"><tr class="empty-row"><td colspan="6">Loading&hellip;</td></tr></tbody>
+      </table>
+    </div>
+  </section>
+</main>
+</div>
+
+<script src="../scripts/config.js?v=4"></script>
+<script src="../scripts/api.js?v=4"></script>
+<script src="app.js?v=4" defer></script>
+</body>
+</html>

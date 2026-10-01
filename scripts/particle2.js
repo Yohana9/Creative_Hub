@@ -1,5 +1,8 @@
+(function(){
+  if (typeof particlesJS !== "function") return;
+  var el=document.getElementById("particle2"); if(!el) return;
+  if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-// Particle effect for section with ID "particle2"
 particlesJS("particle2", {
   "particles": {
       "number": {
@@ -82,8 +85,4 @@ particlesJS("particle2", {
   },
   "retina_detect": true
 });
-
-
-
-
-
+})();
