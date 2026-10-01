@@ -2,348 +2,1840 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="description" content="Yohan Records: the official music, film and artwork hub of Yohannes R.">
-<meta name="theme-color" content="#07070c">
-<title>Yohan Records | Home</title>
-<link rel="icon" href="favicon.ico" sizes="48x48"><link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"><link rel="manifest" href="site.webmanifest">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="description" content="Yohannes Reta Hiwetu – Senior Project Management Officer & ICT professional. 6+ years in IT systems, infrastructure, digital banking projects, VMware and custom web solutions.">
+<meta name="keywords" content="ICT Technical Analyst, Project Management, VMware ESXi, Network Administration, Transform web-based Solution">
+<meta name="theme-color" content="#f6f7fb">
+<meta name="color-scheme" content="light dark">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Yohannes Reta | Senior ICT & Project Management Professional">
+<meta property="og:description" content="Senior ICT Technical Analyst & Project Management Officer – VMware, networking & Manual Work to Tech solutions.">
+<meta property="og:url" content="https://yohana9.github.io/yohanR.digital/">
+<meta property="og:image" content="https://yohana9.github.io/yohanR.digital/assets/images/Profile_hero.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://yohana9.github.io/yohanR.digital/assets/images/Profile_hero.png">
+
+<title>Yohannes Reta | Senior ICT & Project Management Professional</title>
+
+<!-- Favicon set — covers browser tabs (incl. the URL/address-bar icon), bookmarks, iOS home screen, and Android/PWA icons -->
+<link rel="icon" href="assets/images/favicon/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/images/favicon/android-chrome-192x192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="assets/images/favicon/android-chrome-512x512.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/images/favicon/apple-touch-icon.png">
+<link rel="manifest" href="assets/images/favicon/site.webmanifest">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link rel="stylesheet" href="styles/styles.css">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic:wght@400;600;800&display=swap"><link rel="canonical" href="https://chub.yeneflow.com/index.html"><meta property="og:type" content="website"><meta property="og:site_name" content="Yohan Records"><meta property="og:title" content="Yohan Records | Home"><meta property="og:image" content="https://chub.yeneflow.com/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://chub.yeneflow.com/og-image.png"></head>
-<body class="dark-theme"><script>try{if(localStorage.getItem("yr-theme")==="light"){document.body.className="light-theme"}}catch(e){}</script>
-<div id="stars-container"></div>
-<a href="#main" class="skip-link">Skip to content</a>
-<header class="header">
-  <div class="header-inner">
-    <div class="header-brand">
-      <button class="menu-icon" id="menuToggle" aria-label="Open menu" aria-expanded="false"><i class="fas fa-bars"></i></button>
-      <img src="assets/images/Logo/YR.png" alt="Yohan Records logo" class="logo">
-      <span class="website-name">Yohan Records</span>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+<style>
+/* ============================================================
+   TOKENS
+   ============================================================ */
+:root{
+  --primary:#2563eb; --primary-dark:#1d4ed8; --secondary:#06b6d4; --accent:#8b5cf6;
+  --neon:#22d3ee; --success:#10b981; --error:#ef4444; --warning:#f59e0b;
+
+  --font-display:'Clash Display','Space Grotesk',sans-serif;
+  --font-body:'General Sans','Inter',sans-serif;
+  --font-mono:'JetBrains Mono','SFMono-Regular',Menlo,monospace;
+
+  --bg-base:#f6f7fb; --bg-elevated:#ffffff; --bg-muted:#eef1f7;
+  --text-primary:#0b1220; --text-secondary:#475569; --text-muted:#64748b;
+  --border-color:#e2e8f0;
+  --glass-bg:rgba(255,255,255,.72); --glass-border:rgba(255,255,255,.4);
+
+  --shadow-sm:0 4px 12px rgba(15,23,42,.06);
+  --shadow-md:0 8px 24px rgba(15,23,42,.1);
+  --shadow-lg:0 20px 48px rgba(15,23,42,.14);
+  --shadow-glow:0 0 0 rgba(0,0,0,0);
+
+  --navbar-h:78px;
+  --container-max:1320px;
+  --radius:20px; --radius-sm:12px; --radius-lg:28px;
+  --transition:.3s cubic-bezier(.4,0,.2,1);
+
+  --gradient-1:radial-gradient(1200px circle at 10% 15%,rgba(37,99,235,.14),transparent 60%);
+  --gradient-2:radial-gradient(1000px circle at 90% 25%,rgba(6,182,212,.14),transparent 60%);
+  --gradient-3:radial-gradient(1100px circle at 25% 90%,rgba(139,92,246,.11),transparent 65%);
+  --grid-line:rgba(15,23,42,.05);
+}
+
+[data-theme="dark"]{
+  --bg-base:#05070f; --bg-elevated:#0d1424; --bg-muted:#101a2e;
+  --text-primary:#f1f5f9; --text-secondary:#a8b3c7; --text-muted:#7b8aa3;
+  --border-color:#1c2740;
+  --glass-bg:rgba(13,20,36,.66); --glass-border:rgba(148,197,255,.12);
+
+  --shadow-sm:0 4px 16px rgba(0,0,0,.45);
+  --shadow-md:0 10px 30px rgba(0,0,0,.55);
+  --shadow-lg:0 24px 60px rgba(0,0,0,.65);
+  --shadow-glow:0 0 26px rgba(34,211,238,.18);
+
+  --gradient-1:radial-gradient(1200px circle at 10% 10%,rgba(37,99,235,.32),transparent 60%);
+  --gradient-2:radial-gradient(1000px circle at 92% 20%,rgba(34,211,238,.22),transparent 60%);
+  --gradient-3:radial-gradient(1200px circle at 25% 95%,rgba(139,92,246,.24),transparent 65%);
+  --grid-line:rgba(148,197,255,.06);
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;font-size:16px;scroll-padding-top:var(--navbar-h);width:100%;max-width:100%;overflow-x:hidden;}
+body{
+  font-family:var(--font-body);background:var(--bg-base);color:var(--text-primary);
+  line-height:1.65;min-height:100vh;min-height:100dvh;width:100%;max-width:100%;
+  overflow-x:hidden;position:relative;
+  transition:background var(--transition),color var(--transition);
+}
+/* Safety net: nothing is ever allowed to force horizontal scroll, on any device */
+img,svg,video,canvas,iframe,table,pre,code{max-width:100%;}
+img,svg,video{height:auto;}
+pre,code{overflow-x:auto;}
+body::before{
+  content:'';position:fixed;inset:0;z-index:-2;
+  background:var(--gradient-1),var(--gradient-2),var(--gradient-3);
+  background-blend-mode:screen;filter:blur(60px);opacity:.95;
+  animation:auroraDrift 24s ease-in-out infinite alternate;
+}
+body::after{
+  content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background-image:linear-gradient(var(--grid-line) 1px,transparent 1px),
+                    linear-gradient(90deg,var(--grid-line) 1px,transparent 1px);
+  background-size:64px 64px;
+  mask-image:radial-gradient(ellipse 80% 55% at 50% 0%,#000 40%,transparent 90%);
+  -webkit-mask-image:radial-gradient(ellipse 80% 55% at 50% 0%,#000 40%,transparent 90%);
+  opacity:.6;
+}
+@keyframes auroraDrift{0%{background-position:0% 0%,0% 0%,0% 0%;}100%{background-position:3% -2%,-2% 3%,2% 2%;}}
+img{max-width:100%;height:auto;display:block;}
+a{text-decoration:none;color:inherit;}
+ul,ol{list-style:none;}
+button,input,textarea{font-family:inherit;border:none;outline:none;background:none;color:inherit;}
+::selection{background:var(--secondary);color:#04121c;}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto !important;}
+}
+
+/* ============================================================
+   LAYOUT PRIMITIVES
+   ============================================================ */
+.container{width:100%;max-width:var(--container-max);margin:0 auto;padding:0 2rem;}
+.section{padding:7rem 0;}
+main{display:block;}
+@media (max-width:768px){.section{padding:4.5rem 0;} .container{padding:0 1.25rem;}}
+
+.section-header{text-align:center;margin-bottom:3.5rem;max-width:640px;margin-inline:auto;}
+.section-eyebrow{
+  display:inline-flex;align-items:center;gap:.55rem;font-family:var(--font-mono);
+  font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--secondary);
+  margin-bottom:.9rem;
+}
+.section-eyebrow::before{content:'';width:8px;height:8px;border-radius:2px;background:var(--secondary);box-shadow:0 0 10px var(--secondary);animation:pulse 2s infinite;}
+.section-title{
+  font-family:var(--font-display);font-size:clamp(2rem,4.4vw,2.65rem);font-weight:700;
+  background:linear-gradient(115deg,var(--primary) 10%,var(--secondary) 50%,var(--accent) 90%);
+  background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin-bottom:.6rem;animation:gradientShift 8s ease infinite;
+}
+@keyframes gradientShift{0%,100%{background-position:0% center;}50%{background-position:100% center;}}
+.section-subtitle{color:var(--text-secondary);font-size:1.08rem;}
+.section-divider{width:56px;height:4px;margin:1.35rem auto 0;border-radius:2px;background:linear-gradient(135deg,var(--primary),var(--secondary));position:relative;}
+.section-divider::after{content:'';position:absolute;inset:0;background:inherit;filter:blur(8px);opacity:.7;border-radius:2px;}
+
+.glass{
+  background:var(--glass-bg);backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);
+  border:1px solid var(--glass-border);border-radius:var(--radius);box-shadow:var(--shadow-sm);
+  transition:box-shadow var(--transition),transform var(--transition),border-color var(--transition);
+}
+[data-theme="dark"] .glass:hover{border-color:rgba(34,211,238,.32);box-shadow:var(--shadow-lg),var(--shadow-glow);}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.6rem;
+  padding:.85rem 1.85rem;border-radius:40px;font-weight:600;font-size:.98rem;
+  cursor:pointer;transition:all var(--transition);white-space:nowrap;
+}
+.btn-primary{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;position:relative;overflow:hidden;}
+.btn-primary::before{content:'';position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg);transition:left .6s ease;}
+.btn-primary:hover::before{left:130%;}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg),0 0 24px rgba(34,211,238,.35);}
+.btn-outline{border:2px solid var(--primary);color:var(--text-primary);}
+.btn-outline:hover{background:var(--primary);color:#fff;border-color:var(--primary);}
+.btn-sm{padding:.55rem 1.2rem;font-size:.85rem;}
+.btn:focus-visible,a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--secondary);outline-offset:3px;}
+
+/* ============================================================
+   GLOBAL OVERLAYS: preloader / progress bar / cursor glow
+   ============================================================ */
+.preloader{position:fixed;inset:0;z-index:5000;display:flex;align-items:center;justify-content:center;background:var(--bg-base);transition:opacity .5s ease,visibility .5s ease;}
+.preloader.loaded{opacity:0;visibility:hidden;pointer-events:none;}
+.preloader-inner{text-align:center;font-family:var(--font-mono);}
+.preloader-mark{width:56px;height:56px;margin:0 auto 1rem;border-radius:14px;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:700;color:#fff;font-size:1.1rem;animation:pulse 1.4s ease-in-out infinite;}
+.preloader-text{font-size:.78rem;letter-spacing:.12em;color:var(--text-secondary);text-transform:uppercase;}
+.preloader-bar{width:160px;height:2px;margin:.9rem auto 0;background:var(--border-color);overflow:hidden;border-radius:2px;}
+.preloader-bar span{display:block;height:100%;width:40%;background:linear-gradient(90deg,var(--primary),var(--secondary));animation:loaderSweep 1.1s ease-in-out infinite;}
+@keyframes loaderSweep{0%{transform:translateX(-100%);}100%{transform:translateX(350%);}}
+
+.scroll-progress{position:fixed;top:0;left:0;height:3px;width:0%;background:linear-gradient(90deg,var(--primary),var(--secondary),var(--accent));z-index:2200;box-shadow:0 0 12px rgba(34,211,238,.6);}
+
+.cursor-glow{position:fixed;top:0;left:0;width:420px;height:420px;border-radius:50%;pointer-events:none;z-index:0;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(34,211,238,.10),transparent 70%);opacity:0;transition:opacity .3s ease;will-change:transform;}
+@media (max-width:900px){.cursor-glow{display:none;}}
+
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.8;transform:scale(1.06);}}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+
+/* ============================================================
+   NAVBAR  (replaces the old fixed sidebar entirely)
+   ============================================================ */
+.navbar{
+  position:fixed;top:0;left:0;right:0;z-index:1000;height:var(--navbar-h);
+  display:flex;align-items:center;
+  background:transparent;border-bottom:1px solid transparent;
+  transition:background var(--transition),border-color var(--transition),box-shadow var(--transition);
+}
+.navbar.scrolled{
+  background:var(--glass-bg);backdrop-filter:blur(18px) saturate(160%);-webkit-backdrop-filter:blur(18px) saturate(160%);
+  border-bottom:1px solid var(--glass-border);box-shadow:var(--shadow-sm);
+}
+.navbar-inner{width:100%;max-width:var(--container-max);margin:0 auto;padding:0 2rem;height:100%;display:flex;align-items:center;justify-content:space-between;gap:2rem;}
+
+.brand{display:flex;align-items:center;gap:.8rem;}
+.brand-mark{
+  width:44px;height:44px;border-radius:13px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--font-display);font-weight:700;
+  /* box-shadow:0 6px 18px rgba(37,99,235,.35); */
+  overflow:hidden;padding:4px;
+}
+.brand-mark img{width:100%;height:100%;object-fit:contain;display:block;}
+.brand-text{display:flex;flex-direction:column;line-height:1.25;}
+.brand-name{font-family:var(--font-display);font-weight:700;font-size:1.04rem;color:var(--text-primary);letter-spacing:-.01em;}
+.brand-role{font-family:var(--font-mono);font-size:.65rem;letter-spacing:.06em;color:var(--text-muted);text-transform:uppercase;}
+
+.nav-links{display:flex;align-items:center;gap:.35rem;}
+.nav-link{
+  position:relative;padding:.6rem 1.1rem;border-radius:30px;font-size:.91rem;font-weight:500;
+  color:var(--text-secondary);transition:var(--transition);letter-spacing:.01em;
+}
+.nav-link:hover{color:var(--text-primary);background:var(--bg-muted);}
+.nav-link.active{color:var(--text-primary);}
+.nav-link.active::after{content:'';position:absolute;left:1.1rem;right:1.1rem;bottom:.2rem;height:2px;border-radius:2px;background:linear-gradient(90deg,var(--primary),var(--secondary));box-shadow:0 0 8px var(--secondary);}
+
+.nav-actions{display:flex;align-items:center;gap:.65rem;}
+.icon-btn{
+  width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:var(--bg-muted);color:var(--text-primary);font-size:1.15rem;transition:var(--transition);
+  border:1px solid var(--border-color);
+}
+.icon-btn:hover{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;border-color:transparent;transform:translateY(-2px);}
+
+.nav-toggle{display:none;width:42px;height:42px;border-radius:50%;align-items:center;justify-content:center;background:var(--bg-muted);border:1px solid var(--border-color);font-size:1.3rem;color:var(--text-primary);position:relative;z-index:1201;}
+.nav-toggle i:last-child{display:none;}
+.nav-toggle.active i:first-child{display:none;}
+.nav-toggle.active i:last-child{display:block;}
+
+.dropdown{position:relative;}
+.dropdown-toggle{display:flex;align-items:center;gap:.35rem;}
+.dropdown-menu{
+  position:absolute;top:calc(100% + 10px);left:0;min-width:230px;
+  background:var(--glass-bg);backdrop-filter:blur(18px);border:1px solid var(--glass-border);
+  border-radius:16px;box-shadow:var(--shadow-md);padding:.5rem;display:none;flex-direction:column;z-index:100;
+}
+.dropdown.active .dropdown-menu{display:flex;}
+.dropdown-item{display:flex;align-items:center;gap:.6rem;padding:.65rem 1rem;border-radius:12px;font-size:.9rem;color:var(--text-primary);transition:.2s;}
+.dropdown-item:hover{background:var(--primary);color:#fff;}
+
+/* Mobile full-screen menu */
+@media (max-width:1080px){
+  .nav-links{
+    position:fixed;inset:0;top:0;flex-direction:column;justify-content:center;align-items:center;gap:.5rem;
+    background:var(--bg-elevated);backdrop-filter:blur(20px);
+    transform:translateY(-100%);opacity:0;visibility:hidden;
+    transition:transform .4s cubic-bezier(.4,0,.2,1),opacity .3s ease,visibility .4s;
+    z-index:1200;
+  }
+  .nav-links.active{transform:translateY(0);opacity:1;visibility:visible;}
+  .nav-link{font-size:1.3rem;padding:.85rem 1.5rem;}
+  .nav-toggle{display:flex;}
+  .nav-actions .btn-outline.hide-mobile{display:none;}
+  .dropdown-menu{position:static;margin-top:.5rem;background:transparent;border:none;box-shadow:none;backdrop-filter:none;align-items:center;}
+  .dropdown.active .dropdown-menu{display:flex;}
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{
+  min-height:100vh;min-height:100dvh;box-sizing:border-box;display:flex;align-items:center;justify-content:center;
+  padding-top:var(--navbar-h);padding-bottom:2.5rem;position:relative;
+}
+.hero-grid{
+  width:100%;display:grid;grid-template-columns:1.15fr .85fr;align-items:start;gap:3rem;
+}
+.hero-content{max-width:640px;}
+.status-chip{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--font-mono);font-size:.72rem;letter-spacing:.08em;color:var(--success);text-transform:uppercase;margin-bottom:1rem;}
+.status-chip .dot{width:7px;height:7px;border-radius:50%;background:var(--success);box-shadow:0 0 8px var(--success);animation:pulse 2s infinite;}
+
+.hero-badge{
+  display:inline-flex;align-items:center;gap:.5rem;background:var(--glass-bg);backdrop-filter:blur(10px);
+  border:1px solid var(--glass-border);color:var(--secondary);padding:.45rem 1.2rem;border-radius:30px;
+  font-size:.82rem;font-family:var(--font-mono);letter-spacing:.03em;font-weight:500;margin-bottom:1rem;box-shadow:var(--shadow-sm);
+}
+.hero-badge i{animation:pulse 2.4s ease-in-out infinite;}
+
+.role-ticker{height:1.5em;overflow:hidden;position:relative;font-family:var(--font-mono);font-size:.9rem;color:var(--text-muted);margin-bottom:1.35rem;}
+.role-ticker span{position:absolute;left:0;top:0;opacity:0;transform:translateY(10px);animation:roleCycle 9s infinite;white-space:nowrap;}
+.role-ticker span::before{content:'▸ ';color:var(--secondary);}
+.role-ticker span:nth-child(1){animation-delay:0s;}
+.role-ticker span:nth-child(2){animation-delay:3s;}
+.role-ticker span:nth-child(3){animation-delay:6s;}
+@keyframes roleCycle{0%,3%{opacity:0;transform:translateY(10px);}10%,28%{opacity:1;transform:translateY(0);}35%,100%{opacity:0;transform:translateY(-10px);}}
+
+.hero-title{font-family:var(--font-display);font-size:clamp(2.1rem,3vw,3rem);font-weight:500;line-height:1.22;letter-spacing:-.01em;margin-bottom:1.35rem;}
+.hero-title .text-gradient{font-weight:700;}
+.hero-title-and{
+  font-style:italic;font-weight:600;
+  background:linear-gradient(90deg,var(--primary) 0%,var(--accent) 25%,var(--secondary) 50%,var(--accent) 75%,var(--primary) 100%);
+  background-size:250% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:heroAndShine 4s linear infinite;
+}
+@keyframes heroAndShine{
+  0%{background-position:0% center;}
+  100%{background-position:250% center;}
+}
+.hero-title em{font-style:italic;font-weight:500;opacity:.92;}
+.text-gradient{background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+[data-theme="dark"] .text-gradient{filter:drop-shadow(0 0 20px rgba(34,211,238,.22));}
+.hero-subtitle{font-size:1.1rem;color:var(--text-secondary);margin-bottom:1.9rem;max-width:570px;line-height:1.75;}
+.hero-actions{display:flex;flex-wrap:wrap;gap:.75rem;align-items:center;}
+.hero-actions .btn i{transition:transform var(--transition);}
+.hero-actions .btn:hover i{transform:translateX(3px);}
+
+.hero-metrics{display:grid;grid-template-columns:repeat(4,auto);gap:0 1.5rem;margin-top:2.4rem;padding-top:1.6rem;border-top:1px solid var(--border-color);max-width:520px;}
+.hero-metric .metric-value{font-family:var(--font-mono);font-size:clamp(1.25rem,2.4vw,1.55rem);font-weight:600;background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.2;}
+.hero-metric .metric-label{font-family:var(--font-mono);font-size:.65rem;letter-spacing:.05em;color:var(--text-muted);text-transform:uppercase;margin-top:.25rem;line-height:1.3;}
+
+/* ============================================================
+   HERO VISUAL — graceful, uncluttered professional photo
+   ============================================================ */
+.hero-visual{
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-start;
+  gap:1.25rem;position:relative;padding-top:1.1rem;
+}
+
+.visual-glow{
+  position:absolute;top:2%;left:50%;transform:translateX(-50%);
+  width:440px;height:440px;border-radius:50%;z-index:0;
+  background:radial-gradient(circle,rgba(37,99,235,.32),rgba(34,211,238,.18) 45%,transparent 72%);
+  filter:blur(60px);animation:pulse 5s ease-in-out infinite;
+}
+
+/* Organic blob shape — now a soft halo peeking out from behind the photo,
+   since the photo itself is clipped into the same blob curve below */
+.visual-blob{
+  position:absolute;top:0;left:50%;transform:translateX(-50%);z-index:1;
+  width:428px;height:428px;
+  background:linear-gradient(150deg,var(--primary),var(--secondary));
+  opacity:.28;filter:blur(6px);
+  border-radius:42% 58% 65% 35% / 45% 40% 60% 55%;
+  animation:blobMorph 12s ease-in-out infinite;
+}
+@keyframes blobMorph{
+  0%,100%{border-radius:42% 58% 65% 35% / 45% 40% 60% 55%;}
+  50%{border-radius:58% 42% 35% 65% / 55% 60% 40% 45%;}
+}
+
+/* Photo now lives INSIDE the balloon: the container is clipped to the same
+   morphing organic curve, so the picture itself takes the blob shape rather
+   than floating as a rectangle on top of it. */
+.profile-photo{
+  position:relative;z-index:2;width:min(380px,86%);aspect-ratio:1;
+  border-radius:42% 58% 65% 35% / 45% 40% 60% 55%;
+  overflow:hidden;
+  border:3px solid rgba(255,255,255,.14);
+  box-shadow:0 30px 60px rgba(0,0,0,.4), inset 0 0 0 1px rgba(255,255,255,.06);
+  animation:float 10s ease-in-out infinite, blobMorph 12s ease-in-out infinite;
+}
+.photo-slide{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;
+  display:block;
+  opacity:0;transition:opacity 1.6s ease;pointer-events:none;
+}
+.photo-slide.active{opacity:1;}
+
+/* Centered footer beneath the photo: availability tag + social links */
+.visual-footer{position:relative;z-index:3;display:flex;flex-direction:column;align-items:center;gap:1.1rem;}
+
+.photo-tag{
+  display:inline-flex;align-items:center;gap:.55rem;
+  background:var(--glass-bg);backdrop-filter:blur(12px) saturate(140%);-webkit-backdrop-filter:blur(12px) saturate(140%);
+  border:1px solid var(--glass-border);border-radius:40px;padding:.65rem 1.4rem;
+  box-shadow:var(--shadow-md);font-family:var(--font-mono);font-size:.8rem;font-weight:500;letter-spacing:.02em;
+}
+.photo-tag .dot{width:8px;height:8px;border-radius:50%;background:var(--success);box-shadow:0 0 8px var(--success);animation:pulse 2s infinite;flex-shrink:0;}
+
+.visual-socials{display:flex;align-items:center;gap:.65rem;}
+
+/* Orbiting badge icons around the composition */
+.orbit-icon{
+  position:absolute;width:54px;height:54px;border-radius:16px;z-index:3;
+  background:var(--glass-bg);backdrop-filter:blur(10px);border:1px solid var(--glass-border);
+  display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:var(--secondary);
+  box-shadow:var(--shadow-sm);animation:float 5s ease-in-out infinite;
+}
+.orbit-icon.o1{top:8%;left:2%;animation-delay:.2s;}
+.orbit-icon.o2{top:14%;right:4%;animation-delay:1s;color:var(--accent);}
+.orbit-icon.o3{top:46%;right:0;animation-delay:1.8s;color:var(--primary);}
+.orbit-icon.o4{top:46%;left:0;animation-delay:2.4s;}
+.glow-ring{position:absolute;top:0;left:50%;transform:translateX(-50%);width:380px;height:380px;border-radius:50%;border:1px dashed var(--border-color);opacity:.5;animation:spin 40s linear infinite;z-index:1;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+@media (max-width:560px){.orbit-icon{display:none;} .glow-ring{display:none;}}
+
+
+
+
+@media (max-width:992px){
+  .hero{min-height:auto;align-items:flex-start;padding-top:calc(var(--navbar-h) + 2rem);}
+  .hero-grid{grid-template-columns:1fr;text-align:left;}
+  .hero-visual{margin-top:1rem;margin-bottom:1rem;order:-1;}
+}
+@media (max-width:560px){
+  .hero-metrics{grid-template-columns:1fr 1fr;row-gap:1rem;}
+  .profile-photo{width:min(280px,76%);}
+  .visual-glow{width:320px;height:320px;}
+  .visual-blob{width:280px;height:280px;}
+}
+
+/* ============================================================
+   ABOUT — three equal cards in one row on medium+ screens
+   ============================================================ */
+.about-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.75rem;align-items:stretch;}
+@media (max-width:900px){
+  .about-grid{grid-template-columns:1fr;}
+}
+.accent-top{position:relative;}
+.accent-top::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:var(--radius) var(--radius) 0 0;background:linear-gradient(90deg,var(--primary),var(--secondary),var(--accent));opacity:.85;}
+
+.about-card{padding:2.25rem;height:100%;display:flex;flex-direction:column;}
+.about-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-lg);}
+.about-card-header{display:flex;align-items:center;gap:1rem;margin-bottom:1.3rem;}
+.about-icon{width:58px;height:58px;flex-shrink:0;border-radius:16px;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.5rem;transition:var(--transition);}
+.about-card:hover .about-icon{transform:scale(1.08) rotate(-4deg);}
+.about-card h3{font-family:var(--font-display);font-size:1.4rem;font-weight:600;}
+.about-card p{color:var(--text-secondary);margin-bottom:1.25rem;line-height:1.75;}
+.about-highlights{display:flex;flex-direction:column;gap:.75rem;margin-top:auto;}
+.highlight-item{display:flex;align-items:center;gap:.75rem;}
+.highlight-item i{color:var(--success);font-size:1.2rem;flex-shrink:0;}
+.focus-areas{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:auto;}
+.focus-tag{background:var(--bg-muted);color:var(--text-secondary);padding:.4rem .9rem;border-radius:40px;font-size:.83rem;font-weight:500;font-family:var(--font-mono);transition:var(--transition);border:1px solid var(--border-color);}
+.focus-tag:hover{background:var(--primary);color:#fff;border-color:transparent;}
+.achievement-list{display:flex;flex-direction:column;gap:1rem;}
+.achievement-list li{display:flex;align-items:flex-start;gap:.85rem;}
+.achievement-list i{color:var(--success);font-size:1.2rem;flex-shrink:0;margin-top:.1rem;}
+
+/* ============================================================
+   EXPERIENCE — alternating grid timeline (robust, no floats)
+   ============================================================ */
+.timeline{position:relative;max-width:960px;margin:0 auto;}
+.timeline-track{position:relative;}
+.timeline-track::before{content:'';position:absolute;left:29px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--primary),var(--secondary));}
+
+.timeline-item{position:relative;display:grid;grid-template-columns:60px 1fr;gap:0 1.5rem;margin-bottom:2.5rem;}
+.timeline-item:last-child{margin-bottom:0;}
+.timeline-marker{
+  grid-column:1;width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));
+  display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.15rem;
+  border:4px solid var(--bg-base);box-shadow:0 0 0 3px rgba(34,211,238,.15);position:relative;z-index:1;
+}
+.timeline-item.current .timeline-marker{animation:pulse 2s infinite;}
+.timeline-content{grid-column:2;padding:1.75rem;}
+.timeline-content:hover{transform:translateX(8px);box-shadow:var(--shadow-md);}
+.timeline-header{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:.75rem;margin-bottom:.85rem;}
+.timeline-header h3{font-family:var(--font-display);font-size:1.18rem;font-weight:600;}
+.timeline-date{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;padding:.35rem .85rem;border-radius:50px;font-size:.75rem;font-family:var(--font-mono);white-space:nowrap;}
+.timeline-company{display:flex;align-items:center;gap:.7rem;color:var(--text-secondary);margin-bottom:1.1rem;font-size:.92rem;}
+.timeline-company i{color:var(--primary);}
+.timeline-description{color:var(--text-secondary);margin-bottom:1.15rem;line-height:1.7;}
+.timeline-highlights{list-style:disc;padding-left:1.35rem;color:var(--text-secondary);font-size:.9rem;}
+.timeline-highlights li{margin-bottom:.35rem;line-height:1.6;}
+
+/* Desktop alternation: even items mirror to the right of a centered spine */
+@media (min-width:993px){
+  .timeline-track::before{left:50%;transform:translateX(-1px);}
+  .timeline-item{grid-template-columns:1fr 60px 1fr;gap:0 2rem;}
+  .timeline-item .timeline-marker{grid-column:2;}
+  .timeline-item .timeline-content{grid-column:3;}
+  .timeline-item:nth-child(even) .timeline-content{grid-column:1;grid-row:1;text-align:right;}
+  .timeline-item:nth-child(even) .timeline-header{flex-direction:row-reverse;}
+  .timeline-item:nth-child(even) .timeline-company{flex-direction:row-reverse;}
+  .timeline-item:nth-child(even) .timeline-highlights{padding-left:0;padding-right:1.35rem;list-style-position:inside;}
+  .timeline-item:nth-child(even) .timeline-content:hover{transform:translateX(-8px);}
+}
+
+/* ============================================================
+   PROJECTS
+   ============================================================ */
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:2rem;}
+.project-card{overflow:hidden;display:flex;flex-direction:column;height:100%;position:relative;}
+.project-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-lg);}
+.project-index{
+  position:absolute;top:1rem;left:1rem;z-index:2;width:34px;height:34px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:.72rem;
+  background:rgba(5,7,15,.55);color:#fff;backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.25);
+}
+.project-badge{
+  position:absolute;top:1rem;right:1rem;z-index:2;font-family:var(--font-mono);font-size:.65rem;letter-spacing:.06em;
+  text-transform:uppercase;background:linear-gradient(135deg,var(--accent),var(--primary));color:#fff;
+  padding:.35rem .7rem;border-radius:8px;box-shadow:var(--shadow-sm);
+}
+.project-image{position:relative;height:200px;overflow:hidden;flex-shrink:0;}
+.project-image img{width:100%;height:100%;object-fit:cover;transition:var(--transition);}
+.project-card:hover .project-image img{transform:scale(1.06);}
+.project-overlay{position:absolute;inset:0;background:rgba(5,7,15,.72);display:flex;align-items:center;justify-content:center;opacity:0;transition:var(--transition);}
+.project-card:hover .project-overlay{opacity:1;}
+.project-tags{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;padding:0 1rem;}
+.project-tag{background:var(--primary);color:#fff;padding:.3rem .8rem;border-radius:50px;font-size:.78rem;font-weight:500;}
+.project-content{padding:1.75rem;flex-grow:1;display:flex;flex-direction:column;}
+.project-title{font-family:var(--font-display);font-size:1.25rem;font-weight:600;margin-bottom:.7rem;}
+.project-description{color:var(--text-secondary);margin-bottom:1.2rem;line-height:1.65;flex-grow:1;}
+.project-tech{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.4rem;}
+.project-tech span{background:var(--bg-muted);color:var(--text-secondary);padding:.35rem .85rem;border-radius:50px;font-size:.76rem;font-family:var(--font-mono);border:1px solid var(--border-color);}
+.project-link{display:inline-flex;align-items:center;gap:.5rem;color:var(--secondary);font-weight:600;transition:var(--transition);margin-top:auto;font-size:.95rem;}
+.project-link:hover{gap:.75rem;}
+
+/* ============================================================
+   SKILLS
+   ============================================================ */
+.skills-container{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:2rem;}
+.skills-category{padding:2.15rem;transition:var(--transition);}
+.skills-category:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg);}
+.category-header{display:flex;align-items:center;gap:1rem;margin-bottom:1.7rem;}
+.category-icon{width:52px;height:52px;border-radius:14px;flex-shrink:0;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.4rem;transition:var(--transition);}
+.skills-category:hover .category-icon{transform:scale(1.08) rotate(-4deg);}
+.category-header h3{font-family:var(--font-display);font-size:1.2rem;font-weight:600;}
+.skills-list{display:flex;flex-direction:column;gap:1.3rem;}
+.skill-info{display:flex;justify-content:space-between;margin-bottom:.5rem;font-size:.92rem;}
+.skill-info span:first-child{font-weight:500;}
+.skill-info span:last-child{color:var(--secondary);font-weight:600;font-family:var(--font-mono);}
+.skill-bar{width:100%;height:8px;background:var(--bg-muted);border-radius:5px;overflow:hidden;}
+.skill-progress{height:100%;background:linear-gradient(90deg,var(--primary),var(--secondary));border-radius:5px;width:0;transition:width 1.2s ease;}
+.skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;}
+.skill-badge{background:var(--bg-muted);border:1px solid var(--border-color);padding:1.1rem;border-radius:var(--radius-sm);display:flex;flex-direction:column;align-items:center;gap:.5rem;text-align:center;transition:var(--transition);font-size:.88rem;}
+.skill-badge:hover{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;border-color:transparent;transform:translateY(-3px);}
+.skill-badge i{font-size:1.5rem;}
+
+/* ============================================================
+   CERTIFICATES
+   ============================================================ */
+.certificates-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:1.6rem;}
+.certificate-card{overflow:hidden;display:flex;flex-direction:column;height:100%;}
+.certificate-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-lg);}
+.certificate-image{position:relative;height:180px;overflow:hidden;flex-shrink:0;}
+.certificate-image img{width:100%;height:100%;object-fit:cover;}
+.certificate-overlay{position:absolute;inset:0;background:rgba(5,7,15,.68);display:flex;align-items:center;justify-content:center;opacity:0;transition:var(--transition);}
+.certificate-card:hover .certificate-overlay{opacity:1;}
+.certificate-view{width:44px;height:44px;border-radius:50%;background:#fff;color:var(--text-primary);display:flex;align-items:center;justify-content:center;font-size:1.25rem;cursor:pointer;transition:var(--transition);}
+.certificate-view:hover{background:var(--primary);color:#fff;}
+.certificate-content{padding:1.5rem;flex-grow:1;display:flex;flex-direction:column;}
+.certificate-content h3{font-family:var(--font-display);font-size:1.12rem;font-weight:600;margin-bottom:.45rem;}
+.certificate-content p{color:var(--text-secondary);margin-bottom:1rem;line-height:1.5;flex-grow:1;font-size:.92rem;}
+.certificate-tag{display:inline-block;background:var(--bg-muted);color:var(--text-secondary);padding:.3rem .8rem;border-radius:50px;font-size:.76rem;font-family:var(--font-mono);margin-bottom:1rem;width:fit-content;}
+.certificate-verify{display:flex;align-items:center;gap:.5rem;padding:.6rem 1.2rem;background:linear-gradient(135deg,var(--success),#059669);color:#fff;border-radius:30px;font-weight:600;font-size:.82rem;transition:var(--transition);justify-content:center;margin-top:auto;}
+.certificate-verify:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);}
+
+/* ============================================================
+   CONTACT
+   ============================================================ */
+.contact-layout{display:grid;grid-template-columns:minmax(min(280px,100%),380px) 1fr;gap:2.5rem;align-items:start;}
+.contact-rail{display:flex;flex-direction:column;gap:1rem;position:sticky;top:calc(var(--navbar-h) + 1.5rem);}
+.contact-row{display:flex;align-items:center;gap:1rem;padding:1.1rem 1.25rem;transition:var(--transition);}
+.contact-row:hover{transform:translateX(6px);}
+.contact-icon{width:46px;height:46px;flex-shrink:0;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:14px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.2rem;}
+.contact-row-text{display:flex;flex-direction:column;gap:.15rem;flex:1;min-width:0;}
+.contact-row-label{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);}
+.contact-row-value{font-size:.94rem;font-weight:600;overflow-wrap:anywhere;}
+.contact-row-arrow{color:var(--secondary);font-size:1.2rem;flex-shrink:0;transition:transform var(--transition);}
+.contact-row:hover .contact-row-arrow{transform:translateX(4px);}
+.availability-panel{padding:1.5rem;margin-top:.5rem;}
+.availability-panel p{color:var(--text-secondary);font-size:.85rem;margin:.6rem 0 .15rem;}
+.availability-panel .metric-value{font-family:var(--font-mono);font-size:1.5rem;font-weight:600;background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.social-links{display:flex;gap:.6rem;}
+.social-link{position:relative;width:40px;height:40px;border-radius:50%;background:var(--bg-muted);border:1px solid var(--border-color);color:var(--text-primary);display:flex;align-items:center;justify-content:center;transition:var(--transition);font-size:1.05rem;}
+.social-link:hover{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;border-color:transparent;transform:translateY(-3px);}
+
+.contact-form{padding:2.25rem;}
+.form-header{text-align:left;margin-bottom:1.75rem;}
+.form-header h3{font-family:var(--font-display);font-size:1.5rem;font-weight:600;margin-bottom:.4rem;}
+.form-header p{color:var(--text-secondary);font-size:.95rem;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;}
+.form-group{margin-bottom:1.25rem;}
+.form-group label{display:flex;align-items:center;gap:.5rem;font-weight:500;margin-bottom:.5rem;font-size:.95rem;}
+.form-group label i{color:var(--primary);}
+.form-group input,.form-group textarea{
+  width:100%;padding:.9rem 1.2rem;background:var(--bg-muted);border:2px solid var(--border-color);
+  border-radius:14px;transition:var(--transition);font-size:.95rem;
+}
+.form-group textarea{resize:vertical;min-height:120px;}
+.form-group input:hover,.form-group textarea:hover{border-color:color-mix(in srgb,var(--secondary) 40%,var(--border-color));}
+.form-group input:focus,.form-group textarea:focus{background:var(--bg-elevated);border-color:var(--secondary);box-shadow:0 0 0 4px rgba(34,211,238,.12);}
+.form-group input.error,.form-group textarea.error{border-color:var(--error);}
+.form-error{color:var(--error);font-size:.8rem;margin-top:.3rem;min-height:1.2rem;}
+.form-footer{display:flex;flex-wrap:wrap;gap:1rem;align-items:center;margin-top:.5rem;}
+.form-fallback-link{font-size:.85rem;color:var(--text-muted);text-decoration:underline;text-underline-offset:2px;transition:var(--transition);}
+.form-fallback-link:hover{color:var(--secondary);}
+.btn.is-loading{pointer-events:none;opacity:.75;}
+.btn.is-loading i{animation:spin .8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.form-status{display:inline-flex;align-items:center;gap:.5rem;font-size:.9rem;}
+.form-status.success{color:var(--success);}
+.form-status.error{color:var(--error);}
+.form-status.loading{color:var(--secondary);}
+.hp-field{position:absolute !important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;}
+
+@media (max-width:992px){.contact-layout{grid-template-columns:1fr;} .contact-rail{position:static;}}
+@media (max-width:560px){.form-row{grid-template-columns:1fr;} .contact-form{padding:1.5rem;}}
+
+/* ============================================================
+   MODAL
+   ============================================================ */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.82);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;z-index:3000;opacity:0;visibility:hidden;transition:var(--transition);}
+.modal.active{opacity:1;visibility:visible;}
+.modal-content{position:relative;max-width:90%;max-height:90%;width:800px;padding:1.5rem;}
+.modal-close{position:absolute;top:1rem;right:1rem;width:44px;height:44px;background:var(--bg-elevated);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;cursor:pointer;transition:var(--transition);z-index:1;}
+.modal-close:hover{background:var(--error);color:#fff;}
+.modal-body{max-height:calc(90vh - 3rem);overflow:auto;}
+.modal-body img{width:100%;height:auto;border-radius:var(--radius-sm);}
+
+/* ============================================================
+   FLOATING ACTIONS
+   ============================================================ */
+.floating-actions{position:fixed;bottom:1.75rem;right:1.75rem;display:flex;flex-direction:column;gap:.75rem;z-index:900;}
+.fab{
+  width:52px;height:52px;border-radius:50%;box-shadow:var(--shadow-md);display:flex;align-items:center;justify-content:center;
+  font-size:1.3rem;cursor:pointer;transition:var(--transition);position:relative;background:var(--bg-elevated);
+  color:var(--text-primary);border:1px solid var(--border-color);
+}
+.fab:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);}
+.fab.primary{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;border:none;}
+.fab[data-tooltip]::after{
+  content:attr(data-tooltip);position:absolute;right:calc(100% + 10px);top:50%;transform:translateY(-50%);
+  background:var(--text-primary);color:var(--bg-elevated);padding:.5rem 1rem;border-radius:var(--radius-sm);
+  font-size:.82rem;white-space:nowrap;opacity:0;visibility:hidden;transition:var(--transition);
+}
+.fab:hover::after{opacity:1;visibility:visible;}
+.fab.back-to-top{opacity:0;visibility:hidden;transform:translateY(10px);}
+.fab.back-to-top.show{opacity:1;visibility:visible;transform:translateY(0);}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer{border-top:1px solid var(--border-color);padding:3.5rem 0 1.75rem;margin-top:2rem;background:color-mix(in srgb,var(--bg-elevated) 35%,transparent);}
+.footer-content{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:2.5rem;}
+.footer-brand{display:flex;flex-direction:column;align-items:flex-start;}
+.footer-logo{width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--font-display);font-size:1.4rem;font-weight:700;margin-bottom:1.15rem;box-shadow:var(--shadow-md);overflow:hidden;padding:8px;}
+.footer-logo img{width:100%;height:100%;object-fit:contain;display:block;}
+.footer-brand h3{font-family:var(--font-display);font-size:1.25rem;font-weight:700;margin-bottom:.4rem;}
+.footer-brand p{font-size:.92rem;color:var(--text-secondary);}
+.footer-links{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(140px,100%),1fr));gap:2rem;}
+.footer-column h4{font-family:var(--font-display);font-size:1rem;font-weight:600;margin-bottom:1.1rem;}
+.footer-column a{display:block;font-size:.92rem;margin-bottom:.7rem;color:var(--text-secondary);transition:.25s;}
+.footer-column a:hover{color:var(--secondary);transform:translateX(5px);}
+.footer-bottom{text-align:center;margin-top:2.5rem;padding-top:1.6rem;border-top:1px solid var(--border-color);color:var(--text-muted);font-size:.82rem;font-family:var(--font-mono);}
+.footer-bottom p{margin-bottom:.35rem;}
+
+/* ============================================================
+   RESPONSIVE FINE-TUNING
+   ============================================================ */
+@media (min-width:1500px){:root{--container-max:1440px;}}
+@media (max-width:768px){
+  .section-title{font-size:2rem;}
+  .floating-actions{bottom:1.1rem;right:1.1rem;}
+  .fab{width:46px;height:46px;font-size:1.15rem;}
+}
+@media (max-width:480px){
+  .hero-actions{flex-direction:column;align-items:stretch;}
+  .btn{width:100%;justify-content:center;}
+  .profile-photo{width:min(240px,70%);}
+}
+
+/* ============================================================
+   TESTIMONIALS
+   ============================================================ */
+.t-summary{display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem 2rem;padding:1rem 1.5rem;margin:0 auto 2rem;width:fit-content;max-width:100%;font-family:var(--font-mono);font-size:.85rem;color:var(--text-secondary);align-items:center;}
+.t-summary strong{font-size:1.4rem;background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.t-stars{display:inline-flex;gap:2px;color:var(--warning);font-size:1.05rem;vertical-align:middle;}
+.t-wrap{position:relative;}
+.t-track{display:flex;gap:1.5rem;overflow-x:auto;scroll-snap-type:x mandatory;padding:.5rem .25rem 1.25rem;scrollbar-width:thin;-webkit-overflow-scrolling:touch;}
+.t-track:focus-visible{outline:2px solid var(--secondary);outline-offset:4px;border-radius:var(--radius);}
+.t-track.few{justify-content:center;}
+.t-card{flex:0 0 min(380px,86%);scroll-snap-align:start;padding:1.75rem;display:flex;flex-direction:column;gap:1rem;position:relative;}
+.t-card:hover{transform:translateY(-4px);}
+.t-quote{position:absolute;top:1rem;right:1.25rem;font-size:2.6rem;color:var(--secondary);opacity:.18;}
+.t-msg{color:var(--text-secondary);font-size:.97rem;line-height:1.75;white-space:pre-line;overflow-wrap:anywhere;}
+.t-msg.clamp{display:-webkit-box;-webkit-line-clamp:6;-webkit-box-orient:vertical;overflow:hidden;}
+.t-more{align-self:flex-start;font-size:.82rem;font-weight:600;color:var(--secondary);cursor:pointer;margin-top:-.4rem;}
+.t-person{display:flex;align-items:center;gap:.9rem;margin-top:auto;padding-top:1rem;border-top:1px solid var(--border-color);}
+.t-avatar{width:52px;height:52px;border-radius:50%;flex-shrink:0;object-fit:cover;display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--font-display);font-weight:700;background:linear-gradient(135deg,var(--primary),var(--accent));border:2px solid var(--glass-border);}
+.t-who{min-width:0;line-height:1.35;}
+.t-name{font-weight:700;display:flex;align-items:center;gap:.35rem;flex-wrap:wrap;}
+.t-name .bxs-badge-check{color:var(--success);font-size:1.05rem;}
+.t-role{font-size:.84rem;color:var(--text-secondary);overflow-wrap:anywhere;}
+.t-meta{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem .7rem;font-family:var(--font-mono);font-size:.68rem;letter-spacing:.04em;text-transform:uppercase;color:var(--text-muted);margin-top:.2rem;}
+.t-meta img{width:18px;height:auto;border-radius:2px;display:inline-block;vertical-align:-3px;margin-right:.3rem;}
+.t-meta a{color:var(--secondary);font-size:1rem;}
+.t-nav{position:absolute;top:calc(50% - 1.5rem);width:44px;height:44px;border-radius:50%;display:none;align-items:center;justify-content:center;font-size:1.5rem;background:var(--bg-elevated);border:1px solid var(--border-color);box-shadow:var(--shadow-md);cursor:pointer;z-index:2;transition:var(--transition);}
+.t-nav:hover{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;}
+.t-nav.prev{left:-.5rem;}.t-nav.next{right:-.5rem;}
+.t-wrap.scrollable .t-nav{display:flex;}
+.t-empty{max-width:620px;margin:0 auto;text-align:center;padding:2.5rem 2rem;}
+.t-empty i{font-size:2.6rem;color:var(--secondary);}
+.t-empty h3{font-family:var(--font-display);margin:.6rem 0 .4rem;}
+.t-empty p{color:var(--text-secondary);}
+.t-skel{height:260px;background:linear-gradient(90deg,var(--bg-muted),var(--bg-elevated),var(--bg-muted));background-size:200% 100%;animation:tSkel 1.4s linear infinite;}
+@keyframes tSkel{to{background-position:-200% 0;}}
+.t-cta{text-align:center;margin-top:2rem;}
+.t-cta p{margin-top:.8rem;font-size:.85rem;color:var(--text-muted);}
+.t-modal-box{width:min(680px,100%);max-height:92vh;overflow-y:auto;padding:2rem;background:var(--bg-elevated);position:relative;}
+.t-modal-box h3{font-family:var(--font-display);font-size:1.5rem;margin-bottom:.3rem;}
+.t-modal-box>p.sub{color:var(--text-secondary);font-size:.92rem;margin-bottom:1.4rem;}
+.t-x{position:absolute;top:1rem;right:1rem;width:40px;height:40px;border-radius:50%;background:var(--bg-muted);display:flex;align-items:center;justify-content:center;font-size:1.4rem;cursor:pointer;color:var(--text-primary);}
+.t-x:hover{background:var(--error);color:#fff;}
+.t-modal-box select{width:100%;padding:.9rem 1.2rem;background:var(--bg-muted);border:2px solid var(--border-color);border-radius:14px;font-size:.95rem;color:var(--text-primary);font-family:inherit;}
+.t-modal-box select:focus{border-color:var(--secondary);outline:none;}
+.t-modal-box input[type=file]{padding:.7rem 1rem;font-size:.88rem;}
+.t-hint{font-size:.78rem;color:var(--text-muted);margin-top:.3rem;}
+.t-rate{display:flex;flex-direction:row-reverse;justify-content:flex-end;gap:.15rem;}
+.t-rate input{position:absolute;opacity:0;width:1px;height:1px;}
+.t-rate label{font-size:1.9rem;color:var(--border-color);cursor:pointer;margin:0;transition:color .15s;display:inline-block;}
+.t-rate input:checked~label,.t-rate label:hover,.t-rate label:hover~label{color:var(--warning);}
+.t-rate input:focus-visible+label{outline:2px solid var(--secondary);border-radius:6px;}
+.t-consent{display:flex;gap:.6rem;align-items:flex-start;font-size:.85rem;color:var(--text-secondary);margin-bottom:1rem;}
+.t-consent input{width:auto;margin-top:.25rem;}
+.t-preview{width:56px;height:56px;border-radius:50%;object-fit:cover;margin-top:.5rem;display:none;}
+.t-thanks{text-align:center;padding:2rem 0;}
+.t-thanks i{font-size:3.2rem;color:var(--success);}
+@media (max-width:560px){.t-modal-box{padding:1.4rem;}.t-nav{display:none !important;}}
+</style>
+</head>
+<body data-theme="light">
+
+  <div class="preloader" id="preloader">
+    <div class="preloader-inner">
+      <div class="preloader-mark">YR</div>
+      <div class="preloader-text">Initializing Portfolio…</div>
+      <div class="preloader-bar"><span></span></div>
     </div>
-    <div class="header-actions">
-      <a href="contact.html" class="btn-mini"><i class="fas fa-paper-plane"></i><span>Contact</span></a>
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><i class="fas fa-sun"></i></button>
-    </div>
-  </div>
-</header>
-
-<div id="sidebar" class="sidebar">
-<div class="sb-head">
-  <div class="header-brand"><img src="assets/images/Logo/YR.png" alt="" class="logo"><span class="website-name">Yohan Records</span></div>
-  <button class="icon-btn" id="sbClose" aria-label="Close menu"><i class="fas fa-xmark"></i></button>
-</div>
-<div class="sb-scroll">
-<p class="sb-label">Browse</p>
-<ul class="sb-nav">
-<li class="sb-item active"><a href="index.html" class="sb-link" data-tip="Home"><span class="sb-ico"><i class="fas fa-house"></i></span><span class="sb-text">Home</span></a></li>
-<li class="sb-item has-sub">
-<button type="button" class="sb-link" aria-expanded="false"><span class="sb-ico"><i class="fas fa-music"></i></span><span class="sb-text">Music</span><i class="fas fa-chevron-down sb-caret"></i></button>
-<ul class="sb-sub">
-<li><a href="albums.html">Albums</a></li>
-<li><a href="singles.html">Singles</a></li>
-<li><a href="remixes.html">Remixes</a></li>
-</ul></li>
-<li class="sb-item"><a href="Video.html" class="sb-link" data-tip="Videos"><span class="sb-ico"><i class="fas fa-video"></i></span><span class="sb-text">Videos</span></a></li>
-<li class="sb-item"><a href="gallery.html" class="sb-link" data-tip="Gallery"><span class="sb-ico"><i class="fas fa-images"></i></span><span class="sb-text">Gallery</span></a></li>
-<li class="sb-item"><a href="Software.html" class="sb-link" data-tip="Software"><span class="sb-ico"><i class="fas fa-gear"></i></span><span class="sb-text">Software</span></a></li>
-<li class="sb-item"><a href="testimonials.html" class="sb-link" data-tip="Testimonials"><span class="sb-ico"><i class="fas fa-star"></i></span><span class="sb-text">Testimonials</span></a></li>
-<li class="sb-item"><a href="contact.html" class="sb-link" data-tip="Contact"><span class="sb-ico"><i class="fas fa-envelope"></i></span><span class="sb-text">Contact</span></a></li>
-</ul></div>
-<div class="sb-foot"><a href="contact.html" class="sb-cta"><i class="fas fa-paper-plane"></i><span>Get in touch<small>Send a message</small></span></a></div>
-</div>
-<div class="sidebar-backdrop"></div>
-
-<div class="content" id="main">
-<section id="hero" class="hero hero-home">
-  <div id="particle2"></div>
-  <div class="hero-inner hero-split">
-    <div class="hero-copy">
-    <img src="assets/images/Logo/Blogo22.png" alt="Yohan Records" class="hero-wordmark" width="1200" height="324">
-    <h1 class="glow">Welcome to My Creative Hub</h1>
-    <p>Explore a world of creativity, where music, art, technology and innovation converge. Listen to the latest tracks, view galleries, watch videos and discover software. Stay tuned as we expand and release new features. This is just the beginning of an exciting journey, so get ready for more.</p>
-    <a href="singles.html" class="btn-prime btn-lg">Explore Now</a>
-    <div class="hero-social">
-    <a href="https://www.linkedin.com/in/yohannes-reta/" class="social-icon" aria-label="LinkedIn" target="_blank" rel="noopener"><i class="fab fa-linkedin-in"></i></a>
-    <a href="https://yohana9.github.io/YohanRec/" class="social-icon" aria-label="GitHub" target="_blank" rel="noopener"><i class="fab fa-github"></i></a>
-  </div>
-    </div>
-    <figure class="hero-art">
-      <picture>
-        <source srcset="assets/images/Logo/hero.webp" type="image/webp">
-        <img src="assets/images/Logo/hero.png" alt="Yohannes R. at the keyboard in the Yohan Records home studio" width="1200" height="1119" fetchpriority="high">
-      </picture>
-    </figure>
-  </div>
-</section>
-
-<section class="section">
-  <div class="stats-strip online-only">
-    <div class="stat-tile"><b data-site-metric="plays"></b><span>Total Plays</span></div>
-    <div class="stat-tile"><b data-site-metric="likes"></b><span>Likes</span></div>
-    <div class="stat-tile"><b data-site-metric="comments"></b><span>Comments</span></div>
-    <div class="stat-tile"><b data-site-metric="visitors"></b><span>Visitors</span></div>
   </div>
 
-  <div class="quicklinks">
-    <a href="albums.html" class="quicklink">
-      <i class="fas fa-record-vinyl" style="color:var(--accent);"></i>
-      <span>Albums</span>
-    </a>
-    <a href="singles.html" class="quicklink">
-      <i class="fas fa-music" style="color:var(--accent-2);"></i>
-      <span>Singles</span>
-    </a>
-    <a href="Video.html" class="quicklink">
-      <i class="fas fa-clapperboard" style="color:var(--accent-3);"></i>
-      <span>Videos</span>
-    </a>
-    <a href="gallery.html" class="quicklink">
-      <i class="fas fa-images" style="color:var(--accent);"></i>
-      <span>Gallery</span>
-    </a>
-  </div>
+  <div class="scroll-progress" id="scrollProgress"></div>
+  <div class="cursor-glow" id="cursorGlow"></div>
 
-  <h2 class="section-title" data-trending-title>Featured picks</h2>
-  <p class="section-sub">The tracks worth starting with.</p>
-  <div class="trend-grid" data-trending></div>
+  <!-- ============================================================
+       NAVBAR
+       ============================================================ -->
+  <header class="navbar" id="navbar">
+    <div class="navbar-inner">
+      <a href="#hero" class="brand">
+        <div class="brand-mark"><img src="assets/images/brand.png" alt="Yohannes Reta logo" loading="eager"></div>
+        <div class="brand-text">
+          <span class="brand-name">Yohannes Reta</span>
+          <span class="brand-role">ICT &amp; Project Mgmt.</span>
+        </div>
+      </a>
 
-  <h2 class="section-title">Latest Singles</h2>
-  <p class="section-sub">Fresh off the desk.</p>
-  <div class="track-grid">
-<div class="card" data-key="assets/audio/Singles/ANCHIN WEDO.mp3" data-title="YhuDA | እንደ ይሁዳ">
-  <div class="card-media">
-    <img src="assets/images/Logo/LOgg.jpg" class="card-img-top" alt="YhuDA | እንደ ይሁዳ" loading="lazy">
-  </div>
-  <div class="card-body">
-    <h3 class="card-title">YhuDA | እንደ ይሁዳ</h3>
-    <p class="card-subtitle">Yohannes R.</p>
-    <div class="track-play-row">
-      <button class="play-btn" data-group="home-singles" data-src="assets/audio/Singles/ANCHIN WEDO.mp3" data-title="YhuDA | እንደ ይሁዳ" data-subtitle="Yohannes R." data-art="assets/images/Logo/LOgg.jpg" aria-label="Play YhuDA | እንደ ይሁዳ">
-        <i class="fas fa-play"></i>
-      </button>
-      <div class="track-mini-meta">
-        <div class="track-mini-title">TAP TO PLAY</div>
-        <div class="track-mini-bar"><i></i></div>
+      <nav class="nav-links" id="navLinks">
+        <a href="#hero" class="nav-link active" data-nav="hero">Home</a>
+        <a href="#about" class="nav-link" data-nav="about">About</a>
+        <a href="#experience" class="nav-link" data-nav="experience">Experience</a>
+        <a href="#projects" class="nav-link" data-nav="projects">Projects</a>
+        <a href="#skills" class="nav-link" data-nav="skills">Skills</a>
+        <a href="#certificates" class="nav-link" data-nav="certificates">Certifications</a>
+        <a href="#testimonials" class="nav-link" data-nav="testimonials">Testimonials</a>
+        <a href="#contact" class="nav-link" data-nav="contact">Contact</a>
+      </nav>
+
+      <div class="nav-actions">
+        <div class="dropdown" id="websitesDropdown">
+          <button class="btn btn-outline btn-sm dropdown-toggle hide-mobile" id="dropdownToggle"><span>Websites for Sale</span> <i class="bx bx-chevron-down"></i></button>
+          <div class="dropdown-menu">
+            <a href="https://melhik.yeneflow.com/" class="dropdown-item" target="_blank" rel="noopener"><i class="bx bx-store"></i><span>Melhik</span></a>
+            <a href="https://servicedesk.motiengineering.com/" class="dropdown-item" target="_blank" rel="noopener"><i class="bx bx-support"></i><span>Service Desk System</span></a>
+            <a href="https://fanareports.yeneflow.com/" class="dropdown-item" target="_blank" rel="noopener"><i class="bx bx-line-chart"></i><span>Reporting System</span></a>
+          </div>
+        </div>
+        <button id="theme-toggle" class="icon-btn" aria-label="Toggle theme"><i class="bx bx-sun"></i></button>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+          <i class="bx bx-menu"></i><i class="bx bx-x"></i>
+        </button>
       </div>
     </div>
-    <div class="social-row">
-      <span class="stat online-only"><i class="fas fa-play"></i><b data-metric="plays" data-key="assets/audio/Singles/ANCHIN WEDO.mp3"></b></span>
-      <button class="like-btn" data-like-src="assets/audio/Singles/ANCHIN WEDO.mp3" data-kind="audio" data-title="YhuDA | እንደ ይሁዳ" aria-label="Like YhuDA | እንደ ይሁዳ"><i class="fa-regular fa-heart"></i><b data-metric="likes" data-key="assets/audio/Singles/ANCHIN WEDO.mp3"></b></button>
-      <button class="cmt-btn online-only" data-comments="assets/audio/Singles/ANCHIN WEDO.mp3" data-kind="audio" data-title="YhuDA | እንደ ይሁዳ" aria-label="Comments on YhuDA | እንደ ይሁዳ"><i class="fa-regular fa-comment"></i><b data-metric="comments" data-key="assets/audio/Singles/ANCHIN WEDO.mp3"></b></button>
-      <button class="share-btn" data-share="assets/audio/Singles/ANCHIN WEDO.mp3" data-kind="audio" data-title="YhuDA | እንደ ይሁዳ" aria-label="Share YhuDA | እንደ ይሁዳ"><i class="fas fa-share-nodes"></i></button>
-    </div>
-  </div>
-</div>
-<div class="card" data-key="assets/audio/Singles/Beylef Kal X Yohana Studio.mp3" data-title="Beylef KaL | በይለፍ ቃል">
-  <div class="card-media">
-    <img src="assets/images/thumbnail/4Saba.jpg" class="card-img-top" alt="Beylef KaL | በይለፍ ቃል" loading="lazy">
-  </div>
-  <div class="card-body">
-    <h3 class="card-title">Beylef KaL | በይለፍ ቃል</h3>
-    <p class="card-subtitle">Yohannes R. ft. Saba B.</p>
-    <div class="track-play-row">
-      <button class="play-btn" data-group="home-singles" data-src="assets/audio/Singles/Beylef Kal X Yohana Studio.mp3" data-title="Beylef KaL | በይለፍ ቃል" data-subtitle="Yohannes R. ft. Saba B." data-art="assets/images/thumbnail/4Saba.jpg" aria-label="Play Beylef KaL | በይለፍ ቃል">
-        <i class="fas fa-play"></i>
-      </button>
-      <div class="track-mini-meta">
-        <div class="track-mini-title">TAP TO PLAY</div>
-        <div class="track-mini-bar"><i></i></div>
-      </div>
-    </div>
-    <div class="social-row">
-      <span class="stat online-only"><i class="fas fa-play"></i><b data-metric="plays" data-key="assets/audio/Singles/Beylef Kal X Yohana Studio.mp3"></b></span>
-      <button class="like-btn" data-like-src="assets/audio/Singles/Beylef Kal X Yohana Studio.mp3" data-kind="audio" data-title="Beylef KaL | በይለፍ ቃል" aria-label="Like Beylef KaL | በይለፍ ቃል"><i class="fa-regular fa-heart"></i><b data-metric="likes" data-key="assets/audio/Singles/Beylef Kal X Yohana Studio.mp3"></b></button>
-      <button class="cmt-btn online-only" data-comments="assets/audio/Singles/Beylef Kal X Yohana Studio.mp3" data-kind="audio" data-title="Beylef KaL | በይለፍ ቃል" aria-label="Comments on Beylef KaL | በይለፍ ቃል"><i class="fa-regular fa-comment"></i><b data-metric="comments" data-key="assets/audio/Singles/Beylef Kal X Yohana Studio.mp3"></b></button>
-      <button class="share-btn" data-share="assets/audio/Singles/Beylef Kal X Yohana Studio.mp3" data-kind="audio" data-title="Beylef KaL | በይለፍ ቃል" aria-label="Share Beylef KaL | በይለፍ ቃል"><i class="fas fa-share-nodes"></i></button>
-    </div>
-  </div>
-</div>
-<div class="card" data-key="assets/audio/Singles/Hewanw_AfroV.mp3" data-title="Hewane | ሄዋኔ">
-  <div class="card-media">
-    <img src="assets/images/Logo/LOgg.jpg" class="card-img-top" alt="Hewane | ሄዋኔ" loading="lazy">
-  </div>
-  <div class="card-body">
-    <h3 class="card-title">Hewane | ሄዋኔ</h3>
-    <p class="card-subtitle">Yohannes R.</p>
-    <div class="track-play-row">
-      <button class="play-btn" data-group="home-singles" data-src="assets/audio/Singles/Hewanw_AfroV.mp3" data-title="Hewane | ሄዋኔ" data-subtitle="Yohannes R." data-art="assets/images/Logo/LOgg.jpg" aria-label="Play Hewane | ሄዋኔ">
-        <i class="fas fa-play"></i>
-      </button>
-      <div class="track-mini-meta">
-        <div class="track-mini-title">TAP TO PLAY</div>
-        <div class="track-mini-bar"><i></i></div>
-      </div>
-    </div>
-    <div class="social-row">
-      <span class="stat online-only"><i class="fas fa-play"></i><b data-metric="plays" data-key="assets/audio/Singles/Hewanw_AfroV.mp3"></b></span>
-      <button class="like-btn" data-like-src="assets/audio/Singles/Hewanw_AfroV.mp3" data-kind="audio" data-title="Hewane | ሄዋኔ" aria-label="Like Hewane | ሄዋኔ"><i class="fa-regular fa-heart"></i><b data-metric="likes" data-key="assets/audio/Singles/Hewanw_AfroV.mp3"></b></button>
-      <button class="cmt-btn online-only" data-comments="assets/audio/Singles/Hewanw_AfroV.mp3" data-kind="audio" data-title="Hewane | ሄዋኔ" aria-label="Comments on Hewane | ሄዋኔ"><i class="fa-regular fa-comment"></i><b data-metric="comments" data-key="assets/audio/Singles/Hewanw_AfroV.mp3"></b></button>
-      <button class="share-btn" data-share="assets/audio/Singles/Hewanw_AfroV.mp3" data-kind="audio" data-title="Hewane | ሄዋኔ" aria-label="Share Hewane | ሄዋኔ"><i class="fas fa-share-nodes"></i></button>
-    </div>
-  </div>
-</div>
-<div class="card" data-key="assets/audio/Singles/Meslo Wedaj.mp3" data-title="Meslo Wedaj | መስሎ ወዳጅ">
-  <div class="card-media">
-    <img src="assets/images/Logo/igoigo.jpg" class="card-img-top" alt="Meslo Wedaj | መስሎ ወዳጅ" loading="lazy">
-  </div>
-  <div class="card-body">
-    <h3 class="card-title">Meslo Wedaj | መስሎ ወዳጅ</h3>
-    <p class="card-subtitle">Lost Track · Yohannes R.</p>
-    <div class="track-play-row">
-      <button class="play-btn" data-group="home-singles" data-src="assets/audio/Singles/Meslo Wedaj.mp3" data-title="Meslo Wedaj | መስሎ ወዳጅ" data-subtitle="Lost Track · Yohannes R." data-art="assets/images/Logo/igoigo.jpg" aria-label="Play Meslo Wedaj | መስሎ ወዳጅ">
-        <i class="fas fa-play"></i>
-      </button>
-      <div class="track-mini-meta">
-        <div class="track-mini-title">TAP TO PLAY</div>
-        <div class="track-mini-bar"><i></i></div>
-      </div>
-    </div>
-    <div class="social-row">
-      <span class="stat online-only"><i class="fas fa-play"></i><b data-metric="plays" data-key="assets/audio/Singles/Meslo Wedaj.mp3"></b></span>
-      <button class="like-btn" data-like-src="assets/audio/Singles/Meslo Wedaj.mp3" data-kind="audio" data-title="Meslo Wedaj | መስሎ ወዳጅ" aria-label="Like Meslo Wedaj | መስሎ ወዳጅ"><i class="fa-regular fa-heart"></i><b data-metric="likes" data-key="assets/audio/Singles/Meslo Wedaj.mp3"></b></button>
-      <button class="cmt-btn online-only" data-comments="assets/audio/Singles/Meslo Wedaj.mp3" data-kind="audio" data-title="Meslo Wedaj | መስሎ ወዳጅ" aria-label="Comments on Meslo Wedaj | መስሎ ወዳጅ"><i class="fa-regular fa-comment"></i><b data-metric="comments" data-key="assets/audio/Singles/Meslo Wedaj.mp3"></b></button>
-      <button class="share-btn" data-share="assets/audio/Singles/Meslo Wedaj.mp3" data-kind="audio" data-title="Meslo Wedaj | መስሎ ወዳጅ" aria-label="Share Meslo Wedaj | መስሎ ወዳጅ"><i class="fas fa-share-nodes"></i></button>
-    </div>
-  </div>
-</div>
-<div class="card" data-key="assets/audio/Singles/Enawga.mp3" data-title="Fikrn Enawga | ፍቅርን እናውጋ">
-  <div class="card-media">
-    <img src="assets/images/Logo/igoigo.jpg" class="card-img-top" alt="Fikrn Enawga | ፍቅርን እናውጋ" loading="lazy">
-  </div>
-  <div class="card-body">
-    <h3 class="card-title">Fikrn Enawga | ፍቅርን እናውጋ</h3>
-    <p class="card-subtitle">Yohannes R.</p>
-    <div class="track-play-row">
-      <button class="play-btn" data-group="home-singles" data-src="assets/audio/Singles/Enawga.mp3" data-title="Fikrn Enawga | ፍቅርን እናውጋ" data-subtitle="Yohannes R." data-art="assets/images/Logo/igoigo.jpg" aria-label="Play Fikrn Enawga | ፍቅርን እናውጋ">
-        <i class="fas fa-play"></i>
-      </button>
-      <div class="track-mini-meta">
-        <div class="track-mini-title">TAP TO PLAY</div>
-        <div class="track-mini-bar"><i></i></div>
-      </div>
-    </div>
-    <div class="social-row">
-      <span class="stat online-only"><i class="fas fa-play"></i><b data-metric="plays" data-key="assets/audio/Singles/Enawga.mp3"></b></span>
-      <button class="like-btn" data-like-src="assets/audio/Singles/Enawga.mp3" data-kind="audio" data-title="Fikrn Enawga | ፍቅርን እናውጋ" aria-label="Like Fikrn Enawga | ፍቅርን እናውጋ"><i class="fa-regular fa-heart"></i><b data-metric="likes" data-key="assets/audio/Singles/Enawga.mp3"></b></button>
-      <button class="cmt-btn online-only" data-comments="assets/audio/Singles/Enawga.mp3" data-kind="audio" data-title="Fikrn Enawga | ፍቅርን እናውጋ" aria-label="Comments on Fikrn Enawga | ፍቅርን እናውጋ"><i class="fa-regular fa-comment"></i><b data-metric="comments" data-key="assets/audio/Singles/Enawga.mp3"></b></button>
-      <button class="share-btn" data-share="assets/audio/Singles/Enawga.mp3" data-kind="audio" data-title="Fikrn Enawga | ፍቅርን እናውጋ" aria-label="Share Fikrn Enawga | ፍቅርን እናውጋ"><i class="fas fa-share-nodes"></i></button>
-    </div>
-  </div>
-</div>
-<div class="card" data-key="assets/audio/Singles/Hayal.wav" data-title="Hayal | ሃያል">
-  <div class="card-media">
-    <img src="assets/images/thumbnail/Hayal.jpg" class="card-img-top" alt="Hayal | ሃያል" loading="lazy">
-  </div>
-  <div class="card-body">
-    <h3 class="card-title">Hayal | ሃያል</h3>
-    <p class="card-subtitle">Zerihun B. x Yohan ft. King & Fever</p>
-    <div class="track-play-row">
-      <button class="play-btn" data-group="home-singles" data-src="assets/audio/Singles/Hayal.wav" data-title="Hayal | ሃያል" data-subtitle="Zerihun B. x Yohan ft. King &amp; Fever" data-art="assets/images/thumbnail/Hayal.jpg" aria-label="Play Hayal | ሃያል">
-        <i class="fas fa-play"></i>
-      </button>
-      <div class="track-mini-meta">
-        <div class="track-mini-title">TAP TO PLAY</div>
-        <div class="track-mini-bar"><i></i></div>
-      </div>
-    </div>
-    <div class="social-row">
-      <span class="stat online-only"><i class="fas fa-play"></i><b data-metric="plays" data-key="assets/audio/Singles/Hayal.wav"></b></span>
-      <button class="like-btn" data-like-src="assets/audio/Singles/Hayal.wav" data-kind="audio" data-title="Hayal | ሃያል" aria-label="Like Hayal | ሃያል"><i class="fa-regular fa-heart"></i><b data-metric="likes" data-key="assets/audio/Singles/Hayal.wav"></b></button>
-      <button class="cmt-btn online-only" data-comments="assets/audio/Singles/Hayal.wav" data-kind="audio" data-title="Hayal | ሃያል" aria-label="Comments on Hayal | ሃያል"><i class="fa-regular fa-comment"></i><b data-metric="comments" data-key="assets/audio/Singles/Hayal.wav"></b></button>
-      <button class="share-btn" data-share="assets/audio/Singles/Hayal.wav" data-kind="audio" data-title="Hayal | ሃያል" aria-label="Share Hayal | ሃያል"><i class="fas fa-share-nodes"></i></button>
-    </div>
-  </div>
-</div>
-  </div>
-  <div style="text-align:center;margin-top:1.8rem;"><a href="singles.html" class="btn-prime">View all singles</a></div>
-</section>
+  </header>
 
-<section id="testimonials" class="section reveal">
-  <h2 class="section-title">What people say</h2>
-  <p class="tst-sub">Kind words from listeners and collaborators.</p>
-  <div class="tst-grid" id="tstGrid" data-limit="3" aria-live="polite"></div>
-  <div class="tst-more"><a class="btn-prime" href="testimonials.html">Read all &amp; share yours</a></div>
-</section>
-</div>
+  <main>
+    <!-- ============================================================
+         HERO
+         ============================================================ -->
+    <section id="hero" class="hero container">
+      <div class="hero-grid">
+      <div class="hero-content" data-aos="fade-up" data-aos-delay="150">
+        <span class="status-chip"><span class="dot"></span>Available for opportunities</span>
+        <div class="hero-badge"><i class='bx bx-terminal' style="margin-right:.4rem;"></i> ICT & PM</div>
+        <div class="role-ticker">
+          <span>Senior Project Management</span>
+          <span>SYSTEMS, NETWORK & INFRASTRUCTURE &amp; SPECIALIST</span>
+          <span>technical support, and technology solutioning </span> 
+        </div>
+        <h1 class="hero-title">ICT Professional <span class="hero-title-and">and</span><br><span class="text-gradient">Senior Project Manager</span></h1>
+        <p class="hero-subtitle">Senior Project Management Officer with a hands-on technical foundation in VMware ESXi, Level 2/3 systems, and enterprise IT infrastructure - now leading high-risk, time-sensitive technology delivery across digital banking and Infrastructure Projects. </p>
 
-<footer class="footer">
-  <div class="footer-inner">
-    <div class="footer-grid">
-      <div class="footer-col">
-        <h5>About</h5>
-        <p>Yohan Records is the home for Yohannes R.&rsquo;s music, visuals and ongoing projects: albums, singles, remixes, film work and artwork, all in one place.</p>
-      </div>
-      <div class="footer-col">
-        <h5>Contact</h5>
-        <ul>
-          <li>Email: <a href="mailto:yohanreta9@gmail.com">yohanreta9@gmail.com</a></li>
-          <li>Phone: <a href="tel:+251940382415">+251 940 38 24 15</a></li>
-          <li>Addis Ababa, Ethiopia &middot; Megenagna</li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h5>Get in touch</h5>
-        <div class="footer-cta">
-          <p>Booking, collaborations or just to say hello: send a message and I will get back to you.</p>
-          <a href="contact.html" class="btn-prime" style="width:100%;text-align:center;">Contact Me</a>
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-primary"><span>Get In Touch</span> <i class="bx bx-chevron-right"></i></a>
+          <a href="#projects" class="btn btn-outline"><span>View Projects</span> <i class="bx bx-code"></i></a>
+          <a href="resume/Resume.pdf" class="btn btn-outline" download><span> Download CV </span> <i class="bx bx-download"></i></a>
+        </div>
+
+
+        <div class="hero-metrics" data-aos="fade-up" data-aos-delay="350">
+          <div class="hero-metric"><div class="metric-value">6+</div><div class="metric-label">Years in ICT</div></div>
+          <div class="hero-metric"><div class="metric-value">25%</div><div class="metric-label">Downtime Cut</div></div>
+          <div class="hero-metric"><div class="metric-value">90%</div><div class="metric-label">SLA Compliance</div></div>
+          <div class="hero-metric"><div class="metric-value">95%+</div><div class="metric-label">Lab Uptime</div></div>
         </div>
       </div>
-    </div>
-    <div class="footer-social">
-      <a href="https://yohana9.github.io/YohanRec/" class="social-icon" aria-label="GitHub" target="_blank" rel="noopener"><i class="fab fa-github"></i></a>
-    </div>
-    <div class="footer-bottom">
-      <p>&copy; <span class="auto-year">2026</span> Yohan Records. All rights reserved.</p>
-    </div>
-  </div>
-</footer>
 
-<div class="player-bar" id="playerBar">
-  <div class="pb-track">
-    <img loading="lazy" decoding="async" id="pArt" class="player-art" src="assets/images/Logo/YR.png" alt="">
-    <div class="player-meta">
-      <div class="t" id="pTitle">Nothing playing</div>
-      <div class="s" id="pSubtitle">Yohan Records</div>
+      <div class="hero-visual" data-aos="fade-left" data-aos-delay="250">
+        <div class="visual-glow"></div>
+        <div class="visual-blob"></div>
+        <div class="glow-ring"></div>
+        <div class="orbit-icon o1"><i class='bx bx-server'></i></div>
+        <div class="orbit-icon o2"><i class='bx bx-code-alt'></i></div>
+        <div class="orbit-icon o3"><i class='bx bx-shield'></i></div>
+        <div class="orbit-icon o4"><i class='bx bx-music'></i></div>
+
+        <div class="profile-photo" id="profilePhoto">
+          <img class="photo-slide active" src="assets/images/Profile.png" alt="Yohannes Reta" loading="eager">
+          <img class="photo-slide" src="assets/images/Profile1.png" alt="Yohannes Reta" loading="lazy">
+          <!-- <img class="photo-slide" src="assets/images/profile3.png" alt="Yohannes Reta" loading="lazy">  -->
+        </div>
+
+        <div class="visual-footer">
+          <div class="photo-tag"><span class="dot"></span>Open to work</div>
+          <div class="visual-socials">
+            <a href="https://yeneflow.com" class="social-link" aria-label="YeneFlow" target="_blank" rel="noopener"><i class="bx bx-globe"></i></a>
+            <a href="https://www.linkedin.com/in/yohannes-reta/" class="social-link" aria-label="LinkedIn" target="_blank" rel="noopener"><i class="bx bxl-linkedin"></i></a>
+            <a href="https://github.com/yohana9" class="social-link" aria-label="GitHub" target="_blank" rel="noopener"><i class="bx bxl-github"></i></a>
+            <a href="mailto:yohanreta9@gmail.com" class="social-link" aria-label="Email"><i class="bx bx-envelope"></i></a>
+          </div>
+        </div>
+      </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         ABOUT
+         ============================================================ -->
+    <section id="about" class="section">
+      <div class="container">
+        <div class="section-header" data-aos="fade-up">
+          <span class="section-eyebrow">~/about</span>
+          <h2 class="section-title">Professional Profile</h2>
+          <p class="section-subtitle">A dedicated ICT professional bridging technical expertise with strategic project management</p>
+          <div class="section-divider"></div>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-card glass accent-top" data-aos="fade-right">
+            <div class="about-card-header"><div class="about-icon"><i class="bx bx-user-circle"></i></div><h3>About Me</h3></div>
+<p>IT professional with 6+ years of experience spanning enterprise infrastructure, technical support, and project management, currently serving as Senior Project Management Officer at Moti Engineering PLC. Leads high-risk, time-sensitive technology initiatives across digital banking platforms, kiosk/CVM deployments, and SIEM/SOC environments, building on hands-on expertise in VMware ESXi virtualization, Level 2/3 systems support, and network administration. Also builds practical web-based tools - from internal ticketing and reporting platforms to Melhik, a personal productivity ecosystem - combining technical delivery with a Computer Science background and strong cross-functional collaboration across technical teams, vendors, and stakeholders.</p>
+            <div class="about-highlights">
+              <div class="highlight-item"><i class="bx bx-check-circle"></i><span>6+ years ICT experience</span></div>
+              <div class="highlight-item"><i class="bx bx-check-circle"></i><span> Infrastructure &amp; Digital banking project delivery</span></div>
+              <div class="highlight-item"><i class="bx bx-check-circle"></i><span>Full-stack development capabilities</span></div>
+            </div>
+          </div>
+
+          <div class="about-card glass accent-top" data-aos="fade-left">
+            <div class="about-card-header"><div class="about-icon"><i class="bx bx-chart"></i></div><h3>Key Achievements</h3></div>
+            <ul class="achievement-list">
+              <li><i class="bx bx-trending-up"></i><span>Leading high-risk technology projects across digital banking, kiosk/CVM, and SIEM/SOC infrastructure at Moti Engineering PLC</span></li>
+              <li><i class="bx bx-trending-up"></i><span>Reduced system downtimes by 25% through VMware ESXi optimization</span></li>
+              <li><i class="bx bx-trending-up"></i><span>Achieved 90% SLA compliance in IT support resolution</span></li>
+              <li><i class="bx bx-trending-up"></i><span>Maintained 95%+ lab uptime across university computer facilities</span></li>
+              <li><i class="bx bx-trending-up"></i><span>98% pass rate in technical training programs</span></li>
+            </ul>
+          </div>
+
+          <div class="about-card glass accent-top" data-aos="fade-up">
+            <div class="about-card-header"><div class="about-icon"><i class="bx bx-bullseye"></i></div><h3>Career Focus</h3></div>
+            <p>Delivering seamless business continuity through robust IT systems management, technical issue resolution, and comprehensive user training programs.</p>
+            <div class="focus-areas">
+              <span class="focus-tag">IT Infrastructure</span>
+              <span class="focus-tag">Project Management</span>
+              <span class="focus-tag">Helpdesk &amp; Technical Support</span>
+              <span class="focus-tag">System Security</span>
+              <span class="focus-tag">Team Leadership</span> 
+              <span class="focus-tag">Quality Management</span> 
+              <span class="focus-tag">Documenting &amp; Technical Training</span>
+            </div>
+          </div>
+
+          <div class="about-card glass accent-top" data-aos="fade-up">
+            <div class="about-card-header"><div class="about-icon"><i class="bx bx-book-reader"></i></div><h3>Education</h3></div>
+            <div class="achievement-list" style="gap:1.1rem;display:flex;flex-direction:column;">
+              <div>
+                <div class="highlight-item" style="margin-bottom:.2rem;"><i class="bx bx-check-circle"></i><span><strong>BSc, Computer Science</strong></span></div>
+                <p style="margin-left:1.9rem;font-size:.92rem;color:var(--text-secondary);">Lucy College, Dire Dawa, GPA 3.4 · Oct 2018 - Dec 2021</p>
+              </div>
+              <div>
+                <div class="highlight-item" style="margin-bottom:.2rem;"><i class="bx bx-check-circle"></i><span><strong>Diploma, Hardware &amp; Networking Service</strong></span></div>
+                <p style="margin-left:1.9rem;font-size:.92rem;color:var(--text-secondary);">MZM Polytechnic College (TVET), Dire Dawa, COC Certified · Oct 2014 - Feb 2018</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         EXPERIENCE
+         ============================================================ -->
+    <section id="experience" class="section">
+      <div class="container">
+        <div class="section-header" data-aos="fade-up">
+          <span class="section-eyebrow">~/experience</span>
+          <h2 class="section-title">Professional Experience</h2>
+          <p class="section-subtitle">A proven track record in enterprise IT and technical leadership</p>
+          <div class="section-divider"></div>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-track" data-aos="fade-up" data-aos-delay="100">
+
+            <div class="timeline-item current">
+              <div class="timeline-marker"><i class="bx bx-briefcase"></i></div>
+              <div class="timeline-content glass">
+                <div class="timeline-header"><h3>Senior Project Management Officer</h3><span class="timeline-date">Nov 2025 – Present</span></div>
+                <div class="timeline-company"><i class="bx bx-building"></i><span>Moti Engineering PLC, Addis Ababa, Ethiopia</span></div>
+                <p class="timeline-description">Leading end-to-end execution of technology projects, including digital banking systems, kiosk/CVM deployments, and SIEM/SOC security infrastructure, with close coordination across banks, vendors, and internal engineering teams.</p>
+                <ul class="timeline-highlights">
+                  <li>Manage high-risk, time-sensitive projects requiring close coordination with banks, vendors, and internal engineering teams</li>
+                  <li>Drive project recovery and stabilization for systems requiring post-deployment corrections and vendor escalation</li>
+                  <li>Produce structured documentation, including implementation plans, risk matrices, technical reports, and stakeholder updates</li>
+                  <li>Monitor and report KPIs; prepare daily, weekly, and monthly analytical reports for management</li>
+                  <li>Coordinate cross-functional teams across infrastructure, application, and support units</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-marker"><i class="bx bx-server"></i></div>
+              <div class="timeline-content glass">
+                <div class="timeline-header"><h3>ICT Technical Analyst II</h3><span class="timeline-date">Jul 2024 – Nov 2025</span></div>
+                <div class="timeline-company"><i class="bx bx-building"></i><span>Moti Engineering PLC (Outsourced via Moenco Inchcape), Addis Ababa, Ethiopia</span></div>
+                <p class="timeline-description">Managed enterprise IT infrastructure with focus on virtualization, system administration, and technical support operations.</p>
+                <ul class="timeline-highlights">
+                  <li>Managed VMware ESXi virtualized servers and data center operations, reducing system downtime by 25%</li>
+                  <li>Provided Level 2/3 support via Zoho Service Desk, maintaining 90% SLA compliance</li>
+                  <li>Administered Endpoint Central across 12+ user devices for patching, monitoring, and asset management</li>
+                  <li>Maintained POS servers, printer servers, and CICO biometric attendance systems</li>
+                  <li>Configured LAN/WAN network infrastructure and supported periodic security audits</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-marker"><i class="bx bx-chip"></i></div>
+              <div class="timeline-content glass">
+                <div class="timeline-header"><h3>Senior Technical Assistant - Computer Lab Instructor &amp; Organizer</h3><span class="timeline-date">Jul 2018 - Jun 2024</span></div>
+                <div class="timeline-company"><i class="bx bx-building"></i><span>Dire Dawa University, Dire Dawa, Ethiopia</span></div>
+                <p class="timeline-description">Technical leadership in computer laboratory management, system administration, and academic instruction for engineering students.</p>
+                <ul class="timeline-highlights">
+                  <li>Organized &amp; equipped 10+ computer labs for the Computer Engineering program, serving 1,000+ students while maintaining 95%+ uptime</li>
+                  <li>Taught lab courses in Java (OOP I &amp; II), DBMS (SQL), and Operating Systems with a 98% pass rate</li>
+                  <li>Authored lab manuals and SOPs that reduced lab setup time by 30%</li>
+                  <li>Coordinated as part of a task force to prepare IT infrastructure and software for the university's online exit-exam platform</li>
+                  <li>Conducted digital-skills workshops for faculty and students</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-marker"><i class="bx bx-data"></i></div>
+              <div class="timeline-content glass">
+                <div class="timeline-header"><h3>Data Encoder &amp; Election Executive</h3><span class="timeline-date">4-Month Contract</span></div>
+                <div class="timeline-company"><i class="bx bx-building"></i><span>National Election Board of Ethiopia (NEBE), Dire Dawa, Ethiopia</span></div>
+                <p class="timeline-description">Field data management and election execution support during national elections.</p>
+                <ul class="timeline-highlights">
+                  <li>Encoded voter data during field operations in support of national election logistics</li>
+                  <li>Supported on-site election execution and audit procedures, ensuring data accuracy and compliance</li>
+                </ul>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         PROJECTS
+         ============================================================ -->
+    <section id="projects" class="section">
+      <div class="container">
+        <div class="section-header" data-aos="fade-up">
+          <span class="section-eyebrow">~/projects</span>
+          <h2 class="section-title">Live Projects</h2>
+          <p class="section-subtitle">Practical solutions combining technical expertise with creative implementation</p>
+          <div class="section-divider"></div>
+        </div>
+
+        <div class="projects-grid">
+          <div class="project-card glass accent-top" data-aos="fade-up" data-aos-delay="100">
+            <span class="project-index">01</span>
+            <span class="project-badge">Flagship</span>
+            <div class="project-image"><img src="assets/images/TMS.png" alt="Ticket Management System" loading="lazy"><div class="project-overlay"><div class="project-tags"><span class="project-tag">Servicedesk</span><span class="project-tag">Ticket Management</span></div></div></div>
+            <div class="project-content">
+              <h3 class="project-title">Ticket Management System</h3>
+              <p class="project-description">A unified system for tracking critical issues, accessing technical documentation, and ensuring rapid engineering intervention.</p>
+              <div class="project-tech"><span>JavaScript</span><span>PHP</span><span>MySQL</span><span>Chart.js</span></div>
+              <a href="https://servicedesk.motiengineering.com/" class="project-link" target="_blank" rel="noopener"><span>View Project</span><i class="bx bx-link-external"></i></a>
+            </div>
+          </div>
+
+          <div class="project-card glass accent-top" data-aos="fade-up" data-aos-delay="150">
+            <span class="project-index">02</span>
+            <div class="project-image"><img src="assets/images/DRS.png" alt="ATM Daily Reporting System" loading="lazy"><div class="project-overlay"><div class="project-tags"><span class="project-tag">Automation</span><span class="project-tag">Reporting</span></div></div></div>
+            <div class="project-content">
+              <h3 class="project-title">ATM Daily Reporting System</h3>
+              <p class="project-description">Automated portal for generating and managing daily ATM transaction reports with advanced analytics capabilities.</p>
+              <div class="project-tech"><span>PHP</span><span>MySQL</span><span>Chart.js</span></div>
+              <a href="https://fanareports.yeneflow.com" class="project-link" target="_blank" rel="noopener"><span>View Project</span><i class="bx bx-link-external"></i></a>
+            </div>
+          </div>
+
+          <div class="project-card glass accent-top" data-aos="fade-up" data-aos-delay="200">
+            <span class="project-index">03</span>
+            <div class="project-image"><img src="assets/images/creative.png" alt="Creative Hub Music Production" loading="lazy"><div class="project-overlay"><div class="project-tags"><span class="project-tag">Music Production</span><span class="project-tag">Web Design</span></div></div></div>
+            <div class="project-content">
+              <h3 class="project-title">Creative Hub</h3>
+              <p class="project-description">Comprehensive music production portfolio featuring albums, singles, remixes, and multimedia artwork gallery.</p>
+              <div class="project-tech"><span>HTML5</span><span>CSS3</span><span>JavaScript</span></div>
+              <a href="https://yohana9.github.io/Creative_Hub/" class="project-link" target="_blank" rel="noopener"><span>View Project</span><i class="bx bx-link-external"></i></a>
+            </div>
+          </div>
+
+          <div class="project-card glass accent-top" data-aos="fade-up" data-aos-delay="250">
+            <span class="project-index">04</span>
+            <div class="project-image"><img src="assets/images/lms.png" alt="Library Management System" loading="lazy"><div class="project-overlay"><div class="project-tags"><span class="project-tag">Database</span><span class="project-tag">Management System</span></div></div></div>
+            <div class="project-content">
+              <h3 class="project-title">Library Management System</h3>
+              <p class="project-description">Web application for comprehensive library inventory management, user administration, and reporting system.</p>
+              <div class="project-tech"><span>PHP</span><span>MySQL</span><span>localStorage</span></div>
+              <a href="https://lms.yeneflow.com/" class="project-link" target="_blank" rel="noopener"><span>View Project</span><i class="bx bx-link-external"></i></a>
+            </div>
+          </div>
+
+          <div class="project-card glass accent-top" data-aos="fade-up" data-aos-delay="300">
+            <span class="project-index">05</span>
+            <div class="project-image"><img src="assets/images/bus.jpg" alt="Kebele Store Management" loading="lazy"><div class="project-overlay"><div class="project-tags"><span class="project-tag">Inventory</span><span class="project-tag">POS System</span></div></div></div>
+            <div class="project-content">
+              <h3 class="project-title">Kebele Store Management</h3>
+              <p class="project-description">Complete inventory and point-of-sale system designed for local community stores and small businesses.</p>
+              <div class="project-tech"><span>JavaScript</span><span>Local Storage</span><span>UI/UX</span></div>
+              <a href="#" class="project-link"><span>View Details</span><i class="bx bx-link-external"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SKILLS
+         ============================================================ -->
+    <section id="skills" class="section">
+      <div class="container">
+        <div class="section-header" data-aos="fade-up">
+          <span class="section-eyebrow">~/skills</span>
+          <h2 class="section-title">Technical Expertise</h2>
+          <p class="section-subtitle">Comprehensive skill set spanning infrastructure, development, and creative domains</p>
+          <div class="section-divider"></div>
+        </div>
+
+        <div class="skills-container">
+          <div class="skills-category glass accent-top" data-aos="fade-right">
+            <div class="category-header"><div class="category-icon"><i class="bx bx-server"></i></div><h3>Infrastructure &amp; Virtualization</h3></div>
+            <div class="skills-list">
+              <div class="skill-item"><div class="skill-info"><span>VMware ESXi</span><span>95%</span></div><div class="skill-bar"><div class="skill-progress" style="width:95%"></div></div></div>
+              <div class="skill-item"><div class="skill-info"><span>Data Center Management</span><span>90%</span></div><div class="skill-bar"><div class="skill-progress" style="width:90%"></div></div></div>
+              <div class="skill-item"><div class="skill-info"><span>Network Administration</span><span>88%</span></div><div class="skill-bar"><div class="skill-progress" style="width:88%"></div></div></div>
+              <div class="skill-item"><div class="skill-info"><span>System Configuration</span><span>92%</span></div><div class="skill-bar"><div class="skill-progress" style="width:92%"></div></div></div>
+              <div class="skill-item"><div class="skill-info"><span>Helpdesk &amp; Ticketing (Zoho, Endpoint Central)</span><span>90%</span></div><div class="skill-bar"><div class="skill-progress" style="width:90%"></div></div></div>
+            </div>
+          </div>
+
+          <div class="skills-category glass accent-top" data-aos="fade-up">
+            <div class="category-header"><div class="category-icon"><i class="bx bx-code-alt"></i></div><h3>Development &amp; Programming</h3></div>
+            <div class="skills-list">
+              <div class="skill-item"><div class="skill-info"><span>PHP &amp; MySQL</span><span>90%</span></div><div class="skill-bar"><div class="skill-progress" style="width:90%"></div></div></div>
+              <div class="skill-item"><div class="skill-info"><span>JavaScript</span><span>85%</span></div><div class="skill-bar"><div class="skill-progress" style="width:85%"></div></div></div>
+              <div class="skill-item"><div class="skill-info"><span>Python</span><span>80%</span></div><div class="skill-bar"><div class="skill-progress" style="width:80%"></div></div></div>
+              <div class="skill-item"><div class="skill-info"><span>HTML/CSS</span><span>95%</span></div><div class="skill-bar"><div class="skill-progress" style="width:95%"></div></div></div>
+            </div>
+          </div>
+
+          <div class="skills-category glass accent-top" data-aos="fade-left">
+            <div class="category-header"><div class="category-icon"><i class="bx bx-palette"></i></div><h3>Creative &amp; Professional</h3></div>
+            <div class="skills-grid">
+              <div class="skill-badge"><i class="bx bx-music"></i><span>Audio Production</span></div>
+              <div class="skill-badge"><i class="bx bx-video"></i><span>Video Editing</span></div>
+              <div class="skill-badge"><i class="bx bx-edit"></i><span>Graphic Design</span></div>
+              <div class="skill-badge"><i class="bx bx-group"></i><span>Team Leadership</span></div>
+              <div class="skill-badge"><i class="bx bx-message-detail"></i><span>Technical Training</span></div>
+              <div class="skill-badge"><i class="bx bx-time"></i><span>Project Management</span></div>
+              <div class="skill-badge"><i class="bx bx-badge-check"></i><span>ISO 9001:2016 QMS</span></div>
+              <div class="skill-badge"><i class="bx bx-file"></i><span>SOP &amp; KB Documentation</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         CERTIFICATES
+         ============================================================ -->
+    <section id="certificates" class="section">
+      <div class="container">
+        <div class="section-header" data-aos="fade-up">
+          <span class="section-eyebrow">~/certifications</span>
+          <h2 class="section-title">Certifications</h2>
+          <p class="section-subtitle">Professional qualifications and continuous learning achievements</p>
+          <div class="section-divider"></div>
+        </div>
+
+        <div class="certificates-grid">
+          <div class="certificate-card glass accent-top" data-aos="zoom-in" data-aos-delay="100">
+            <div class="certificate-image"><img src="assets/images/Certificates/project.png" alt="PM Certification" loading="lazy"><div class="certificate-overlay"><button class="certificate-view" data-cert="project"><i class="bx bx-zoom-in"></i></button></div></div>
+            <div class="certificate-content"><h3>Project Management Training</h3><p>Advanced Project Management (Scope, Time, Cost, Budget, Communication, Procurement Management) and other PMBOK modules</p><div class="certificate-tag">School of Commerce</div><a href="#" class="certificate-verify"><i class="bx bx-check-shield"></i><span>Verify on Commerce-AAU</span></a></div>
+          </div>
+
+           <div class="certificate-card glass accent-top" data-aos="zoom-in" data-aos-delay="100">
+            <div class="certificate-image"><img src="assets/images/Certificates/digital.jpeg" alt="Zega Digital Certification" loading="lazy"><div class="certificate-overlay"><button class="certificate-view" data-cert="digital"><i class="bx bx-zoom-in"></i></button></div></div>
+            <div class="certificate-content"><h3>Digital World Literacy</h3><p>Modules covering Media Literacy, Privacy, Online Security, Youth Online Safety &amp; Wellbeing, and AI Literacy</p><div class="certificate-tag">School of Commerce</div><a href="https://zega-digital-bot.onrender.com/verify/ZEGA-48F53HNR" class="certificate-verify"><i class="bx bx-check-shield"></i><span>Verify on Zega Bot</span></a></div>
+          </div>
+
+          <div class="certificate-card glass accent-top" data-aos="zoom-in" data-aos-delay="100">
+            <div class="certificate-image"><img src="assets/images/Certificates/HIK_Vision.jpg" alt="HIK-VISION Certification" loading="lazy"><div class="certificate-overlay"><button class="certificate-view" data-cert="HIK-VISION"><i class="bx bx-zoom-in"></i></button></div></div>
+            <div class="certificate-content"><h3>Expert Technical Training</h3><p>Advanced security solutions, installation techniques and product integration.</p><div class="certificate-tag">HIK-VISION</div><a href="#" class="certificate-verify"><i class="bx bx-check-shield"></i><span>Verify on HIK-VISION</span></a></div>
+          </div>
+
+          <div class="certificate-card glass accent-top" data-aos="zoom-in" data-aos-delay="150">
+            <div class="certificate-image"><img src="assets/images/Certificates/CCNA1.png" alt="CCNA Certification" loading="lazy"><div class="certificate-overlay"><button class="certificate-view" data-cert="ccna"><i class="bx bx-zoom-in"></i></button></div></div>
+            <div class="certificate-content"><h3>CCNA – Cisco Certified</h3><p>Network administration &amp; configuration</p><div class="certificate-tag">Cisco</div><a href="https://www.credly.com/badges/ccna" class="certificate-verify" target="_blank" rel="noopener"><i class="bx bx-check-shield"></i><span>Verify on Credly</span></a></div>
+          </div>
+
+          <div class="certificate-card glass accent-top" data-aos="zoom-in" data-aos-delay="200">
+            <div class="certificate-image"><img src="assets/images/Certificates/cyber.jpg" alt="Cybersecurity Certification" loading="lazy"><div class="certificate-overlay"><button class="certificate-view" data-cert="cyber"><i class="bx bx-zoom-in"></i></button></div></div>
+            <div class="certificate-content"><h3>Cybersecurity Professional</h3><p>Information security &amp; threat management</p><div class="certificate-tag">Security</div><a href="#" class="certificate-verify"><i class="bx bx-check-shield"></i><span>Verified Certificate</span></a></div>
+          </div>
+
+          <div class="certificate-card glass accent-top" data-aos="zoom-in" data-aos-delay="300">
+            <div class="certificate-image"><img src="assets/images/Certificates/Front_End.jpg" alt="Front-End Development Certification" loading="lazy"><div class="certificate-overlay"><button class="certificate-view" data-cert="frontend"><i class="bx bx-zoom-in"></i></button></div></div>
+            <div class="certificate-content"><h3>Front-End Development</h3><p>HTML5, CSS3, JavaScript mastery</p><div class="certificate-tag">Development</div><a href="#" class="certificate-verify"><i class="bx bx-check-shield"></i><span>Verified by Course Provider</span></a></div>
+          </div>
+
+          <div class="certificate-card glass accent-top" data-aos="zoom-in" data-aos-delay="100">
+            <div class="certificate-image"><img src="assets/images/Certificates/kaizen.jpg" alt="Kaizen Implementation Certification" loading="lazy"><div class="certificate-overlay"><button class="certificate-view" data-cert="kaizen"><i class="bx bx-zoom-in"></i></button></div></div>
+            <div class="certificate-content"><h3>Kaizen Implementation</h3><p>Continuous improvement methodology</p><div class="certificate-tag">Business</div><a href="#" class="certificate-verify"><i class="bx bx-check-shield"></i><span>Verified by Kaizen Institute</span></a></div>
+          </div>
+
+          <div class="certificate-card glass accent-top" data-aos="zoom-in" data-aos-delay="150">
+            <div class="certificate-image"><img src="assets/images/Certificates/saylor.jpg" alt="Information Security Certification" loading="lazy"><div class="certificate-overlay"><button class="certificate-view" data-cert="saylor"><i class="bx bx-zoom-in"></i></button></div></div>
+            <div class="certificate-content"><h3>Information Security</h3><p>Data protection &amp; security protocols</p><div class="certificate-tag">Security</div><a href="https://learn.saylor.org" class="certificate-verify" target="_blank" rel="noopener"><i class="bx bx-check-shield"></i><span>Verify on Saylor Academy</span></a></div>
+          </div>
+
+          <div class="certificate-card glass accent-top" data-aos="zoom-in" data-aos-delay="200">
+            <div class="certificate-image"><img src="assets/images/Certificates/XDR_Sales.png" alt="CISCO Black Belt Academy - XDR Sales" loading="lazy"><div class="certificate-overlay"><button class="certificate-view" data-cert="xdr-sales"><i class="bx bx-zoom-in"></i></button></div></div>
+            <div class="certificate-content"><h3>CISCO Black Belt Academy</h3><p>Black Belt XDR Sales</p><div class="certificate-tag">Cisco</div><a href="#" class="certificate-verify"><i class="bx bx-check-shield"></i><span>Verify on Cisco</span></a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         TESTIMONIALS
+         ============================================================ -->
+    <section id="testimonials" class="section">
+      <div class="container">
+        <div class="section-header" data-aos="fade-up">
+          <span class="section-eyebrow">~/testimonials</span>
+          <h2 class="section-title">What People Say</h2>
+          <p class="section-subtitle">Feedback from colleagues, clients and partners I've worked with</p>
+          <div class="section-divider"></div>
+        </div>
+        <div class="t-summary glass" id="tSummary" hidden></div>
+        <div class="t-wrap" id="tWrap">
+          <button type="button" class="t-nav prev" id="tPrev" aria-label="Previous testimonials"><i class="bx bx-chevron-left"></i></button>
+          <div class="t-track" id="tTrack" tabindex="0" role="region" aria-label="Testimonials" aria-live="polite">
+            <div class="t-card glass t-skel"></div><div class="t-card glass t-skel"></div><div class="t-card glass t-skel"></div>
+          </div>
+          <button type="button" class="t-nav next" id="tNext" aria-label="Next testimonials"><i class="bx bx-chevron-right"></i></button>
+        </div>
+        <div class="t-cta">
+          <button type="button" class="btn btn-primary" id="tOpen"><span>Write a Testimonial</span> <i class="bx bx-pencil"></i></button>
+          <p>Worked with me? Share your experience. Testimonials are reviewed before they appear.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         CONTACT
+         ============================================================ -->
+    <section id="contact" class="section">
+      <div class="container">
+        <div class="section-header" data-aos="fade-up">
+          <span class="section-eyebrow">~/contact</span>
+          <h2 class="section-title">Get In Touch</h2>
+          <p class="section-subtitle">Let's discuss how we can work together on your next project</p>
+          <div class="section-divider"></div>
+        </div>
+
+        <div class="contact-layout">
+          <div class="contact-rail" data-aos="fade-right">
+            <a href="mailto:yohanreta9@gmail.com" class="contact-row glass">
+              <div class="contact-icon"><i class="bx bx-envelope"></i></div>
+              <div class="contact-row-text"><span class="contact-row-label">Email</span><span class="contact-row-value">yohanreta9@gmail.com</span></div>
+              <i class="bx bx-chevron-right contact-row-arrow"></i>
+            </a>
+            <a href="tel:+251963949332" class="contact-row glass">
+              <div class="contact-icon"><i class="bx bx-phone"></i></div>
+              <div class="contact-row-text"><span class="contact-row-label">Phone</span><span class="contact-row-value">+251 963 949 332</span></div>
+              <i class="bx bx-chevron-right contact-row-arrow"></i>
+            </a>
+            <a href="https://maps.google.com/?q=Addis+Ababa,Ethiopia" class="contact-row glass" target="_blank" rel="noopener">
+              <div class="contact-icon"><i class="bx bx-map"></i></div>
+              <div class="contact-row-text"><span class="contact-row-label">Location</span><span class="contact-row-value">Addis Ababa, Bole, Ethiopia</span></div>
+              <i class="bx bx-chevron-right contact-row-arrow"></i>
+            </a>
+
+            <div class="availability-panel glass">
+              <span class="status-chip"><span class="dot"></span>Available for opportunities</span>
+              <p>Typical response time</p>
+              <div class="metric-value">&lt; 24 hrs</div>
+              <div class="social-links" style="margin-top:1.25rem;">
+                <a href="https://yeneflow.com" class="social-link" aria-label="YeneFlow" target="_blank" rel="noopener"><i class="bx bx-globe"></i></a>
+                <a href="https://www.linkedin.com/in/yohannes-reta/" class="social-link" aria-label="LinkedIn" target="_blank" rel="noopener"><i class="bx bxl-linkedin"></i></a>
+                <a href="https://github.com/yohana9" class="social-link" aria-label="GitHub" target="_blank" rel="noopener"><i class="bx bxl-github"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-form-container" data-aos="fade-left">
+            <form id="contactForm" class="contact-form glass" novalidate>
+              <div class="form-header"><h3>Send a Message</h3><p>Fill in the form below and I'll get back to you personally</p></div>
+
+              <div class="form-row">
+                <div class="form-group"><label for="name"><i class="bx bx-user"></i>Full Name</label><input type="text" id="name" name="name" placeholder="Abeba Belachew" required autocomplete="name"><div class="form-error"></div></div>
+                <div class="form-group"><label for="email"><i class="bx bx-envelope"></i>Email Address</label><input type="email" id="email" name="email" placeholder="abebe@company.com" required autocomplete="email"><div class="form-error"></div></div>
+              </div>
+
+              <div class="form-group"><label for="subject"><i class="bx bx-edit"></i>Subject</label><input type="text" id="subject" name="subject" placeholder="Let's talk about..." required><div class="form-error"></div></div>
+              <div class="form-group"><label for="message"><i class="bx bx-message"></i>Your Message</label><textarea id="message" name="message" rows="5" placeholder="Tell me about your project or opportunity..." required></textarea><div class="form-error"></div></div>
+
+              <input type="hidden" name="_subject" value="New message from your portfolio site">
+              <input type="hidden" name="_template" value="table">
+              <input type="hidden" name="_captcha" value="false">
+              <input type="text" name="website" class="hp-field" tabindex="-1" autocomplete="off">
+
+              <div class="form-footer">
+                <button type="submit" class="btn btn-primary" id="formSubmitBtn"><span>Send Message</span> <i class="bx bx-send"></i></button>
+                <a href="mailto:yohanreta9@gmail.com" class="form-fallback-link">or email me directly</a>
+                <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- TESTIMONIAL MODAL -->
+  <div class="modal" id="tModal" role="dialog" aria-modal="true" aria-labelledby="tModalTitle">
+    <div class="t-modal-box glass">
+      <button type="button" class="t-x" id="tClose" aria-label="Close"><i class="bx bx-x"></i></button>
+      <div id="tFormWrap">
+        <h3 id="tModalTitle">Share Your Experience</h3>
+        <p class="sub">Your email stays private and is never published. Your testimonial appears after review.</p>
+        <form id="tForm" novalidate>
+          <div class="form-row">
+            <div class="form-group"><label for="t-name"><i class="bx bx-user"></i>Full Name *</label><input type="text" id="t-name" name="name" maxlength="100" autocomplete="name" required><div class="form-error"></div></div>
+            <div class="form-group"><label for="t-email"><i class="bx bx-envelope"></i>Email (private) *</label><input type="email" id="t-email" name="email" maxlength="150" autocomplete="email" required><div class="form-error"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label for="t-position"><i class="bx bx-briefcase"></i>Position / Job Title *</label><input type="text" id="t-position" name="position" maxlength="120" autocomplete="organization-title" required><div class="form-error"></div></div>
+            <div class="form-group"><label for="t-org"><i class="bx bx-building"></i>Company / Organization</label><input type="text" id="t-org" name="organization" maxlength="120" autocomplete="organization"><div class="form-error"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label for="t-country"><i class="bx bx-map"></i>Country *</label><select id="t-country" name="country" required><option value="">Select country…</option></select><div class="form-error"></div></div>
+            <div class="form-group"><label for="t-rel"><i class="bx bx-link"></i>How do you know me? *</label>
+              <select id="t-rel" name="relationship" required><option value="">Select…</option><option>Colleague</option><option>Manager / Supervisor</option><option>Client</option><option>Vendor / Partner</option><option>Student</option><option>Team Member</option><option>Other</option></select><div class="form-error"></div></div>
+          </div>
+          <div class="form-group"><label><i class="bx bx-star"></i>Rating *</label>
+            <div class="t-rate" role="radiogroup" aria-label="Rating out of 5">
+              <input type="radio" name="rating" id="r5" value="5"><label for="r5" title="5 stars">★</label>
+              <input type="radio" name="rating" id="r4" value="4"><label for="r4" title="4 stars">★</label>
+              <input type="radio" name="rating" id="r3" value="3"><label for="r3" title="3 stars">★</label>
+              <input type="radio" name="rating" id="r2" value="2"><label for="r2" title="2 stars">★</label>
+              <input type="radio" name="rating" id="r1" value="1"><label for="r1" title="1 star">★</label>
+            </div><div class="form-error" data-for="rating"></div></div>
+          <div class="form-group"><label for="t-message"><i class="bx bx-message-square-detail"></i>Your Testimonial *</label><textarea id="t-message" name="message" rows="5" maxlength="800" placeholder="What was it like working with Yohannes? What did he deliver?" required></textarea><div class="t-hint"><span id="tCount">0</span>/800 (minimum 30)</div><div class="form-error"></div></div>
+          <div class="form-row">
+            <div class="form-group"><label for="t-photo"><i class="bx bx-image"></i>Photo (optional)</label><input type="file" id="t-photo" name="photo" accept="image/jpeg,image/png,image/webp"><div class="t-hint">JPG, PNG or WebP, max 3 MB</div><img class="t-preview" id="tPreview" alt="Photo preview"><div class="form-error"></div></div>
+            <div class="form-group"><label for="t-linkedin"><i class="bx bxl-linkedin"></i>LinkedIn (optional)</label><input type="url" id="t-linkedin" name="linkedin" maxlength="255" placeholder="https://linkedin.com/in/…"><div class="form-error"></div></div>
+          </div>
+          <label class="t-consent"><input type="checkbox" name="consent" value="1" id="t-consent"><span>I agree that my name, position, country, photo and testimonial may be published on this website. *</span></label>
+          <div class="form-error" data-for="consent" style="margin-top:-.6rem;margin-bottom:.8rem;"></div>
+          <input type="text" name="website" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <div class="form-footer"><button type="submit" class="btn btn-primary" id="tSubmit"><span>Submit Testimonial</span> <i class="bx bx-send"></i></button><div class="form-status" id="tStatus" role="status" aria-live="polite"></div></div>
+        </form>
+      </div>
+      <div class="t-thanks" id="tThanks" hidden><i class="bx bx-check-circle"></i><h3>Thank you!</h3><p id="tThanksMsg"></p><button type="button" class="btn btn-outline btn-sm" id="tDone" style="margin-top:1.2rem">Close</button></div>
     </div>
   </div>
-  <div class="pb-actions">
-    <button class="like-btn" id="pLike" aria-label="Like this track"><i class="fa-regular fa-heart"></i></button>
-    <button class="cmt-btn online-only" id="pComments" aria-label="Comments"><i class="fa-regular fa-comment"></i></button>
-    <button class="share-btn" id="pShare" aria-label="Share"><i class="fas fa-share-nodes"></i></button>
-  </div>
-  <div class="pb-controls">
-    <button class="p-btn shuffle" id="pShuffle" aria-label="Shuffle"><i class="fas fa-shuffle"></i></button>
-    <button class="p-btn" id="pPrev" aria-label="Previous"><i class="fas fa-backward-step"></i></button>
-    <button class="p-btn main" id="pPlay" aria-label="Play or pause"><i class="fas fa-play"></i></button>
-    <button class="p-btn" id="pNext" aria-label="Next"><i class="fas fa-forward-step"></i></button>
-    <button class="p-btn repeat" id="pRepeat" aria-label="Repeat"><i class="fas fa-repeat"></i></button>
-  </div>
-  <div class="pb-seek">
-    <span id="pCur">0:00</span>
-    <div class="seek-track" id="pSeekTrack"><div class="seek-fill" id="pSeekFill"></div><div class="seek-thumb" id="pSeekThumb"></div></div>
-    <span id="pDur">0:00</span>
-  </div>
-  <div class="pb-vol">
-    <i class="fas fa-volume-high"></i>
-    <div class="vol-track" id="pVolTrack"><div class="vol-fill" id="pVolFill"></div></div>
-  </div>
-  <button class="p-btn player-close" id="pClose" aria-label="Close player"><i class="fas fa-xmark"></i></button>
-</div>
 
-<div class="toast-wrap" aria-live="polite"></div>
+  <!-- CERTIFICATE MODAL -->
+  <div class="modal" id="certificateModal">
+    <div class="modal-content glass">
+      <button class="modal-close"><i class="bx bx-x"></i></button>
+      <div class="modal-body"><img id="modalImage" src="" alt="Certificate Preview"></div>
+    </div>
+  </div>
 
-<script src="scripts/config.js"></script>
-<script src="scripts/api.js"></script>
-<script src="scripts/catalog.js"></script>
-<script src="scripts/app.js" defer></script>
-<script src="scripts/social.js" defer></script>
-<script src="scripts/player.js" defer></script>
-<script src="scripts/comments.js" defer></script>
-<script src="scripts/testimonials.js" defer></script>
-<script src="scripts/protect.js" defer></script>
-<script src="scripts/stars.js" defer></script>
-<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js" defer></script>
-<script src="scripts/particle2.js" defer></script>
+  
+  <!-- FLOATING ACTIONS -->
+  <div class="floating-actions">
+    <a href="resume/Resume.pdf" class="fab primary" data-tooltip="Download CV" download>
+      <i class="bx bx-download"></i>
+    </a>
+    <button id="backToTop" class="fab back-to-top" aria-label="Back to top" data-tooltip="Back to Top">
+      <i class="bx bx-up-arrow-alt"></i>
+    </button>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <div class="footer-logo"><img src="assets/images/brand.png" alt="Yohannes Reta logo" loading="lazy"></div>
+          <h3>Yohannes Reta</h3>
+          <p>Senior ICT &amp; Project Management Professional</p>
+        </div>
+
+        <div class="footer-links">
+          <div class="footer-column"><h4>Quick Links</h4><a href="#hero">Home</a><a href="#about">About</a><a href="#experience">Experience</a><a href="#projects">Projects</a></div>
+          <div class="footer-column"><h4>Resources</h4><a href="resume/Resume.pdf" download>Download CV</a><a href="#certificates">Certifications</a><a href="#testimonials">Testimonials</a><a href="#skills">Skills</a><a href="#contact">Contact</a></div>
+          <div class="footer-column"><h4>Connect</h4><a href="https://yeneflow.com" target="_blank" rel="noopener">YeneFlow.com</a><a href="https://www.linkedin.com/in/yohannes-reta/" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/yohana9" target="_blank" rel="noopener">GitHub</a><a href="mailto:yohanreta9@gmail.com">Email</a><a href="tel:+251963949332">Phone</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; <span id="currentYear"></span> Yohannes Reta. All rights reserved.</p>
+        <p>Built with passion in Addis Ababa, Ethiopia</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      AOS.init({ duration: 700, once: true, offset: 80 });
+      document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+      /* ---------- Preloader ---------- */
+      const preloader = document.getElementById('preloader');
+      window.addEventListener('load', () => setTimeout(() => preloader.classList.add('loaded'), 350));
+      setTimeout(() => preloader && preloader.classList.add('loaded'), 2500);
+
+      /* ---------- Theme toggle ---------- */
+      const themeToggle = document.getElementById('theme-toggle');
+      const body = document.body;
+      const savedTheme = localStorage.getItem('portfolio-theme') || 'light';
+      body.setAttribute('data-theme', savedTheme);
+      themeToggle.innerHTML = savedTheme === 'dark' ? '<i class="bx bx-sun"></i>' : '<i class="bx bx-moon"></i>';
+      themeToggle.addEventListener('click', () => {
+        const newTheme = body.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+        body.setAttribute('data-theme', newTheme);
+        localStorage.setItem('portfolio-theme', newTheme);
+        themeToggle.innerHTML = newTheme === 'dark' ? '<i class="bx bx-sun"></i>' : '<i class="bx bx-moon"></i>';
+      });
+
+      /* ---------- Navbar scroll state + scroll progress + back-to-top ---------- */
+      const navbar = document.getElementById('navbar');
+      const scrollProgress = document.getElementById('scrollProgress');
+      const backToTop = document.getElementById('backToTop');
+      window.addEventListener('scroll', () => {
+        const scrollTop = window.scrollY;
+        navbar.classList.toggle('scrolled', scrollTop > 20);
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        scrollProgress.style.width = pct + '%';
+        backToTop.classList.toggle('show', scrollTop > 500);
+      }, { passive: true });
+      backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+      /* ---------- Cursor glow (fine-pointer desktop only) ---------- */
+      const cursorGlow = document.getElementById('cursorGlow');
+      if (cursorGlow && window.matchMedia('(pointer: fine)').matches) {
+        window.addEventListener('mousemove', (e) => {
+          cursorGlow.style.opacity = '1';
+          cursorGlow.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
+        }, { passive: true });
+        document.addEventListener('mouseleave', () => { cursorGlow.style.opacity = '0'; });
+      }
+
+      /* ---------- Mobile nav toggle ---------- */
+      const navToggle = document.getElementById('navToggle');
+      const navLinksEl = document.getElementById('navLinks');
+      const navLinks = document.querySelectorAll('.nav-link');
+
+      function closeMobileNav() {
+        navLinksEl.classList.remove('active');
+        navToggle.classList.remove('active');
+        navToggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
+
+      navToggle.addEventListener('click', () => {
+        const isOpen = navLinksEl.classList.toggle('active');
+        navToggle.classList.toggle('active', isOpen);
+        navToggle.setAttribute('aria-expanded', String(isOpen));
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+      });
+
+      navLinks.forEach(link => link.addEventListener('click', closeMobileNav));
+
+      /* ---------- Websites-for-sale dropdown ---------- */
+      const dropdown = document.getElementById('websitesDropdown');
+      const dropBtn = document.getElementById('dropdownToggle');
+      if (dropdown && dropBtn) {
+        dropBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          dropdown.classList.toggle('active');
+        });
+        document.addEventListener('click', (e) => {
+          if (!dropdown.contains(e.target)) dropdown.classList.remove('active');
+        });
+      }
+
+      /* ---------- Scroll-spy active nav link ---------- */
+      const sections = document.querySelectorAll('section[id]');
+      window.addEventListener('scroll', () => {
+        let current = '';
+        const scrollY = window.scrollY + var_navOffset();
+        sections.forEach(section => {
+          const top = section.offsetTop;
+          const height = section.clientHeight;
+          if (scrollY >= top && scrollY < top + height) current = section.getAttribute('id');
+        });
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === `#${current}`) link.classList.add('active');
+        });
+      }, { passive: true });
+      function var_navOffset() {
+        return (parseInt(getComputedStyle(document.documentElement).getPropertyValue('--navbar-h')) || 78) + 40;
+      }
+
+      /* ---------- Certificate modal ---------- */
+      const modal = document.getElementById('certificateModal');
+      const modalImage = document.getElementById('modalImage');
+      const modalClose = modal.querySelector('.modal-close');
+      const viewButtons = document.querySelectorAll('.certificate-view');
+
+      const certImages = {
+        'HIK-VISION': 'assets/images/Certificates/HIK_Vision.jpg',
+        'ccna': 'assets/images/Certificates/CCNA1.png',
+        'cyber': 'assets/images/Certificates/cyber.jpg',
+        'xdr-presales': 'assets/images/Certificates/XDR_Presales.png',
+        'frontend': 'assets/images/Certificates/Front_End.jpg',
+        'kaizen': 'assets/images/Certificates/kaizen.jpg',
+        'saylor': 'assets/images/Certificates/saylor.jpg',
+        'xdr-sales': 'assets/images/Certificates/XDR_Sales.png',
+        'project': 'assets/images/Certificates/project.png',
+        'digital': 'assets/images/Certificates/digital.jpeg'
+      };
+
+      viewButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const cert = btn.getAttribute('data-cert');
+          modalImage.src = certImages[cert] || '';
+          modal.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        });
+      });
+      modalClose.addEventListener('click', () => { modal.classList.remove('active'); document.body.style.overflow = ''; });
+      modal.addEventListener('click', (e) => { if (e.target === modal) { modal.classList.remove('active'); document.body.style.overflow = ''; } });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) { modal.classList.remove('active'); document.body.style.overflow = ''; }
+      });
+
+      /* ---------- Skill bars animation ---------- */
+      const skillBars = document.querySelectorAll('.skill-progress');
+      const skillObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const width = entry.target.style.width;
+            entry.target.style.width = '0%';
+            requestAnimationFrame(() => { entry.target.style.width = width; });
+            skillObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.3 });
+      skillBars.forEach(bar => { const w = bar.style.width; bar.dataset.target = w; skillObserver.observe(bar); });
+
+      /* ---------- Hero photo crossfade slideshow ---------- */
+      const photoContainer = document.getElementById('profilePhoto');
+      if (photoContainer) {
+        const slides = Array.from(photoContainer.querySelectorAll('.photo-slide'));
+        let current = slides.findIndex(s => s.classList.contains('active'));
+        if (current === -1) current = 0;
+
+        // Match the container's aspect-ratio to the real photo (removes guessed-ratio dead space)
+        let ratioSet = false;
+        function applyRatio(img) {
+          if (ratioSet || !img.naturalWidth || !img.naturalHeight) return;
+          photoContainer.style.setProperty('--photo-ratio', `${img.naturalWidth} / ${img.naturalHeight}`);
+          ratioSet = true;
+        }
+        slides.forEach(img => {
+          if (img.complete && img.naturalWidth) applyRatio(img);
+          else img.addEventListener('load', () => applyRatio(img), { once: true });
+        });
+
+        slides.forEach(img => {
+          img.addEventListener('error', () => {
+            const wasActive = img.classList.contains('active');
+            img.dataset.broken = '1';
+            img.classList.remove('active');
+            checkAllBroken();
+            if (wasActive) advanceSlide();
+          });
+        });
+
+        function checkAllBroken() {
+          if (slides.every(s => s.dataset.broken === '1')) {
+            photoContainer.style.display = 'none';
+          }
+        }
+
+        function advanceSlide() {
+          const usable = slides.filter(s => s.dataset.broken !== '1');
+          if (usable.length === 0) return; // checkAllBroken() already hides the container in this case
+          if (usable.length === 1) {
+            if (!usable[0].classList.contains('active')) {
+              usable[0].classList.add('active');
+              current = slides.indexOf(usable[0]);
+            }
+            return;
+          }
+          let next = current;
+          for (let i = 0; i < slides.length; i++) {
+            next = (next + 1) % slides.length;
+            if (slides[next].dataset.broken !== '1') break;
+          }
+          if (next === current) return;
+          slides[current].classList.remove('active');
+          slides[next].classList.add('active');
+          current = next;
+        }
+
+        setInterval(advanceSlide, 5000);
+      }
+
+      /* ---------- Contact form — dual-mode with automatic fallback ----------
+         1st attempt: your own PHP + MySQL backend on portfolio.yeneflow.com
+                      (full control, every message saved to a real database)
+         2nd attempt: FormSubmit relay — needs no hosting at all, so it keeps
+                      working even if the subdomain/hosting is down or the
+                      DNS/subscription lapses
+         Final fallback: a visible "email me directly" mailto link, always
+                      present regardless of either backend's health.
+      */
+      const CONTACT_ENDPOINTS = [
+        {
+          // Update this path if you move submit-contact.php to a subfolder
+          // on portfolio.yeneflow.com (e.g. .../api/submit-contact.php).
+          url: 'https://portfolio.yeneflow.com/submit-contact.php',
+          type: 'own'
+        },
+        {
+          // Keyless, hosting-free relay — the safety net if the subdomain
+          // above is ever unreachable. First-ever use to this address needs
+          // a one-time confirmation click from an email FormSubmit sends.
+          url: 'https://formsubmit.co/ajax/yohanreta9@gmail.com',
+          type: 'formsubmit'
+        }
+      ];
+
+      const form = document.getElementById('contactForm');
+      const statusDiv = document.getElementById('formStatus');
+      const submitBtn = document.getElementById('formSubmitBtn');
+
+      function setFieldError(field, message) {
+        const input = form.querySelector(`[name="${field}"]`);
+        if (!input) return;
+        const errorDiv = input.parentElement.querySelector('.form-error');
+        if (message) {
+          input.classList.add('error');
+          if (errorDiv) errorDiv.textContent = message;
+        } else {
+          input.classList.remove('error');
+          if (errorDiv) errorDiv.textContent = '';
+        }
+      }
+
+      async function tryEndpoint(endpoint, formData) {
+        const response = await fetch(endpoint.url, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: formData
+        });
+        let payload = null;
+        try { payload = await response.json(); } catch (_) { /* non-JSON response */ }
+        const succeeded = response.ok && payload &&
+          (payload.success === true || payload.success === 'true');
+        return { response, payload, succeeded };
+      }
+
+      if (form) {
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+
+          if (form.website && form.website.value.trim() !== '') {
+            statusDiv.className = 'form-status success';
+            statusDiv.textContent = 'Message sent successfully!';
+            form.reset();
+            return;
+          }
+
+          let isValid = true;
+          ['name', 'email', 'subject', 'message'].forEach(field => {
+            const input = form.querySelector(`[name="${field}"]`);
+            if (!input.value.trim()) {
+              setFieldError(field, 'Required');
+              isValid = false;
+            } else if (field === 'email' && !/^\S+@\S+\.\S+$/.test(input.value)) {
+              setFieldError(field, 'Invalid email');
+              isValid = false;
+            } else {
+              setFieldError(field, '');
+            }
+          });
+
+          if (!isValid) {
+            statusDiv.className = 'form-status error';
+            statusDiv.textContent = 'Please fix the errors above.';
+            return;
+          }
+
+          statusDiv.className = 'form-status loading';
+          statusDiv.textContent = 'Sending…';
+          submitBtn.classList.add('is-loading');
+
+          let delivered = false;
+          let stoppedForValidation = false;
+
+          for (const endpoint of CONTACT_ENDPOINTS) {
+            try {
+              const formData = new FormData(form);
+              const { response, payload, succeeded } = await tryEndpoint(endpoint, formData);
+
+              if (succeeded) {
+                statusDiv.className = 'form-status success';
+                statusDiv.innerHTML = '<i class="bx bx-check-circle"></i> ' +
+                  (payload.message || "Message sent successfully! I'll reply within 24 hours.");
+                form.reset();
+                delivered = true;
+                break;
+              }
+
+              // A real validation failure from OUR OWN backend (bad input,
+              // not a down server) shouldn't be retried elsewhere — show the
+              // field errors and stop instead of forwarding invalid data on.
+              if (endpoint.type === 'own' && response.status === 400 && payload && payload.errors) {
+                Object.entries(payload.errors).forEach(([field, msg]) => setFieldError(field, msg));
+                statusDiv.className = 'form-status error';
+                statusDiv.textContent = payload.message || 'Please fix the errors above.';
+                stoppedForValidation = true;
+                break;
+              }
+
+              console.warn(`Contact endpoint did not confirm delivery: ${endpoint.url}`, payload);
+            } catch (err) {
+              console.error(`Contact endpoint unreachable: ${endpoint.url}`, err);
+            }
+          }
+
+          if (!delivered && !stoppedForValidation) {
+            statusDiv.className = 'form-status error';
+            statusDiv.innerHTML = 'Message could not be delivered automatically. Please email me directly at <a href="mailto:yohanreta9@gmail.com" style="color:inherit;text-decoration:underline;">yohanreta9@gmail.com</a> instead.';
+          }
+
+          submitBtn.classList.remove('is-loading');
+          if (statusDiv.classList.contains('success')) setTimeout(() => { statusDiv.textContent = ''; }, 6000);
+        });
+      }
+    });
+  </script>
+  <script>
+  /* ---------- Testimonials: live feed + submission (approved items only are ever shown) ---------- */
+  (function () {
+    const API = {
+      list:   'https://portfolio.yeneflow.com/get-testimonials.php',
+      submit: 'https://portfolio.yeneflow.com/submit-testimonial.php'
+    };
+    const $ = id => document.getElementById(id);
+    const track = $('tTrack'), wrap = $('tWrap'), summary = $('tSummary'), modal = $('tModal'), form = $('tForm');
+    if (!track || !modal || !form) return;
+
+    const el = (tag, cls, text) => { const n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; };
+    const stars = n => { const s = el('span', 't-stars'); s.setAttribute('role', 'img'); s.setAttribute('aria-label', n + ' out of 5 stars');
+      for (let i = 1; i <= 5; i++) s.appendChild(el('span', '', i <= Math.round(n) ? '\u2605' : '\u2606')); return s; };
+    let regionName = c => c;
+    try { const dn = new Intl.DisplayNames(['en'], { type: 'region' }); regionName = c => dn.of(c) || c; } catch (e) {}
+
+    /* Country list (ISO 3166-1 alpha-2), Ethiopia first */
+    const CODES = 'AF AL DZ AD AO AG AR AM AU AT AZ BS BH BD BB BY BE BZ BJ BT BO BA BW BR BN BG BF BI CV KH CM CA CF TD CL CN CO KM CG CD CR CI HR CU CY CZ DK DJ DM DO EC EG SV GQ ER EE SZ FJ FI FR GA GM GE DE GH GR GD GT GN GW GY HT HN HU IS IN ID IR IQ IE IL IT JM JP JO KZ KE KI KW KG LA LV LB LS LR LY LI LT LU MG MW MY MV ML MT MH MR MU MX FM MD MC MN ME MA MZ MM NA NR NP NL NZ NI NE NG KP MK NO OM PK PW PS PA PG PY PE PH PL PT QA RO RU RW KN LC VC WS SM ST SA SN RS SC SL SG SK SI SB SO ZA KR SS ES LK SD SR SE CH SY TW TJ TZ TH TL TG TO TT TN TR TM TV UG UA AE GB US UY UZ VU VA VE VN YE ZM ZW'.split(' ');
+    const sel = $('t-country');
+    CODES.map(c => [c, regionName(c)]).sort((a, b) => a[1].localeCompare(b[1])).forEach(([c, n]) => { if (c !== 'ET') sel.appendChild(new Option(n, c)); });
+    sel.insertBefore(new Option(regionName('ET'), 'ET'), sel.options[1]);
+
+    /* ---------- Render ---------- */
+    function card(t) {
+      const c = el('article', 't-card glass');
+      c.appendChild(el('i', 'bx bxs-quote-alt-right t-quote'));
+      c.appendChild(stars(t.rating));
+      const msg = el('p', 't-msg', t.message); c.appendChild(msg);
+      if (t.message.length > 260) {
+        msg.classList.add('clamp');
+        const more = el('button', 't-more', 'Read more'); more.type = 'button';
+        more.addEventListener('click', () => { const open = msg.classList.toggle('clamp'); more.textContent = open ? 'Read more' : 'Show less'; });
+        c.appendChild(more);
+      }
+      const p = el('div', 't-person');
+      if (t.photo) { const im = el('img', 't-avatar'); im.src = t.photo; im.alt = t.name; im.loading = 'lazy';
+        im.addEventListener('error', () => im.replaceWith(initials(t.name))); p.appendChild(im); }
+      else p.appendChild(initials(t.name));
+      const who = el('div', 't-who'); const nm = el('div', 't-name', t.name);
+      if (t.verified) { const b = el('i', 'bx bxs-badge-check'); b.title = 'Verified by Yohannes'; nm.appendChild(b); }
+      who.appendChild(nm);
+      who.appendChild(el('div', 't-role', t.position + (t.organization ? ', ' + t.organization : '')));
+      const meta = el('div', 't-meta');
+      const ctry = el('span'); const fl = el('img'); fl.src = 'https://flagcdn.com/w20/' + String(t.country).toLowerCase() + '.png'; fl.alt = ''; fl.addEventListener('error', () => fl.remove());
+      ctry.appendChild(fl); ctry.appendChild(document.createTextNode(regionName(t.country))); meta.appendChild(ctry);
+      meta.appendChild(el('span', '', t.relationship));
+      if (t.linkedin && /^https:\/\//.test(t.linkedin)) { const a = el('a'); a.href = t.linkedin; a.target = '_blank'; a.rel = 'noopener noreferrer'; a.setAttribute('aria-label', t.name + ' on LinkedIn'); a.appendChild(el('i', 'bx bxl-linkedin')); meta.appendChild(a); }
+      who.appendChild(meta); p.appendChild(who); c.appendChild(p);
+      return c;
+    }
+    function initials(name) { return el('div', 't-avatar', name.trim().split(/\s+/).slice(0, 2).map(w => w[0]).join('').toUpperCase()); }
+    function empty(msg) {
+      track.replaceChildren();
+      const b = el('div', 't-empty glass'); b.appendChild(el('i', 'bx bx-message-rounded-detail')); b.appendChild(el('h3', '', 'Testimonials are coming soon'));
+      b.appendChild(el('p', '', msg)); track.appendChild(b); track.classList.add('few'); wrap.classList.remove('scrollable');
+    }
+    function updateNav() { wrap.classList.toggle('scrollable', track.scrollWidth > track.clientWidth + 4); }
+
+    async function load() {
+      try {
+        const r = await fetch(API.list, { headers: { Accept: 'application/json' } });
+        const d = await r.json();
+        if (!r.ok || !d.success) throw new Error('feed unavailable');
+        if (!d.items.length) return empty("I'm collecting feedback from people I've worked with. If that's you, I'd love to hear from you.");
+        track.replaceChildren(...d.items.map(card));
+        track.classList.toggle('few', d.items.length < 3);
+        summary.replaceChildren(); const avg = el('span'); avg.append(el('strong', '', d.average.toFixed(1)), ' ', stars(d.average));
+        summary.append(avg, el('span', '', d.count + (d.count === 1 ? ' testimonial' : ' testimonials')));
+        const vc = d.items.filter(i => i.verified).length; if (vc) summary.append(el('span', '', vc + ' verified'));
+        summary.hidden = false; updateNav();
+      } catch (e) { console.warn('Testimonials feed:', e); empty("I'm collecting feedback from people I've worked with. If that's you, I'd love to hear from you."); }
+    }
+    $('tPrev').addEventListener('click', () => track.scrollBy({ left: -track.clientWidth * .8, behavior: 'smooth' }));
+    $('tNext').addEventListener('click', () => track.scrollBy({ left: track.clientWidth * .8, behavior: 'smooth' }));
+    window.addEventListener('resize', updateNav);
+    load();
+
+    /* ---------- Modal ---------- */
+    let lastFocus = null;
+    function openModal() { lastFocus = document.activeElement; modal.classList.add('active'); document.body.style.overflow = 'hidden'; setTimeout(() => $('t-name').focus(), 50); }
+    function closeModal() { modal.classList.remove('active'); document.body.style.overflow = ''; if (lastFocus) lastFocus.focus(); }
+    $('tOpen').addEventListener('click', openModal);
+    $('tClose').addEventListener('click', closeModal); $('tDone').addEventListener('click', closeModal);
+    modal.addEventListener('mousedown', e => { if (e.target === modal) closeModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('active')) closeModal(); });
+    if (location.hash === '#write-testimonial') { $('testimonials').scrollIntoView(); setTimeout(openModal, 600); }
+
+    $('t-message').addEventListener('input', e => { $('tCount').textContent = e.target.value.length; });
+    $('t-photo').addEventListener('change', e => {
+      const f = e.target.files[0], pv = $('tPreview'); setErr('photo', '');
+      if (!f) { pv.style.display = 'none'; return; }
+      if (!/^image\/(jpeg|png|webp)$/.test(f.type) || f.size > 3 * 1024 * 1024) { e.target.value = ''; pv.style.display = 'none'; setErr('photo', 'Photo must be JPG, PNG or WebP under 3 MB.'); return; }
+      pv.src = URL.createObjectURL(f); pv.style.display = 'block';
+    });
+
+    function setErr(name, msg) {
+      const input = form.querySelector('[name="' + name + '"]');
+      const box = form.querySelector('[data-for="' + name + '"]') || (input && input.closest('.form-group').querySelector('.form-error'));
+      if (input && input.classList) input.classList.toggle('error', !!msg);
+      if (box) box.textContent = msg || '';
+    }
+    ['input', 'change'].forEach(ev => form.addEventListener(ev, e => { if (e.target && e.target.name) setErr(e.target.name, ''); }));
+    const status = $('tStatus'), btn = $('tSubmit');
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      if (form.website.value.trim()) return;
+      ['name','email','position','country','relationship','rating','message','linkedin','consent','photo'].forEach(n => setErr(n, ''));
+      const v = n => (form.elements[n].value || '').trim(); let bad = false;
+      const need = (n, ok, m) => { if (!ok) { setErr(n, m); bad = true; } };
+      need('name', v('name').length >= 2, 'Enter your full name.');
+      need('email', /^\S+@\S+\.\S+$/.test(v('email')), 'Enter a valid email address.');
+      need('position', v('position').length >= 2, 'Enter your position / job title.');
+      need('country', !!v('country'), 'Select your country.');
+      need('relationship', !!v('relationship'), 'Select how you know me.');
+      need('rating', !!form.querySelector('[name="rating"]:checked'), 'Choose a rating.');
+      need('message', v('message').length >= 30, 'Please write at least 30 characters.');
+      need('consent', form.consent.checked, 'Please confirm you agree to publication.');
+      if (bad) { status.className = 'form-status error'; status.textContent = 'Please fix the highlighted fields.'; return; }
+
+      status.className = 'form-status loading'; status.textContent = 'Submitting…'; btn.classList.add('is-loading');
+      try {
+        const r = await fetch(API.submit, { method: 'POST', headers: { Accept: 'application/json' }, body: new FormData(form) });
+        let d = null; try { d = await r.json(); } catch (_) {}
+        if (r.ok && d && d.success) {
+          $('tFormWrap').hidden = true; $('tThanksMsg').textContent = d.message; $('tThanks').hidden = false;
+          form.reset(); $('tPreview').style.display = 'none'; $('tCount').textContent = '0'; status.textContent = '';
+        } else if (d && d.errors) {
+          Object.entries(d.errors).forEach(([k, m]) => setErr(k, m));
+          status.className = 'form-status error'; status.textContent = d.message || 'Please fix the highlighted fields.';
+        } else { throw new Error((d && d.message) || 'failed'); }
+      } catch (err) {
+        status.className = 'form-status error'; status.replaceChildren(document.createTextNode('Could not submit right now. Please email your testimonial to '));
+        const a = el('a', '', 'yohanreta9@gmail.com'); a.href = 'mailto:yohanreta9@gmail.com?subject=Testimonial'; a.style.textDecoration = 'underline'; status.appendChild(a);
+      }
+      btn.classList.remove('is-loading');
+    });
+  })();
+  </script>
 </body>
 </html>
