@@ -53,24 +53,32 @@
     var headers = { "X-Visitor": YR.vid };
     if (opts.admin) headers["X-Admin-Key"] = String(opts.admin).replace(/[^\x21-\x7E]/g, ""); // header values must be plain ASCII
     if (opts.body) headers["Content-Type"] = "application/json";
-    var ctrl = new AbortController();
-    var timer = setTimeout(function () { ctrl.abort(); }, 10000);
-    return fetch(url.toString(), {
-      method: opts.method || "GET", headers: headers,
-      body: opts.body ? JSON.stringify(opts.body) : undefined, signal: ctrl.signal
-    }).then(function (res) {
-      return res.json().catch(function () { return null; }).then(function (j) {
+    var timeoutMs = opts.timeout || 10000, retries = opts.retries || 0;
+    function attempt(n) {
+      var ctrl = new AbortController();
+      var timer = setTimeout(function () { ctrl.abort(); }, timeoutMs);
+      return fetch(url.toString(), {
+        method: opts.method || "GET", headers: headers,
+        body: opts.body ? JSON.stringify(opts.body) : undefined, signal: ctrl.signal
+      }).then(function (res) {
+        return res.json().catch(function () { return null; }).then(function (j) {
+          clearTimeout(timer);
+          setOnline(true); // the server answered at all, even if it rejected the request
+          if (!res.ok) return { error: (j && j.error) || "Server error " + res.status, status: res.status };
+          return j || {};
+        });
+      }).catch(function (err) {
         clearTimeout(timer);
-        setOnline(true); // the server answered at all, even if it rejected the request
-        if (!res.ok) return { error: (j && j.error) || "Server error " + res.status, status: res.status };
-        return j || {};
+        YR.lastError = err && err.name === "AbortError" ? "timeout (no answer within " + Math.round(timeoutMs / 1000) + " seconds)" : ((err && err.message) || "network error");
+        if (n < retries) {   // flaky connection / slow server: wait a moment and try again
+          if (opts.onRetry) { try { opts.onRetry(n + 1, retries); } catch (e) {} }
+          return new Promise(function (r) { setTimeout(r, 900 * (n + 1)); }).then(function () { return attempt(n + 1); });
+        }
+        setOnline(false); // network failure, timeout, or the server is unreachable
+        return null;
       });
-    }).catch(function (err) {
-      clearTimeout(timer);
-      setOnline(false); // network failure, timeout, or the server is unreachable
-      YR.lastError = err && err.name === "AbortError" ? "timeout (no answer within 10 seconds)" : ((err && err.message) || "network error");
-      return null;
-    });
+    }
+    return attempt(0);
   };
 
   YR.fmt = function (n) {

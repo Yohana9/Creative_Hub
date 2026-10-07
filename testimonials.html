@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="description" content="Contact Yohan Records for bookings, collaborations and licensing.">
+<meta name="description" content="Kind words from listeners and collaborators of Yohan Records, and a place to share yours.">
 <meta name="theme-color" content="#07070c">
 <title>Yohan Records | Testimonials</title>
 <link rel="icon" href="favicon.ico" sizes="48x48"><link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"><link rel="manifest" href="site.webmanifest">
@@ -47,7 +47,7 @@
 <li class="sb-item"><a href="Video.html" class="sb-link" data-tip="Videos"><span class="sb-ico"><i class="fas fa-video"></i></span><span class="sb-text">Videos</span></a></li>
 <li class="sb-item"><a href="gallery.html" class="sb-link" data-tip="Gallery"><span class="sb-ico"><i class="fas fa-images"></i></span><span class="sb-text">Gallery</span></a></li>
 <li class="sb-item"><a href="Software.html" class="sb-link" data-tip="Software"><span class="sb-ico"><i class="fas fa-gear"></i></span><span class="sb-text">Software</span></a></li>
-<li class="sb-item active"><a href="testimonials.html" class="sb-link" data-tip="Testimonials"><span class="sb-ico"><i class="fas fa-star"></i></span><span class="sb-text">Testimonials</span></a></li>
+<!--<li class="sb-item active"><a href="testimonials.html" class="sb-link" data-tip="Testimonials"><span class="sb-ico"><i class="fas fa-star"></i></span><span class="sb-text">Testimonials</span></a></li>-->
 <li class="sb-item"><a href="contact.html" class="sb-link" data-tip="Contact"><span class="sb-ico"><i class="fas fa-envelope"></i></span><span class="sb-text">Contact</span></a></li>
 </ul></div>
 <div class="sb-foot"><a href="contact.html" class="sb-cta"><i class="fas fa-paper-plane"></i><span>Get in touch<small>Send a message</small></span></a></div>
@@ -60,39 +60,32 @@
   <div class="hero-inner">
     <img src="assets/images/Logo/YR.png" alt="Yohan Records" class="hero-logo">
     <h1 class="glow">Testimonials</h1>
-    <p>Words from listeners and collaborators. Add yours.</p>
-    
-    
+    <p>Kind words from listeners and collaborators, and a place to share yours.</p>
   </div>
 </section>
 
-<section id="testimonials" class="section">
-  <div id="tstBanner" class="tst-banner" hidden role="status"></div>
-  <div class="tst-layout">
-    <div>
-      <div id="tstSummary" aria-live="polite"></div>
-      <div class="tst-grid" id="tstGrid" data-limit="30" aria-live="polite"></div>
-    </div>
-    <div class="panel" id="tstFormPanel">
-      <h3>Share your words</h3>
-      <p>Tell others what my music or work meant to you. We email you a confirmation link first, and I review every testimonial before it appears. Your email is never shown.</p>
-      <form id="tstForm" class="tst-form" novalidate>
-        <div class="fld" data-f="name"><label for="tName">Your name <em>*</em></label><input id="tName" name="name" type="text" maxlength="60" autocomplete="name" required><span class="err"></span></div>
-        <div class="fld" data-f="email"><label for="tEmail">Email <em>*</em> <span class="opt">(for confirmation only, never shown)</span></label><input id="tEmail" name="email" type="email" maxlength="160" autocomplete="email" inputmode="email" required><span class="err"></span><span class="tst-hint" id="tstHint" aria-live="polite"></span></div>
-        <div class="fld" data-f="city"><label for="tCity">City or country <span class="opt">(optional)</span></label><input id="tCity" name="city" type="text" maxlength="60" autocomplete="address-level2"><span class="err"></span></div>
-        <div class="fld"><span id="tRateLbl">Rating <span class="opt">(optional)</span></span>
-          <div class="star-input" role="radiogroup" aria-labelledby="tRateLbl">
-            <button type="button" role="radio" aria-checked="false" aria-label="1 star">&#9733;</button><button type="button" role="radio" aria-checked="false" aria-label="2 stars">&#9733;</button><button type="button" role="radio" aria-checked="false" aria-label="3 stars">&#9733;</button><button type="button" role="radio" aria-checked="false" aria-label="4 stars">&#9733;</button><button type="button" role="radio" aria-checked="false" aria-label="5 stars">&#9733;</button>
-          </div></div>
-        <div class="fld" data-f="body"><label for="tBody">Your testimonial <em>*</em></label><textarea id="tBody" name="body" maxlength="600" required></textarea><span class="tst-count" id="tstCount">0 / 600</span><span class="err"></span></div>
-        <input type="text" name="hp_site" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-        <label class="check"><input type="checkbox" name="consent" required> I agree that my name, city and testimonial may be shown publicly. <span id="tstConsentErr" style="color:var(--like);"></span></label>
-        <div class="form-foot"><button type="submit" id="tstSend" class="btn-prime btn-lg">Send testimonial</button><span id="tstStatus" class="form-status" role="status" aria-live="polite"></span></div>
-      </form>
-    </div>
-  </div>
+<section class="section">
+  <h2 class="section-title">What people say</h2>
+  <div class="tst-grid" id="tstGrid" aria-live="polite"></div>
 </section>
 
+<section class="section" id="share">
+  <div class="panel yrt-formwrap" style="max-width:40rem;margin:0 auto;">
+    <h2 class="section-title" style="margin-top:0;">Share your words</h2>
+    <p style="margin:0 0 1.1rem;color:var(--text-dim);font-size:.92rem;">Worked together or enjoyed the music? Leave a short testimonial. New ones appear here after approval.</p>
+    <form id="tstForm" class="yrt-form" novalidate autocomplete="off">
+      <div class="yrt-row">
+        <div class="yrt-field"><label for="tstName">Your name *</label><input type="text" id="tstName" name="name" maxlength="80" autocomplete="name" placeholder="Full name"><span class="yrt-err"></span></div>
+        <div class="yrt-field"><label for="tstRole">Role / where you are from <small style="font-weight:400;opacity:.7">(optional)</small></label><input type="text" id="tstRole" name="role" maxlength="120" placeholder="e.g. Singer, Addis Ababa"></div>
+      </div>
+      <div class="yrt-field"><span class="yrt-lbl" id="tstRateLbl">Rating</span><div class="yrt-rate" id="tstRate" role="radiogroup" aria-labelledby="tstRateLbl"></div></div>
+      <div class="yrt-field"><label for="tstMsg">Your testimonial *</label><textarea id="tstMsg" name="message" maxlength="800" placeholder="What was it like listening to or working with Yohan Records?"></textarea><span class="yrt-count" id="tstCount">0 / 800</span><span class="yrt-err"></span></div>
+      <input type="text" name="website" class="yrt-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button type="submit" class="btn-prime btn-lg" style="width:100%;"><i class="fas fa-paper-plane"></i> Send testimonial</button>
+      <div class="yrt-status" id="tstStatus" role="status" aria-live="polite"></div>
+    </form>
+  </div>
+</section>
 </div>
 
 <footer class="footer">
@@ -120,7 +113,6 @@
     </div>
     <div class="footer-social">
       <a href="https://yohana9.github.io/YohanRec/" class="social-icon" aria-label="GitHub" target="_blank" rel="noopener"><i class="fab fa-github"></i></a>
-      <a href="https://www.linkedin.com/in/yohannes-reta/" class="social-icon" aria-label="LinkedIn" target="_blank" rel="noopener"><i class="fab fa-linkedin-in"></i></a>
     </div>
     <div class="footer-bottom">
       <p>&copy; <span class="auto-year">2026</span> Yohan Records. All rights reserved.</p>
@@ -164,14 +156,14 @@
 
 <script src="scripts/config.js"></script>
 <script src="scripts/api.js"></script>
+<script src="scripts/catalog.js"></script>
 <script src="scripts/app.js" defer></script>
 <script src="scripts/social.js" defer></script>
 <script src="scripts/player.js" defer></script>
-<script src="scripts/comments.js" defer></script>
+<script src="scripts/testimonials.js" defer></script>
 <script src="scripts/protect.js" defer></script>
 <script src="scripts/stars.js" defer></script>
 <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js" defer></script>
 <script src="scripts/particles.js" defer></script>
-<script src="scripts/testimonials.js" defer></script>
 </body>
 </html>

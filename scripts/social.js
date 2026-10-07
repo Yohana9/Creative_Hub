@@ -80,7 +80,6 @@
     s.likes = Math.max(0, s.likes + (on ? 1 : -1)); sync();
     YR.api("react", { method: "POST", body: { key: key, kind: kind, title: title, on: on } }).then(function (r) {
       if (!r || r.error) {
-        if (!r || !r.status) { on ? localLikes.add(key) : localLikes.delete(key); saveLocal(); YR.toast("Saved on this device. It will count once you are back online."); return; }
         setLiked(key, was); s.likes = Math.max(0, s.likes + (on ? -1 : 1)); sync();
         YR.toast(r && r.error ? r.error : "Could not save your like. Check your connection.", "error");
         return;
@@ -163,7 +162,7 @@
       function metric(el) { var s = stats[el.dataset.key] || {}; return (s.plays || 0) + (s.views || 0); }
       function run() {
         var q = input.value.trim().toLowerCase(), shown = 0;
-        items.forEach(function (el) { var ok = !q || ((el.dataset.title || "") + " " + el.textContent).toLowerCase().indexOf(q) > -1; el.hidden = !ok; if (ok) shown++; });
+        items.forEach(function (el) { var ok = !q || (el.dataset.title || "").toLowerCase().indexOf(q) > -1; el.hidden = !ok; if (ok) shown++; });
         var mode = select.value;
         var list = items.slice().sort(function (a, b) {
           if (mode === "plays") return metric(b) - metric(a);

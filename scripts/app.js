@@ -8,8 +8,6 @@
 
   /* ---------- Theme (dark by default) ---------- */
   function applyTheme(t) {
-    body.classList.add("theme-switching");
-    requestAnimationFrame(function(){ requestAnimationFrame(function(){ body.classList.remove("theme-switching"); }); });
     body.classList.toggle("light-theme", t === "light");
     body.classList.toggle("dark-theme", t !== "light");
     var ic = document.querySelector("#themeToggle i");
@@ -66,10 +64,6 @@
     if (closeBtn) closeBtn.addEventListener("click", closeDrawer);
     window.addEventListener("keydown", function (e) { if (e.key === "Escape") closeDrawer(); });
 
-    var syncInert = function () { sidebar.inert = mq.matches && !sidebar.classList.contains("open"); };
-    new MutationObserver(syncInert).observe(sidebar, { attributes: true, attributeFilter: ["class"] });
-    if (mq.addEventListener) mq.addEventListener("change", syncInert); else mq.addListener(syncInert);
-    syncInert();
     /* swipe left to close the drawer */
     var sx = null;
     sidebar.addEventListener("touchstart", function (e) { sx = e.touches[0].clientX; }, { passive: true });
@@ -88,7 +82,6 @@
     sidebar.querySelectorAll(".sb-item").forEach(function (item) {
       var toggle = item.querySelector(":scope > button.sb-link");
       if (toggle) toggle.addEventListener("click", function () {
-        if (!mq.matches && body.classList.contains("sb-collapsed")) { body.classList.remove("sb-collapsed"); store(SB_KEY, "0"); item.classList.add("open"); toggle.setAttribute("aria-expanded", "true"); return; }
         var open = !item.classList.contains("open");
         item.classList.toggle("open", open); toggle.setAttribute("aria-expanded", String(open));
       });
@@ -115,9 +108,6 @@
 
   /* ---------- Album accordion ---------- */
   document.querySelectorAll(".album-card").forEach(function (card) {
-      card.setAttribute("tabindex", "0"); card.setAttribute("role", "button"); card.setAttribute("aria-expanded", "false");
-      card.addEventListener("keydown", function (e) { if ((e.key === "Enter" || e.key === " ") && e.target === card) { e.preventDefault(); card.click(); } });
-      new MutationObserver(function () { card.setAttribute("aria-expanded", String(card.classList.contains("active"))); }).observe(card, { attributes: true, attributeFilter: ["class"] });
     card.addEventListener("click", function (e) {
       if (e.target.closest(".tracklist, button, a")) return;
       var was = card.classList.contains("active");

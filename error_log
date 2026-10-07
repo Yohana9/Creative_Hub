@@ -1,0 +1,5 @@
+[07-Oct-2026 07:38:32 UTC] PHP Warning:  require(/home/yeneflxi/chub.yeneflow.com/lib.php): Failed to open stream: No such file or directory in /home/yeneflxi/chub.yeneflow.com/index.php on line 3
+[07-Oct-2026 07:38:32 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/yeneflxi/chub.yeneflow.com/lib.php' (include_path='.:/opt/alt/php84/usr/share/pear:/opt/alt/php84/usr/share/php:/usr/share/pear:/usr/share/php') in /home/yeneflxi/chub.yeneflow.com/index.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/yeneflxi/chub.yeneflow.com/index.php on line 3

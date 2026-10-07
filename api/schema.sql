@@ -78,13 +78,3 @@ CREATE TABLE IF NOT EXISTS rate_limits (
   PRIMARY KEY (id),
   KEY idx_rl (bucket, ip_hash, created_at)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- Testimonials (also created automatically on first use)
-CREATE TABLE IF NOT EXISTS testimonials (
-  id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(80) NOT NULL, email VARCHAR(160) NOT NULL, city VARCHAR(80) NULL, rating TINYINT UNSIGNED NULL, body TEXT NOT NULL,
-  status ENUM('unconfirmed','pending','approved','hidden') NOT NULL DEFAULT 'unconfirmed',
-  token_hash CHAR(64) NULL, token_expires DATETIME NULL, verified_at DATETIME NULL, ip_hash CHAR(64) NULL,
-  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  KEY idx_status (status, id), KEY idx_email (email), KEY idx_token (token_hash)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

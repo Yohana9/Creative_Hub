@@ -234,3 +234,7 @@ html:not([data-theme="dark"]) .adm-table th{ background:#faf9fd; }
 @media (max-width:360px){ .kpis{ grid-template-columns:1fr; } }
 @media (max-height:520px){ .gate{ align-items:flex-start; } }
 @media (prefers-reduced-motion:reduce){ *{ animation:none !important; transition:none !important; } }
+
+/* testimonials: approve button */
+.row-actions button.ok{ border-color:rgba(22,168,112,.5); color:#16a870; }
+.row-actions button.ok:hover{ background:rgba(22,168,112,.12); color:#16a870; }

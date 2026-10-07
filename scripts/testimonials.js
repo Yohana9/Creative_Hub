@@ -1,132 +1,142 @@
-/* Testimonials: public list, submit form with email confirmation, confirmation banner. */
+/* Testimonials: shows approved testimonials (Home grid + full page) and lets visitors send one.
+   Home:  <div class="tst-grid" id="tstGrid" data-limit="3"></div>
+   Page:  <div class="tst-grid" id="tstGrid"></div>  +  <form id="tstForm"> ... </form>               */
 (function () {
   "use strict";
   var YR = window.YR || {};
   var grid = document.getElementById("tstGrid");
   var form = document.getElementById("tstForm");
-  var section = document.getElementById("testimonials");
   if (!grid && !form) return;
 
-  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
-  function stars(n) {
-    var s = el("span", "tst-stars"); s.setAttribute("role", "img"); s.setAttribute("aria-label", n + " out of 5 stars");
-    for (var i = 1; i <= 5; i++) { var ic = el("span", "st" + (i <= n ? " on" : ""), "\u2605"); ic.setAttribute("aria-hidden", "true"); s.appendChild(ic); }
-    return s;
+  /* ---- styles (injected once so the Home grid and the page always look the same) ---- */
+  if (!document.getElementById("yrt-css")) {
+    var st = document.createElement("style"); st.id = "yrt-css";
+    st.textContent =
+      ":where(.tst-grid){display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,17rem),1fr));gap:1rem;}" +
+      ".yrt-card{position:relative;display:flex;flex-direction:column;gap:.75rem;padding:1.15rem 1.2rem;border-radius:var(--radius-lg,18px);" +
+      "background:linear-gradient(165deg,var(--surface-strong,rgba(255,255,255,.08)),var(--surface,rgba(255,255,255,.04)) 60%);border:1px solid var(--border,rgba(255,255,255,.1));" +
+      "transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;min-width:0;}" +
+      ".yrt-card:hover{transform:translateY(-3px);border-color:rgba(140,107,255,.4);box-shadow:var(--shadow-lg,0 18px 40px -22px rgba(0,0,0,.6));}" +
+      ".yrt-card>.fa-quote-right{position:absolute;top:.95rem;right:1.1rem;font-size:1.3rem;opacity:.12;}" +
+      ".yrt-stars{display:flex;gap:.18rem;color:#f5b942;font-size:.82rem;}.yrt-stars .off{color:var(--text-faint,#888);opacity:.35;}" +
+      ".yrt-msg{margin:0;font-size:.92rem;line-height:1.65;color:var(--text,#fff);overflow-wrap:anywhere;white-space:pre-line;}" +
+      ".yrt-who{display:flex;align-items:center;gap:.7rem;margin-top:auto;padding-top:.2rem;}" +
+      ".yrt-av{flex:none;width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:800;font-size:.95rem;}" +
+      ".yrt-name{font-weight:700;font-size:.9rem;line-height:1.25;}.yrt-meta{font-size:.76rem;color:var(--text-faint,#888);line-height:1.35;}" +
+      ".yrt-empty{grid-column:1/-1;text-align:center;padding:1.7rem 1rem;border:1px dashed var(--border,rgba(255,255,255,.2));border-radius:var(--radius-lg,18px);color:var(--text-dim,#bbb);font-size:.92rem;}" +
+      ".yrt-skel{min-height:9.5rem;border-radius:var(--radius-lg,18px);background:var(--surface,rgba(255,255,255,.05));border:1px solid var(--border,rgba(255,255,255,.08));animation:yrtp 1.2s ease-in-out infinite;}" +
+      "@keyframes yrtp{50%{opacity:.45}}" +
+      /* form */
+      ".yrt-form .yrt-row{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;}@media(max-width:620px){.yrt-form .yrt-row{grid-template-columns:1fr;}}" +
+      ".yrt-field{display:flex;flex-direction:column;gap:.35rem;margin-bottom:.9rem;min-width:0;}" +
+      ".yrt-field>label,.yrt-field>.yrt-lbl{font-size:.8rem;font-weight:700;color:var(--text-dim,#bbb);}" +
+      ".yrt-field input[type=text],.yrt-field textarea{width:100%;font:inherit;font-size:.92rem;padding:.7rem .85rem;border-radius:12px;" +
+      "border:1px solid var(--border,rgba(255,255,255,.15));background:var(--bg-elev-2,rgba(255,255,255,.05));color:var(--text,#fff);transition:border-color .2s,box-shadow .2s;}" +
+      ".yrt-field textarea{min-height:8rem;resize:vertical;line-height:1.55;}" +
+      ".yrt-field input:focus,.yrt-field textarea:focus{outline:none;border-color:var(--accent-2,#8c6bff);box-shadow:0 0 0 3px rgba(140,107,255,.22);}" +
+      ".yrt-field.bad input,.yrt-field.bad textarea{border-color:#e0466c;}.yrt-err{color:#e0466c;font-size:.78rem;min-height:1em;}" +
+      ".yrt-rate{display:flex;gap:.25rem;}.yrt-rate button{background:none;border:0;cursor:pointer;font-size:1.5rem;line-height:1;padding:.1rem .15rem;color:var(--text-faint,#888);opacity:.45;transition:transform .15s,opacity .15s,color .15s;}" +
+      ".yrt-rate button.on{color:#f5b942;opacity:1;}.yrt-rate button:hover{transform:scale(1.15);}" +
+      ".yrt-count{align-self:flex-end;font-size:.74rem;color:var(--text-faint,#888);}" +
+      ".yrt-hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0;}" +
+      ".yrt-status{margin-top:.9rem;font-size:.88rem;line-height:1.5;}.yrt-status.ok{color:#16a870;}.yrt-status.error{color:#e0466c;}" +
+      ".yrt-thanks{text-align:center;padding:1.4rem .5rem;}.yrt-thanks i{font-size:2rem;color:#16a870;margin-bottom:.6rem;}.yrt-thanks h3{margin:.2rem 0 .4rem;}";
+    document.head.appendChild(st);
   }
-  function when(iso) { var d = iso ? new Date(iso) : null; return d && !isNaN(d) ? d.toLocaleDateString(undefined, { month: "short", year: "numeric" }) : ""; }
 
-  /* ---------- list ---------- */
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function hue(s) { var h = 0; for (var i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) % 360; return h; }
+
   function card(t) {
-    var c = el("article", "tst-card reveal in");
-    c.appendChild(el("i", "fas fa-quote-left tst-q")).setAttribute("aria-hidden", "true");
-    if (t.rating) c.appendChild(stars(t.rating));
-    c.appendChild(el("p", "tst-body", t.body));
-    var f = el("footer", "tst-who");
-    var av = el("span", "tst-av", (t.name || "?").charAt(0).toUpperCase()); av.setAttribute("aria-hidden", "true");
-    var meta = el("div", "tst-meta"); meta.appendChild(el("strong", "", t.name));
-    var sub = [t.city, when(t.date)].filter(Boolean).join(" \u00b7 "); if (sub) meta.appendChild(el("span", "", sub));
-    f.appendChild(av); f.appendChild(meta); c.appendChild(f);
+    var c = el("article", "yrt-card");
+    var q = el("i", "fas fa-quote-right"); q.setAttribute("aria-hidden", "true"); c.appendChild(q);
+    var stars = el("div", "yrt-stars"); stars.setAttribute("role", "img"); stars.setAttribute("aria-label", t.rating + " out of 5 stars");
+    for (var i = 1; i <= 5; i++) { var s = el("i", "fas fa-star" + (i <= t.rating ? "" : " off")); stars.appendChild(s); }
+    c.appendChild(stars);
+    c.appendChild(el("p", "yrt-msg", t.message));
+    var who = el("div", "yrt-who");
+    var h = hue(t.name || "?");
+    var av = el("div", "yrt-av", (t.name || "?").trim().charAt(0).toUpperCase());
+    av.style.background = "linear-gradient(135deg,hsl(" + h + ",70%,56%),hsl(" + ((h + 45) % 360) + ",72%,48%))";
+    var meta = el("div");
+    meta.appendChild(el("div", "yrt-name", t.name));
+    var sub = [t.role, YR.timeAgo ? YR.timeAgo(t.created_at) : ""].filter(Boolean).join(" · ");
+    if (sub) meta.appendChild(el("div", "yrt-meta", sub));
+    who.appendChild(av); who.appendChild(meta); c.appendChild(who);
     return c;
   }
-  function showSkeleton() { if (!grid) return; for (var i = 0; i < Math.min(3, Number(grid.dataset.limit) || 3); i++) grid.appendChild(el("div", "tst-card skel")); }
-  function empty(msg) { var d = el("div", "tst-empty"); d.appendChild(el("i", "fas fa-comment-dots")).setAttribute("aria-hidden", "true"); d.appendChild(el("p", "", msg)); return d; }
-  function loadList() {
+
+  /* ---- list ---- */
+  function load() {
     if (!grid) return;
-    showSkeleton();
-    var limit = Number(grid.dataset.limit) || 30;
-    var done = function (r) {
-      grid.innerHTML = "";
-      var ok = r && !r.error && r.testimonials;
-      if (!ok) { if (section) section.hidden = true; else grid.appendChild(empty("Testimonials could not be loaded right now. Please try again later.")); return; }
-      if (!r.testimonials.length) { grid.appendChild(empty("No testimonials yet. Be the first to share a few kind words.")); }
-      r.testimonials.forEach(function (t) { grid.appendChild(card(t)); });
-      var sum = document.getElementById("tstSummary");
-      if (sum && r.count) { sum.textContent = ""; if (r.average) { sum.appendChild(stars(Math.round(r.average))); sum.appendChild(el("b", "", " " + r.average.toFixed(1))); } sum.appendChild(el("span", "", (r.average ? " \u00b7 " : "") + r.count + (r.count === 1 ? " testimonial" : " testimonials"))); }
-    };
-    if (!YR.configured) { done(null); return; }
-    YR.api("testimonials", { query: { limit: limit } }).then(done);
-  }
-
-  /* ---------- confirmation banner ---------- */
-  var banner = document.getElementById("tstBanner");
-  if (banner) {
-    var q = new URLSearchParams(location.search), msg = null, kind = "ok";
-    if (q.get("confirmed") === "1") msg = "Thank you! Your email is confirmed. Your testimonial will appear after a quick review.";
-    else if (q.get("confirm") === "expired") { msg = "That confirmation link has expired. Please submit your testimonial again below."; kind = "bad"; }
-    else if (q.get("confirm") === "invalid") { msg = "That confirmation link is not valid or was already used."; kind = "bad"; }
-    if (msg) { banner.textContent = msg; banner.className = "tst-banner " + kind; banner.hidden = false; try { history.replaceState(null, "", location.pathname); } catch (e) {} }
-  }
-
-  /* ---------- form ---------- */
-  if (form) {
-    var opened = Date.now(), rating = 0;
-    var f = form.elements, status = document.getElementById("tstStatus"), btn = document.getElementById("tstSend");
-    var count = document.getElementById("tstCount");
-    var TYPOS = { "gmial.com": "gmail.com", "gmai.com": "gmail.com", "gamil.com": "gmail.com", "gnail.com": "gmail.com", "gmail.co": "gmail.com", "yaho.com": "yahoo.com", "yahooo.com": "yahoo.com", "hotmial.com": "hotmail.com", "hotmai.com": "hotmail.com", "outlok.com": "outlook.com" };
-    var EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-
-    function setErr(name, msg) {
-      var fld = form.querySelector('[data-f="' + name + '"]'); if (!fld) return;
-      fld.classList.toggle("has-err", !!msg); var e = fld.querySelector(".err"); if (e) e.textContent = msg || "";
-    }
-    function suggest() {
-      var v = f.email.value.trim().toLowerCase(), at = v.lastIndexOf("@"), hint = document.getElementById("tstHint");
-      var fix = at > 0 ? TYPOS[v.slice(at + 1)] : null; hint.textContent = "";
-      if (fix) { var b = el("button", "tst-fix", v.slice(0, at + 1) + fix); b.type = "button"; b.addEventListener("click", function () { f.email.value = this.textContent; hint.textContent = ""; setErr("email", ""); }); hint.appendChild(document.createTextNode("Did you mean ")); hint.appendChild(b); hint.appendChild(document.createTextNode("?")); }
-    }
-    f.email.addEventListener("input", function () { suggest(); if (EMAIL.test(f.email.value.trim())) setErr("email", ""); });
-    f.email.addEventListener("blur", function () { var v = f.email.value.trim(); if (v && !EMAIL.test(v)) setErr("email", "Enter a valid email address."); });
-    f.body.addEventListener("input", function () { var n = f.body.value.trim().length; count.textContent = n + " / 600"; count.classList.toggle("ok", n >= 20); if (n >= 20) setErr("body", ""); });
-
-    var radios = Array.prototype.slice.call(form.querySelectorAll(".star-input button"));
-    function paint(n) { radios.forEach(function (b, i) { b.classList.toggle("on", i < n); b.setAttribute("aria-checked", String(i + 1 === rating)); }); }
-    radios.forEach(function (b, i) {
-      b.addEventListener("click", function () { rating = rating === i + 1 ? 0 : i + 1; paint(rating); });
-      b.addEventListener("mouseenter", function () { paint(i + 1); });
-      b.addEventListener("mouseleave", function () { paint(rating); });
-      b.addEventListener("focus", function () { paint(Math.max(rating, i + 1)); });
-      b.addEventListener("blur", function () { paint(rating); });
-      b.addEventListener("keydown", function (e) {
-        var d = e.key === "ArrowRight" || e.key === "ArrowUp" ? 1 : e.key === "ArrowLeft" || e.key === "ArrowDown" ? -1 : 0;
-        if (d) { e.preventDefault(); rating = Math.max(0, Math.min(5, (rating || i + 1) + d)); paint(rating); if (rating) radios[rating - 1].focus(); }
-      });
+    var limit = parseInt(grid.getAttribute("data-limit"), 10) || 60;
+    grid.setAttribute("aria-busy", "true");
+    grid.innerHTML = "";
+    var n = Math.min(limit, 3); for (var i = 0; i < n; i++) grid.appendChild(el("div", "yrt-skel"));
+    if (!YR.configured || !YR.api) { showNote("Testimonials will appear here soon."); return; }
+    YR.api("testimonials", { query: { limit: limit }, retries: 1, timeout: 15000 }).then(function (r) {
+      grid.removeAttribute("aria-busy"); grid.innerHTML = "";
+      if (!r || r.error) { showNote("Testimonials are unavailable right now. Please check back soon."); return; }
+      var list = r.testimonials || [];
+      if (!list.length) { showNote("No testimonials yet. Be the first to share a kind word!"); return; }
+      list.forEach(function (t) { grid.appendChild(card(t)); });
     });
+  }
+  function showNote(msg) { grid.removeAttribute("aria-busy"); grid.innerHTML = ""; grid.appendChild(el("div", "yrt-empty", msg)); }
 
-    function say(msg, kind) { status.textContent = msg || ""; status.className = "form-status" + (kind ? " " + kind : ""); }
-    function validate() {
-      var ok = true, name = f.name.value.trim(), em = f.email.value.trim(), body = f.body.value.trim();
-      setErr("name", name.length < 2 ? "Please enter your name." : ""); if (name.length < 2) ok = false;
-      setErr("email", !EMAIL.test(em) ? "Enter a valid email address." : ""); if (!EMAIL.test(em)) ok = false;
-      setErr("body", body.length < 20 ? "Please write a little more (at least 20 characters)." : /https?:\/\/|www\./i.test(body) ? "Please remove links." : "");
-      if (body.length < 20 || /https?:\/\/|www\./i.test(body)) ok = false;
-      var cErr = document.getElementById("tstConsentErr"); cErr.textContent = f.consent.checked ? "" : "Please tick this box."; if (!f.consent.checked) ok = false;
-      return ok;
+  /* ---- form ---- */
+  if (form) {
+    var opened = Date.now(), rating = 5;
+    var status = document.getElementById("tstStatus"), btn = form.querySelector("button[type=submit]");
+    var rate = document.getElementById("tstRate"), msg = form.elements.message, count = document.getElementById("tstCount");
+
+    function paintStars() { [].forEach.call(rate.children, function (b, i) { b.classList.toggle("on", i < rating); b.setAttribute("aria-checked", i === rating - 1 ? "true" : "false"); }); }
+    for (var i = 1; i <= 5; i++) (function (n) {
+      var b = el("button", "", "\u2605"); b.type = "button"; b.setAttribute("role", "radio"); b.setAttribute("aria-label", n + (n === 1 ? " star" : " stars"));
+      b.addEventListener("click", function () { rating = n; paintStars(); });
+      rate.appendChild(b);
+    })(i);
+    paintStars();
+
+    function updateCount() { if (count) count.textContent = msg.value.length + " / 800"; }
+    msg.addEventListener("input", updateCount); updateCount();
+
+    function setErr(name, text) {
+      var f = form.elements[name].closest(".yrt-field"); if (!f) return;
+      f.classList.toggle("bad", !!text); var e = f.querySelector(".yrt-err"); if (e) e.textContent = text || "";
     }
+    function say(text, cls) { status.textContent = text; status.className = "yrt-status " + (cls || ""); }
 
     form.addEventListener("submit", function (e) {
       e.preventDefault(); say("");
-      if (!YR.configured) { say("Testimonials are not available right now. Please use the contact page instead.", "bad"); return; }
-      if (!validate()) { var bad = form.querySelector(".has-err input, .has-err textarea"); if (bad) bad.focus(); return; }
-      btn.disabled = true; var label = btn.textContent; btn.textContent = "Sending\u2026";
-      YR.api("testimonial_submit", { method: "POST", body: { name: f.name.value.trim(), email: f.email.value.trim(), city: f.city.value.trim(), rating: rating, body: f.body.value.trim(), consent: true, hp_site: f.hp_site.value, t: opened } }).then(function (r) {
-        btn.disabled = false; btn.textContent = label;
-        if (!r) { say("Could not reach the server. Check your connection and try again.", "bad"); return; }
-        if (r.error) { say(r.error, "bad"); return; }
-        var box = document.getElementById("tstFormPanel"), em = f.email.value.trim();
-        box.innerHTML = "";
-        var ok = el("div", "tst-sent"); ok.setAttribute("role", "status");
-        ok.appendChild(el("i", "fas fa-envelope-circle-check")).setAttribute("aria-hidden", "true");
-        ok.appendChild(el("h3", "", "Check your inbox"));
-        var p = el("p", ""); p.appendChild(document.createTextNode("We sent a confirmation link to ")); p.appendChild(el("b", "", em));
-        p.appendChild(document.createTextNode(". Open it within 48 hours to confirm your email. Your testimonial is published after a quick review. If you do not see it, check your spam folder."));
-        ok.appendChild(p);
-        var again = el("button", "btn-prime", "Write another"); again.type = "button"; again.addEventListener("click", function () { location.href = location.pathname; });
-        ok.appendChild(again); box.appendChild(ok);
-        box.scrollIntoView({ behavior: "smooth", block: "center" });
+      var name = form.elements.name.value.trim(), role = form.elements.role.value.trim(), text = msg.value.trim();
+      var okName = name.length >= 2, okMsg = text.length >= 10;
+      setErr("name", okName ? "" : "Please enter your name."); setErr("message", okMsg ? "" : "Please write at least 10 characters.");
+      if (!okName || !okMsg) return;
+      var payload = { name: name, role: role, message: text, rating: rating, website: form.elements.website.value, t: opened };
+
+      if (!YR.configured || !YR.api) {   // no server: open an email draft instead
+        var to = (YR.cfg && YR.cfg.OWNER_EMAIL) || "yohanreta9@gmail.com";
+        location.href = "mailto:" + to + "?subject=" + encodeURIComponent("[Yohan Records] Testimonial") +
+          "&body=" + encodeURIComponent(name + (role ? " (" + role + ")" : "") + "\nRating: " + rating + "/5\n\n" + text);
+        return;
+      }
+      btn.disabled = true; var label = btn.innerHTML; btn.textContent = "Sending…";
+      YR.api("testimonial", { method: "POST", body: payload, retries: 1, timeout: 20000 }).then(function (r) {
+        btn.disabled = false; btn.innerHTML = label;
+        if (!r) { say("Couldn't reach the server. Check your connection and try again.", "error"); return; }
+        if (r.error) { say(r.error, "error"); return; }
+        var box = form.closest(".yrt-formwrap") || form.parentNode;
+        form.hidden = true;
+        var t = el("div", "yrt-thanks");
+        t.appendChild(el("i", "fas fa-circle-check"));
+        t.appendChild(el("h3", "", "Thank you, " + name.split(" ")[0] + "!"));
+        t.appendChild(el("p", "", r.pending ? "Your testimonial was received and will appear here once it has been approved." : "Your testimonial is now live. I really appreciate it!"));
+        box.appendChild(t);
+        if (!r.pending) load();
       });
     });
-    if (!YR.configured) say("Testimonials are not available right now. Please use the contact page instead.", "bad");
   }
 
-  loadList();
+  load();
 })();

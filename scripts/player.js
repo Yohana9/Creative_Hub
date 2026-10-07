@@ -57,14 +57,13 @@
 
   function load(btn, autoplay) {
     var g = btn.dataset.group || "default";
-    group = Array.prototype.slice.call(document.querySelectorAll('.play-btn[data-group="' + esc(g) + '"]')).filter(function (x) { var c = x.closest('[data-key]'); return x === btn || !c || !c.hidden; });
+    group = Array.prototype.slice.call(document.querySelectorAll('.play-btn[data-group="' + esc(g) + '"]'));
     index = group.indexOf(btn);
     key = btn.dataset.src; meta = { title: btn.dataset.title || "Untitled", subtitle: btn.dataset.subtitle || "Yohan Records" };
     played = 0; lastT = 0; counted = false;
     audio.src = key;
     els.title.textContent = meta.title; els.subtitle.textContent = meta.subtitle;
     els.art.src = btn.dataset.art || "assets/images/Logo/YR.png";
-    try { if ("mediaSession" in navigator) { navigator.mediaSession.metadata = new MediaMetadata({ title: meta.title, artist: meta.subtitle, artwork: [{ src: els.art.src }] }); navigator.mediaSession.setActionHandler("previoustrack", function () { step(-1); }); navigator.mediaSession.setActionHandler("nexttrack", function () { step(1); }); } } catch (e) {}
     bar.classList.add("active");
     attachSocial();
     if (autoplay) audio.play().catch(function () {});
@@ -136,10 +135,6 @@
   drag(els.seek, function (p) { if (audio.duration) audio.currentTime = p * audio.duration; });
   audio.volume = 0.85;
   drag(els.vol, function (p) { audio.volume = p; els.volFill.style.width = p * 100 + "%"; });
-  function kb(el, label, fn) { if (!el) return; el.setAttribute("tabindex", "0"); el.setAttribute("role", "slider"); el.setAttribute("aria-label", label);
-    el.addEventListener("keydown", function (e) { var d = (e.key === "ArrowRight" || e.key === "ArrowUp") ? 1 : (e.key === "ArrowLeft" || e.key === "ArrowDown") ? -1 : 0; if (d) { e.preventDefault(); fn(d); } }); }
-  kb(els.seek, "Seek", function (d) { if (audio.duration) audio.currentTime = Math.max(0, Math.min(audio.duration, audio.currentTime + d * 5)); });
-  kb(els.vol, "Volume", function (d) { audio.volume = Math.max(0, Math.min(1, audio.volume + d * 0.05)); els.volFill.style.width = audio.volume * 100 + "%"; });
 
   /* only one media element at a time */
   audio.addEventListener("play", function () { document.querySelectorAll("video").forEach(function (v) { v.pause(); }); });

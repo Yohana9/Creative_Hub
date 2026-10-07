@@ -7,7 +7,7 @@ audio/image/video files back in the matching folders and every page works.
 The site runs standalone with no server (hearts save on your device, view/play
 counts and comments stay hidden, the contact form opens an email draft). Follow
 `DEPLOY.md` to connect it to a real cPanel MySQL database on
-`chub.yeneflow.com`: after that, plays, views, likes and comments are
+`creativehub.yeneflow.com`: after that, plays, views, likes and comments are
 counted for real and shown to everyone, and the contact form saves to your
 database and emails you.
 
@@ -74,8 +74,3 @@ See `DEPLOY.md` for the full cPanel + MySQL setup, step by step.
   brand-colored halo instead of a multi-color neon flicker.
 - **Cards** now use one consistent glass surface in both themes instead of the
   original site's loud purple-to-blue gradient.
-
-## v6: brand refresh
-- New emblem logo, horizontal lock-up (dark and light versions), full favicon set, web manifest and social share image.
-- Home hero is now a split layout with the studio portrait (transparent PNG/WebP) next to the headline.
-- Fixed: `api/config.php` was missing from `.gitignore`; hero particles no longer throw if the CDN is blocked; dead `#` social links removed; docs no longer reference files that are not shipped.

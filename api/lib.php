@@ -99,8 +99,6 @@ function clean_text($s, $max) {
 
 function ensure_item($key, $kind, $title) {
     if (!valid_key($key)) fail('Invalid item.', 400);
-    $root = dirname(__DIR__); // when the API sits beside the site, only real files may become items
-    if (is_dir($root . '/assets') && !is_file($root . '/' . $key)) fail('Invalid item.', 400);
     $db = pdo();
     $st = $db->prepare("SELECT 1 FROM items WHERE item_key = ?");
     $st->execute([$key]);
@@ -149,5 +147,3 @@ function require_admin() {
 }
 
 function iso($dt) { return $dt ? date('c', strtotime($dt)) : null; }
-
-function csv_safe($v) { return (is_string($v) && preg_match('/^[=+\-@\t\r]/', $v)) ? "'" . $v : $v; }

@@ -26,7 +26,6 @@ return [
     // Contact form emails arrive here.
     'mail_to'   => 'yohanreta9@gmail.com',
     'mail_from' => 'no-reply@yeneflow.com',   // must be an address on your own domain
-    'site_url'  => 'https://chub.yeneflow.com',   // used in confirmation redirects
     'site_name' => 'Yohan Records',
     'owner_name' => 'Yohannes R.',
 

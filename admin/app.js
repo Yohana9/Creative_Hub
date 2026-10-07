@@ -44,10 +44,12 @@
   function call(action, opts) {
     opts = opts || {};
     opts.admin = getKey();
+    if (opts.timeout == null) opts.timeout = 20000;   // slow hosting / mobile networks: wait longer…
+    if (opts.retries == null) opts.retries = 2;       // …and retry automatically before giving up
     return YR.api(action, opts);
   }
 
-  function esc(s) { var m = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }; return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return m[c]; }); }
+  function esc(s) { var d = document.createElement("div"); d.textContent = s == null ? "" : String(s); return d.innerHTML; }
   function fmt(n) { return YR.fmt ? YR.fmt(n) : String(n); }
   function dfmt(iso) { if (!iso) return ""; var d = new Date(iso); return isNaN(d) ? "" : d.toLocaleString(undefined, { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" }); }
 
@@ -67,14 +69,19 @@
     document.getElementById("gateErr").textContent = "";
     k = cleanKey(k);
     setKey(k, remember);
-    call("admin_overview", { query: { days: 30 } }).then(function (r) {
+    var onRetry = function (n, max) { go.textContent = "Retrying (" + n + "/" + max + ")…"; };
+    /* Fast key check first; older servers without it fall back to the overview call. */
+    call("admin_check", { onRetry: onRetry }).then(function (r) {
+      if (r && r.status === 404) return call("admin_overview", { query: { days: 30 }, onRetry: onRetry });
+      return r;
+    }).then(function (r) {
       unlocking = false; go.disabled = false; go.textContent = "Unlock";
       if (!r) {
-        clearKey();
+        if (!silent) clearKey();
         var why = YR.lastError || "unknown";
         console.warn("Admin login: request failed —", why);
         showGate("Couldn't get an answer from " + ((YR.cfg && YR.cfg.API_BASE) || "(API_BASE not set)") + " — reason: " + why +
-          ". Open /api/index.php?action=ping in a new tab: it should show {\"ok\":true}. If it doesn't, the API files or database settings on the server need attention (check api/config.php and that api/schema.sql was imported).");
+          ". This is a connection problem, not a wrong key (tried 3 times). Check your internet/DNS, then open /api/index.php?action=ping in a new tab: it should show {\"ok\":true}.");
         return;
       }
       if (r.error) {
@@ -82,7 +89,7 @@
         var msg = r.error;
         if (r.status === 401) msg = r.error + " It doesn't match admin_key in api/config.php on the server. Click Show to check what you typed (a saved browser password may have been auto-filled).";
         else if (r.status === 429) msg = r.error;
-        else if (r.status === 500) msg = r.error + " Check the database settings in api/config.php and that the tables from api/schema.sql exist.";
+        else if (r.status === 500) msg = r.error + " Open api/diagnose.php to find out why.";
         showGate(silent && r.status === 401 ? "" : msg);
         return;
       }
@@ -198,7 +205,14 @@
     document.getElementById("topBody").innerHTML = '<tr class="empty-row"><td colspan="5">Loading…</td></tr>';
     skeletonKpis();
     call("admin_overview", { query: { days: range } }).then(function (o) {
-      if (!o || o.error) { showGate(o && o.error ? o.error : "Session expired. Enter your key again."); return; }
+      if (!o) {   // connection problem: stay on the dashboard and let the user retry
+        document.getElementById("updated").textContent = "connection problem — press Refresh";
+        document.getElementById("topBody").innerHTML = '<tr class="empty-row"><td colspan="5">Couldn\'t load (' + esc(YR.lastError || "network") + '). Press Refresh to try again.</td></tr>';
+        document.getElementById("kpis").innerHTML = "";
+        if (YR.toast) YR.toast("Connection problem. Press Refresh to retry.", "error");
+        return;
+      }
+      if (o.error) { showGate(o.status === 401 ? "Session expired. Enter your key again." : o.error); return; }
       overview = o;
       document.getElementById("rangeLabel").textContent = "Last " + o.days + " days";
       renderKpis(o.totals);
@@ -210,7 +224,7 @@
       renderTop(o);
       document.getElementById("updated").textContent = "updated " + new Date().toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
     });
-    loadContacts(); loadComments(); loadTestimonials();
+    loadContacts(); loadComments();
   }
 
   document.getElementById("rangeSelect").addEventListener("change", boot);
@@ -309,43 +323,6 @@
         call("admin_comment_update", { method: "POST", body: { id: id, action: act } }).then(function (r) {
           if (r && !r.error) loadComments();
         });
-      });
-    });
-  }
-
-
-  /* ---------------- testimonials ---------------- */
-  var tstCache = [];
-  function loadTestimonials() {
-    call("admin_testimonials", {}).then(function (r) {
-      if (!r || r.error) return;
-      tstCache = r.testimonials || [];
-      renderTestimonials();
-    });
-  }
-  function renderTestimonials() {
-    var body = document.getElementById("tstBody");
-    var pend = tstCache.filter(function (t) { return t.status === "pending"; }).length;
-    document.getElementById("tstCount").textContent = tstCache.length ? "(" + tstCache.length + (pend ? " \u00b7 " + pend + " to review" : "") + ")" : "";
-    if (!tstCache.length) { body.innerHTML = '<tr class="empty-row"><td colspan="6">No testimonials yet.</td></tr>'; return; }
-    var cls = { approved: "visible", pending: "pending", hidden: "hidden", unconfirmed: "hidden" };
-    var lbl = { approved: "APPROVED", pending: "TO REVIEW", hidden: "HIDDEN", unconfirmed: "EMAIL NOT CONFIRMED" };
-    body.innerHTML = tstCache.map(function (t) {
-      return '<tr data-id="' + t.id + '"><td>' + esc(t.name) + '<br><span class="muted">' + esc(t.email) + (t.city ? " \u00b7 " + esc(t.city) : "") + "</span></td>" +
-        "<td>" + (t.rating ? new Array(Number(t.rating) + 1).join("\u2605") : '<span class="muted">-</span>') + "</td>" +
-        '<td class="msg-preview">' + esc(t.body) + "</td>" +
-        '<td><span class="pill ' + (cls[t.status] || "hidden") + '">' + (lbl[t.status] || esc(t.status)) + "</span></td>" +
-        '<td class="muted">' + dfmt(t.created_at) + "</td>" +
-        '<td><div class="row-actions">' +
-          (t.status === "pending" || t.status === "hidden" ? '<button data-act="approve">Approve</button>' : "") +
-          (t.status === "approved" || t.status === "pending" ? '<button data-act="hide">Hide</button>' : "") +
-          '<button data-act="delete" class="danger">Delete</button></div></td></tr>';
-    }).join("");
-    body.querySelectorAll("button[data-act]").forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        var id = Number(btn.closest("tr").dataset.id), act = btn.dataset.act;
-        if (act === "delete" && !confirm("Delete this testimonial?")) return;
-        call("admin_testimonial_update", { method: "POST", body: { id: id, action: act } }).then(function (r) { if (r && !r.error) loadTestimonials(); });
       });
     });
   }

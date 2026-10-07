@@ -44,14 +44,14 @@
 
   function data() {
     var d = {}; ["full_name","email","phone","country","city","address","organization","subject","message"].forEach(function (k) { d[k] = val(k); });
-    d.consent = true; d.website = form.elements.hp_site.value; d.t = opened;
+    d.consent = true; d.website = form.elements.website.value; d.t = opened;
     return d;
   }
 
   function mailtoFallback(d) {
     var to = (YR.cfg && YR.cfg.OWNER_EMAIL) || "yohanreta9@gmail.com";
     var lines = ["Name: " + d.full_name, "Email: " + d.email, "Phone: " + d.phone, "Country: " + d.country, "City: " + d.city,
-      "Address: " + d.address, d.organization ? "Organization: " + d.organization : "", "", d.message].filter(function (x, i) { return x !== "" || i === 7; });
+      "Address: " + d.address, d.organization ? "Organization: " + d.organization : "", "", d.message].filter(function (x, i) { return x !== "" || i === 8; });
     location.href = "mailto:" + to + "?subject=" + encodeURIComponent("[Yohan Records] " + d.subject) + "&body=" + encodeURIComponent(lines.join("\n"));
   }
 

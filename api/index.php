@@ -6,10 +6,12 @@ send_cors();
 $action = $_GET['action'] ?? '';
 $map = [
     'ping' => 'act_ping', 'stats' => 'act_stats', 'top' => 'act_top', 'track' => 'act_track', 'react' => 'act_react',
-    'comments' => 'act_comments', 'comment' => 'act_comment', 'contact' => 'act_contact', 'testimonials' => 'act_testimonials', 'testimonial_submit' => 'act_testimonial_submit', 'testimonial_confirm' => 'act_testimonial_confirm',
-    'admin_overview' => 'adm_overview', 'admin_items' => 'adm_items', 'admin_item_delete' => 'adm_item_delete',
+    'comments' => 'act_comments', 'comment' => 'act_comment', 'contact' => 'act_contact',
+    'testimonials' => 'act_testimonials', 'testimonial' => 'act_testimonial',
+    'admin_testimonials' => 'adm_testimonials', 'admin_testimonial_update' => 'adm_testimonial_update',
+    'admin_check' => 'adm_check', 'admin_overview' => 'adm_overview', 'admin_items' => 'adm_items', 'admin_item_delete' => 'adm_item_delete',
     'admin_comments' => 'adm_comments', 'admin_comment_update' => 'adm_comment_update',
-    'admin_contacts' => 'adm_contacts', 'admin_contact_update' => 'adm_contact_update', 'admin_export' => 'adm_export', 'admin_testimonials' => 'adm_testimonials', 'admin_testimonial_update' => 'adm_testimonial_update',
+    'admin_contacts' => 'adm_contacts', 'admin_contact_update' => 'adm_contact_update', 'admin_export' => 'adm_export',
 ];
 if (!isset($map[$action])) fail('Unknown action.', 404);
 call_user_func($map[$action]);
@@ -123,7 +125,7 @@ function act_comment() {
     if (!valid_key($key)) fail('Invalid item.', 400);
     if (!empty($b['website'])) out(['ok' => true, 'pending' => true]); // honeypot: pretend success
     $t = (int)($b['t'] ?? 0);
-    if ($t > 0 && ($d = microtime(true) * 1000 - $t) >= 0 && $d < 2500) fail('That was quick. Please try again.', 429);
+    if ($t > 0 && (microtime(true) * 1000 - $t) < 2500) fail('That was quick. Please try again.', 429);
     $name = clean_text($b['name'] ?? '', 40); $text = clean_text($b['body'] ?? '', 600);
     if (mb_strlen($name) < 2) fail('Please enter your name.', 400);
     if (mb_strlen($text) < 2) fail('Write a comment first.', 400);
@@ -141,6 +143,61 @@ function act_comment() {
     out(['ok' => true, 'pending' => $pending]);
 }
 
+/* ------------------------------------------------------------ testimonials */
+
+/* Creates the table on first use, so nothing has to be re-imported. */
+function ensure_testimonials() {
+    static $done = false; if ($done) return; $done = true;
+    pdo()->exec("CREATE TABLE IF NOT EXISTS testimonials (
+      id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+      name VARCHAR(80) NOT NULL,
+      role VARCHAR(120) NOT NULL DEFAULT '',
+      message TEXT NOT NULL,
+      rating TINYINT UNSIGNED NOT NULL DEFAULT 5,
+      status VARCHAR(10) NOT NULL DEFAULT 'pending',
+      ip_hash CHAR(64) NOT NULL DEFAULT '',
+      created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      PRIMARY KEY (id),
+      KEY idx_status (status, id)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
+}
+
+function act_testimonials() {
+    ensure_testimonials();
+    $limit = max(1, min(100, (int)($_GET['limit'] ?? 50)));
+    $st = pdo()->prepare("SELECT id, name, role, message, rating, created_at FROM testimonials WHERE status = 'visible' ORDER BY id DESC LIMIT $limit");
+    $st->execute();
+    $rows = $st->fetchAll();
+    foreach ($rows as &$r) { $r['id'] = (int)$r['id']; $r['rating'] = (int)$r['rating']; $r['created_at'] = iso($r['created_at']); }
+    $total = (int)pdo()->query("SELECT COUNT(*) FROM testimonials WHERE status = 'visible'")->fetchColumn();
+    out(['testimonials' => $rows, 'total' => $total]);
+}
+
+function act_testimonial() {
+    if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') fail('POST only.', 405);
+    ensure_testimonials();
+    $b = body();
+    if (!empty($b['website'])) out(['ok' => true, 'pending' => true]);               // honeypot: pretend success
+    $t = (int)($b['t'] ?? 0);
+    if ($t > 0 && (microtime(true) * 1000 - $t) < 3000) fail('That was quick. Please review your message and send again.', 429);
+    $name = str_replace(["\r", "\n"], ' ', clean_text($b['name'] ?? '', 80));
+    $role = str_replace(["\r", "\n"], ' ', clean_text($b['role'] ?? '', 120));
+    $text = clean_text($b['message'] ?? '', 800);
+    $rating = max(1, min(5, (int)($b['rating'] ?? 5)));
+    if (mb_strlen($name) < 2) fail('Please enter your name.');
+    if (mb_strlen($text) < 10) fail('Please write a little more (at least 10 characters).');
+    if (preg_match_all('#https?://|www\.#i', $text) > 1) fail('Please keep at most one link in your message.');
+    rate_limit('testimonial', 3, 3600);
+    $db = pdo(); $ih = ip_hash();
+    $st = $db->prepare("SELECT 1 FROM testimonials WHERE ip_hash = ? AND message = ? LIMIT 1");
+    $st->execute([$ih, $text]);
+    if ($st->fetchColumn()) fail('You already sent that testimonial. Thank you!', 409);
+    $pending = (bool)cfg('testimonials_need_approval', true);                         // new ones wait for your approval
+    $db->prepare("INSERT INTO testimonials (name, role, message, rating, status, ip_hash) VALUES (?,?,?,?,?,?)")
+       ->execute([$name, $role, $text, $rating, $pending ? 'pending' : 'visible', $ih]);
+    out(['ok' => true, 'pending' => $pending]);
+}
+
 function recount_comments($key) {
     pdo()->prepare("UPDATE items SET comments = (SELECT COUNT(*) FROM comments WHERE item_key = ? AND status = 'visible' AND parent_id IS NULL) WHERE item_key = ?")
          ->execute([$key, $key]);
@@ -151,7 +208,7 @@ function act_contact() {
     $b = body();
     if (!empty($b['website'])) out(['ok' => true, 'id' => 0, 'emailed' => false]); // honeypot
     $t = (int)($b['t'] ?? 0);
-    if ($t > 0 && ($d = microtime(true) * 1000 - $t) >= 0 && $d < 3000) fail('That was quick. Please review the form and send again.', 429);
+    if ($t > 0 && (microtime(true) * 1000 - $t) < 3000) fail('That was quick. Please review the form and send again.', 429);
     $f = [];
     foreach (['full_name' => 120, 'email' => 160, 'phone' => 40, 'country' => 80, 'city' => 80, 'address' => 255, 'organization' => 120, 'subject' => 80] as $k => $max) {
         $f[$k] = str_replace(["\r", "\n"], ' ', clean_text($b[$k] ?? '', $max));
@@ -186,6 +243,12 @@ function act_contact() {
 }
 
 /* ------------------------------------------------------------------- admin */
+
+/* Fast key check used by the login screen (no heavy queries). */
+function adm_check() {
+    require_admin();
+    out(['ok' => true]);
+}
 
 function adm_overview() {
     require_admin();
@@ -291,6 +354,27 @@ function adm_comment_update() {
     out(['ok' => true]);
 }
 
+function adm_testimonials() {
+    require_admin(); ensure_testimonials();
+    $st = pdo()->query("SELECT id, name, role, message, rating, status, created_at FROM testimonials ORDER BY (status = 'pending') DESC, id DESC LIMIT 300");
+    $rows = $st->fetchAll();
+    foreach ($rows as &$r) { $r['id'] = (int)$r['id']; $r['rating'] = (int)$r['rating']; $r['created_at'] = iso($r['created_at']); }
+    out(['testimonials' => $rows]);
+}
+
+function adm_testimonial_update() {
+    require_admin(); ensure_testimonials();
+    $b = body(); $id = (int)($b['id'] ?? 0); $act = (string)($b['action'] ?? '');
+    $db = pdo();
+    $st = $db->prepare("SELECT id FROM testimonials WHERE id = ?"); $st->execute([$id]);
+    if (!$st->fetchColumn()) fail('Testimonial not found.', 404);
+    if ($act === 'approve' || $act === 'show') $db->prepare("UPDATE testimonials SET status = 'visible' WHERE id = ?")->execute([$id]);
+    elseif ($act === 'hide') $db->prepare("UPDATE testimonials SET status = 'hidden' WHERE id = ?")->execute([$id]);
+    elseif ($act === 'delete') $db->prepare("DELETE FROM testimonials WHERE id = ?")->execute([$id]);
+    else fail('Unknown action.');
+    out(['ok' => true]);
+}
+
 function adm_contacts() {
     require_admin();
     $q = trim((string)($_GET['q'] ?? ''));
@@ -324,173 +408,7 @@ function adm_export() {
     $o = fopen('php://output', 'w');
     fwrite($o, "\xEF\xBB\xBF");
     fputcsv($o, ['id', 'received', 'full_name', 'email', 'phone', 'country', 'city', 'address', 'organization', 'subject', 'message', 'read']);
-    foreach ($rows as $r) fputcsv($o, array_map('csv_safe', $r));
+    foreach ($rows as $r) fputcsv($o, $r);
     fclose($o);
     exit;
-}
-
-
-/* ------------------------------------------------------------ testimonials */
-
-function tst_table() {
-    static $done = false;
-    if ($done) return;
-    $done = true;
-    pdo()->exec("CREATE TABLE IF NOT EXISTS testimonials (
-        id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        name VARCHAR(80) NOT NULL,
-        email VARCHAR(160) NOT NULL,
-        city VARCHAR(80) NULL,
-        rating TINYINT UNSIGNED NULL,
-        body TEXT NOT NULL,
-        status ENUM('unconfirmed','pending','approved','hidden') NOT NULL DEFAULT 'unconfirmed',
-        token_hash CHAR(64) NULL,
-        token_expires DATETIME NULL,
-        verified_at DATETIME NULL,
-        ip_hash CHAR(64) NULL,
-        created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        KEY idx_status (status, id),
-        KEY idx_email (email),
-        KEY idx_token (token_hash)
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
-}
-
-/* Returns an error message, or '' when the address looks real (format, throw-away list, DNS can receive mail). */
-function tst_email_ok($email) {
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) return 'Enter a valid email address.';
-    $domain = strtolower(substr(strrchr($email, '@'), 1));
-    $blocked = ['mailinator.com', 'guerrillamail.com', '10minutemail.com', 'tempmail.com', 'yopmail.com', 'trashmail.com', 'sharklasers.com', 'getnada.com', 'throwawaymail.com', 'maildrop.cc'];
-    if (in_array($domain, $blocked, true)) return 'Please use a permanent email address, not a temporary one.';
-    if (function_exists('checkdnsrr') && strpos($domain, '.') !== false) {
-        $ok = @checkdnsrr($domain . '.', 'MX') || @checkdnsrr($domain . '.', 'A') || @checkdnsrr($domain . '.', 'AAAA');
-        if (!$ok) return 'That email domain does not seem to receive mail. Please check the spelling.';
-    }
-    return '';
-}
-
-function tst_mail($to, $subject, $text) {
-    $site = cfg('site_name', 'Website');
-    $headers = 'From: ' . $site . ' <' . cfg('mail_from', 'no-reply@localhost') . ">\r\n"
-             . "MIME-Version: 1.0\r\nContent-Type: text/plain; charset=UTF-8\r\nX-Mailer: PHP";
-    return (bool)@mail($to, '=?UTF-8?B?' . base64_encode($subject) . '?=', $text, $headers);
-}
-
-/* Public display name: first name plus last initial. The email is never exposed. */
-function tst_public_name($name) {
-    $p = preg_split('/\s+/u', trim((string)$name));
-    $first = $p[0] ?? '';
-    if (count($p) > 1) { $last = end($p); $first .= ' ' . mb_strtoupper(mb_substr($last, 0, 1)) . '.'; }
-    return $first;
-}
-
-function act_testimonial_submit() {
-    if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') fail('POST only.', 405);
-    $b = body();
-    if (!empty($b['hp_site']) || !empty($b['website'])) out(['ok' => true, 'emailed' => true]); // honeypot
-    $t = (int)($b['t'] ?? 0);
-    if ($t > 0 && ($d = microtime(true) * 1000 - $t) >= 0 && $d < 4000) fail('That was quick. Please review your testimonial and send again.', 429);
-    $name  = str_replace(["\r", "\n"], ' ', clean_text($b['name'] ?? '', 60));
-    $email = strtolower(str_replace(["\r", "\n", ' '], '', clean_text($b['email'] ?? '', 160)));
-    $city  = str_replace(["\r", "\n"], ' ', clean_text($b['city'] ?? '', 60));
-    $text  = clean_text($b['body'] ?? '', 600);
-    $rating = (int)($b['rating'] ?? 0);
-    if ($rating < 0 || $rating > 5) $rating = 0;
-    if (mb_strlen($name) < 2) fail('Please enter your name.');
-    $emailErr = tst_email_ok($email);
-    if ($emailErr !== '') fail($emailErr);
-    if (mb_strlen($text) < 20) fail('Please write a little more (at least 20 characters).');
-    if (preg_match('#https?://|www\.#i', $text)) fail('Please remove links from your testimonial.');
-    if (empty($b['consent'])) fail('Please agree to have your testimonial shown publicly.');
-    rate_limit('testimonial', 3, 3600);
-    tst_table();
-    $db = pdo();
-    $st = $db->prepare("SELECT COUNT(*) FROM testimonials WHERE email = ? AND created_at > (NOW() - INTERVAL 30 DAY)");
-    $st->execute([$email]);
-    if ((int)$st->fetchColumn() >= 2) fail('You have already shared testimonials recently. Thank you!', 429);
-
-    $token = bin2hex(random_bytes(32));
-    $db->prepare("INSERT INTO testimonials (name, email, city, rating, body, status, token_hash, token_expires, ip_hash)
-                  VALUES (?,?,?,?,?,'unconfirmed',?,DATE_ADD(NOW(), INTERVAL 48 HOUR),?)")
-       ->execute([$name, $email, $city !== '' ? $city : null, $rating > 0 ? $rating : null, $text, hash('sha256', $token), ip_hash()]);
-    $id = (int)$db->lastInsertId();
-
-    $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
-    $link = $scheme . '://' . ($_SERVER['HTTP_HOST'] ?? 'localhost') . ($_SERVER['SCRIPT_NAME'] ?? '/api/index.php') . '?action=testimonial_confirm&t=' . $token;
-    $site = cfg('site_name', 'Website');
-    $msg = "Hi $name,\n\nThank you for sharing your words about $site.\n"
-         . "Please confirm your email address by opening this link (valid for 48 hours):\n\n$link\n\n"
-         . "After you confirm, your testimonial is reviewed before it appears on the website. Your email address is never shown publicly.\n\n"
-         . "If you did not write this, ignore this message and nothing will be published.\n";
-    if (!tst_mail($email, "Confirm your testimonial for $site", $msg)) {
-        $db->prepare("DELETE FROM testimonials WHERE id = ?")->execute([$id]);
-        fail('We could not send the confirmation email. Please try again later or use the contact form.', 503);
-    }
-    out(['ok' => true, 'emailed' => true]);
-}
-
-/* Opened from the email. Verifies the one-time token, then sends the visitor back to the site. */
-function act_testimonial_confirm() {
-    $base = rtrim(cfg('site_url', 'https://chub.yeneflow.com'), '/') . '/testimonials.html';
-    $go = function ($q) use ($base) { header('Cache-Control: no-store'); header('Location: ' . $base . '?' . $q); exit; };
-    $t = (string)($_GET['t'] ?? '');
-    if (!preg_match('/^[a-f0-9]{64}$/', $t)) $go('confirm=invalid');
-    tst_table();
-    $db = pdo();
-    $st = $db->prepare("SELECT id, name, email, rating, body, (token_expires < NOW()) AS expired FROM testimonials WHERE token_hash = ? AND status = 'unconfirmed'");
-    $st->execute([hash('sha256', $t)]);
-    $r = $st->fetch();
-    if (!$r) $go('confirm=invalid');
-    if ((int)$r['expired'] === 1) $go('confirm=expired');
-    $db->prepare("UPDATE testimonials SET status = 'pending', verified_at = NOW(), token_hash = NULL, token_expires = NULL WHERE id = ?")->execute([$r['id']]);
-    tst_mail(cfg('mail_to'), '[' . cfg('site_name', 'Website') . '] New testimonial to review',
-        "A testimonial with a confirmed email is waiting for your approval:\n\nFrom: " . $r['name'] . ' <' . $r['email'] . ">\nRating: " . ($r['rating'] ? $r['rating'] . '/5' : 'n/a') . "\n\n" . $r['body'] . "\n\nApprove or hide it in your admin dashboard.\n");
-    $go('confirmed=1');
-}
-
-function act_testimonials() {
-    tst_table();
-    $limit = max(1, min(30, (int)($_GET['limit'] ?? 30)));
-    $db = pdo();
-    $rows = $db->query("SELECT id, name, city, rating, body, COALESCE(verified_at, created_at) AS at FROM testimonials WHERE status = 'approved' ORDER BY id DESC LIMIT $limit")->fetchAll();
-    $sum = $db->query("SELECT COUNT(*) AS n, COUNT(rating) AS rated, AVG(rating) AS avg_rating FROM testimonials WHERE status = 'approved'")->fetch();
-    $items = [];
-    foreach ($rows as $r) {
-        $items[] = ['id' => (int)$r['id'], 'name' => tst_public_name($r['name']), 'city' => $r['city'],
-                    'rating' => $r['rating'] !== null ? (int)$r['rating'] : null, 'body' => $r['body'], 'date' => iso($r['at'])];
-    }
-    out(['testimonials' => $items, 'count' => (int)$sum['n'], 'average' => ((int)$sum['rated'] > 0) ? round((float)$sum['avg_rating'], 1) : null]);
-}
-
-function adm_testimonials() {
-    require_admin();
-    tst_table();
-    $status = $_GET['status'] ?? '';
-    $sql = "SELECT id, name, email, city, rating, body, status, verified_at, created_at FROM testimonials";
-    $args = [];
-    if (in_array($status, ['unconfirmed', 'pending', 'approved', 'hidden'], true)) { $sql .= " WHERE status = ?"; $args[] = $status; }
-    $st = pdo()->prepare($sql . " ORDER BY FIELD(status, 'pending', 'approved', 'hidden', 'unconfirmed'), id DESC LIMIT 300");
-    $st->execute($args);
-    $rows = $st->fetchAll();
-    foreach ($rows as &$r) { $r['created_at'] = iso($r['created_at']); $r['verified_at'] = iso($r['verified_at']); }
-    out(['testimonials' => $rows]);
-}
-
-function adm_testimonial_update() {
-    require_admin();
-    tst_table();
-    $b = body(); $id = (int)($b['id'] ?? 0); $act = (string)($b['action'] ?? '');
-    $db = pdo();
-    $st = $db->prepare("SELECT id, status FROM testimonials WHERE id = ?");
-    $st->execute([$id]);
-    $r = $st->fetch();
-    if (!$r) fail('Testimonial not found.', 404);
-    if ($act === 'approve') {
-        if ($r['status'] === 'unconfirmed') fail('This email address has not been confirmed yet.');
-        $db->prepare("UPDATE testimonials SET status = 'approved' WHERE id = ?")->execute([$id]);
-    } elseif ($act === 'hide') {
-        $db->prepare("UPDATE testimonials SET status = 'hidden' WHERE id = ?")->execute([$id]);
-    } elseif ($act === 'delete') {
-        $db->prepare("DELETE FROM testimonials WHERE id = ?")->execute([$id]);
-    } else fail('Unknown action.');
-    out(['ok' => true]);
 }

@@ -16,9 +16,9 @@
     '<button class="share-btn" type="button" data-kind="image" aria-label="Share"><i class="fas fa-share-nodes"></i></button>' +
     '</div>' +
     '<div class="lb-cap"></div>' +
-    '<div class="lb-nav prev" role="button" tabindex="0" aria-label="Previous"><i class="fas fa-chevron-left"></i></div>' +
-    '<div class="lb-nav next" role="button" tabindex="0" aria-label="Next"><i class="fas fa-chevron-right"></i></div>' +
-    '<div class="lb-close" role="button" tabindex="0" aria-label="Close"><i class="fas fa-xmark"></i></div>';
+    '<div class="lb-nav prev" role="button" aria-label="Previous"><i class="fas fa-chevron-left"></i></div>' +
+    '<div class="lb-nav next" role="button" aria-label="Next"><i class="fas fa-chevron-right"></i></div>' +
+    '<div class="lb-close" role="button" aria-label="Close"><i class="fas fa-xmark"></i></div>';
   document.body.appendChild(overlay);
 
   var img = overlay.querySelector("img"), cap = overlay.querySelector(".lb-cap");
@@ -41,15 +41,10 @@
   function close() { overlay.classList.remove("show"); document.body.classList.remove("no-scroll"); img.removeAttribute("src"); }
 
   items.forEach(function (item, i) {
-    item.setAttribute("tabindex", "0"); item.setAttribute("role", "button");
-    item.addEventListener("keydown", function (e) { if ((e.key === "Enter" || e.key === " ") && e.target === item) { e.preventDefault(); opener = item; show(i); } });
-    item.addEventListener("click", function (e) { if (e.target.closest(".like-btn, .cmt-btn, .share-btn")) return; opener = item; show(i); });
+    item.addEventListener("click", function (e) { if (e.target.closest(".like-btn, .cmt-btn, .share-btn")) return; show(i); });
   });
   overlay.querySelector(".lb-close").addEventListener("click", close);
   overlay.addEventListener("click", function (e) { if (e.target === overlay) close(); });
-  var opener = null;
-  new MutationObserver(function () { if (overlay.classList.contains("show")) { var c = overlay.querySelector(".lb-close"); if (c) c.focus(); } else if (opener) { opener.focus(); } }).observe(overlay, { attributes: true, attributeFilter: ["class"] });
-  overlay.querySelectorAll(".lb-nav,.lb-close").forEach(function (b) { b.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); b.click(); } }); });
   overlay.querySelector(".prev").addEventListener("click", function () { show(index - 1); });
   overlay.querySelector(".next").addEventListener("click", function () { show(index + 1); });
   window.addEventListener("keydown", function (e) {
