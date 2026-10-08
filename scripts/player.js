@@ -61,7 +61,7 @@
     index = group.indexOf(btn);
     key = btn.dataset.src; meta = { title: btn.dataset.title || "Untitled", subtitle: btn.dataset.subtitle || "Yohan Records" };
     played = 0; lastT = 0; counted = false;
-    audio.src = key;
+        audio.src = window.YR_MEDIA ? window.YR_MEDIA(key) : key;
     els.title.textContent = meta.title; els.subtitle.textContent = meta.subtitle;
     els.art.src = btn.dataset.art || "assets/images/Logo/YR.png";
     bar.classList.add("active");
