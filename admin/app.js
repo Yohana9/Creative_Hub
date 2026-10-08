@@ -224,7 +224,7 @@
       renderTop(o);
       document.getElementById("updated").textContent = "updated " + new Date().toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
     });
-    loadContacts(); loadComments();
+    loadContacts(); loadComments(); loadTestimonials(); loadTrending();
   }
 
   document.getElementById("rangeSelect").addEventListener("change", boot);
@@ -322,6 +322,88 @@
         if (act === "delete" && !confirm("Delete this comment?")) return;
         call("admin_comment_update", { method: "POST", body: { id: id, action: act } }).then(function (r) {
           if (r && !r.error) loadComments();
+        });
+      });
+    });
+  }
+
+  /* ---------------- home trending (pins) ---------------- */
+  var pins = [], autoRows = [];
+  function songs() { return (window.YR_CATALOG || []).filter(function (c) { return c.kind === "audio"; }); }
+  function songTitle(key) { var c = songs().find(function (x) { return x.key === key; }); return c ? c.title : key.replace(/^assets\/audio\//, ""); }
+  function loadTrending() {
+    call("admin_trending", {}).then(function (r) {
+      if (!r || r.error) { document.getElementById("pinList").innerHTML = '<p class="muted">Couldn\'t load' + (r && r.error ? " (" + esc(r.error) + ")" : "") + ".</p>"; return; }
+      pins = r.pins || []; autoRows = r.auto || []; renderTrending();
+    });
+  }
+  function savePins(next) {
+    call("admin_trending_set", { method: "POST", body: { keys: next } }).then(function (r) {
+      if (r && !r.error) { pins = r.pins || next; renderTrending(); if (YR.toast) YR.toast("Home Top 10 updated.", "ok"); }
+      else if (YR.toast) YR.toast((r && r.error) || "Couldn't save. Try again.", "error");
+    });
+  }
+  function renderTrending() {
+    document.getElementById("trendCount").textContent = pins.length ? "(" + pins.length + " pinned)" : "(all automatic)";
+    var pl = document.getElementById("pinList");
+    pl.innerHTML = pins.length ? pins.map(function (k, i) {
+      return '<div class="pin-row" data-i="' + i + '"><span class="pin-n">' + (i + 1) + '</span><span class="pin-t">' + esc(songTitle(k)) + "</span>" +
+        '<span class="pin-b"><button data-a="up" title="Move up"' + (i === 0 ? " disabled" : "") + '>\u25B2</button><button data-a="down" title="Move down"' + (i === pins.length - 1 ? " disabled" : "") + '>\u25BC</button><button data-a="rm" class="danger" title="Unpin">\u2715</button></span></div>';
+    }).join("") : '<p class="muted">Nothing pinned. The Top 10 is fully automatic.</p>';
+    pl.querySelectorAll("button[data-a]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var i = Number(b.closest(".pin-row").dataset.i), a = b.dataset.a, next = pins.slice();
+        if (a === "rm") next.splice(i, 1);
+        else { var j = a === "up" ? i - 1 : i + 1; if (j < 0 || j >= next.length) return; var t = next[i]; next[i] = next[j]; next[j] = t; }
+        savePins(next);
+      });
+    });
+    var sel = document.getElementById("pinSelect");
+    sel.innerHTML = '<option value="">Choose a song to pin\u2026</option>' + songs().filter(function (c) { return pins.indexOf(c.key) < 0; })
+      .map(function (c) { return '<option value="' + esc(c.key) + '">' + esc(c.title) + "</option>"; }).join("");
+    var al = document.getElementById("autoList");
+    al.innerHTML = autoRows.length ? autoRows.map(function (r, i) {
+      return '<div class="pin-row"><span class="pin-n">' + (i + 1) + '</span><span class="pin-t">' + esc(r.title || songTitle(r.item_key)) + '</span><span class="pin-b muted">' + fmt(r.p7) + " this week \u00b7 " + fmt(r.plays) + " total</span></div>";
+    }).join("") : '<p class="muted">No plays recorded yet. Songs appear here as people listen.</p>';
+  }
+  document.getElementById("pinAddBtn").addEventListener("click", function () {
+    var k = document.getElementById("pinSelect").value;
+    if (!k) return;
+    if (pins.length >= 10) { if (YR.toast) YR.toast("You can pin up to 10 songs.", "error"); return; }
+    savePins(pins.concat([k]));
+  });
+
+  /* ---------------- testimonials ---------------- */
+  var tstCache = [];
+  function loadTestimonials() {
+    call("admin_testimonials", {}).then(function (r) {
+      if (!r || r.error) { var b = document.getElementById("tstBody"); if (b) b.innerHTML = '<tr class="empty-row"><td colspan="6">Couldn\'t load testimonials' + (r && r.error ? " (" + esc(r.error) + ")" : "") + ".</td></tr>"; return; }
+      tstCache = r.testimonials || [];
+      renderTestimonials();
+    });
+  }
+  function renderTestimonials() {
+    var body = document.getElementById("tstBody");
+    var pend = tstCache.filter(function (t) { return t.status === "pending"; }).length;
+    document.getElementById("tstCount").textContent = tstCache.length ? "(" + tstCache.length + (pend ? ", " + pend + " waiting" : "") + ")" : "";
+    if (!tstCache.length) { body.innerHTML = '<tr class="empty-row"><td colspan="6">No testimonials yet.</td></tr>'; return; }
+    body.innerHTML = tstCache.map(function (t) {
+      var stars = "\u2605\u2605\u2605\u2605\u2605".slice(0, t.rating) + "\u2606\u2606\u2606\u2606\u2606".slice(0, 5 - t.rating);
+      var acts = (t.status === "visible" ? '<button data-act="hide">Hide</button>' : '<button data-act="approve" class="ok">' + (t.status === "pending" ? "Approve" : "Show") + "</button>") +
+                 '<button data-act="delete" class="danger">Delete</button>';
+      return '<tr data-id="' + t.id + '"><td><b>' + esc(t.name) + "</b>" + (t.role ? '<div class="muted">' + esc(t.role) + "</div>" : "") + "</td>" +
+        '<td style="color:#d4a23a;white-space:nowrap;">' + stars + "</td>" +
+        '<td class="msg-preview">' + esc(t.message) + "</td>" +
+        '<td><span class="pill ' + t.status + '">' + t.status.toUpperCase() + "</span></td>" +
+        '<td class="muted">' + dfmt(t.created_at) + "</td>" +
+        '<td><div class="row-actions">' + acts + "</div></td></tr>";
+    }).join("");
+    body.querySelectorAll("button[data-act]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var tr = btn.closest("tr"), id = Number(tr.dataset.id), act = btn.dataset.act;
+        if (act === "delete" && !confirm("Delete this testimonial?")) return;
+        call("admin_testimonial_update", { method: "POST", body: { id: id, action: act } }).then(function (r) {
+          if (r && !r.error) loadTestimonials();
         });
       });
     });

@@ -1,0 +1,7 @@
+# NEVER commit secrets or private data
+api/config.php
+CHub.sql
+*.sql.bak
+api/diagnose.php
+.DS_Store
+Thumbs.db

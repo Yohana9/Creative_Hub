@@ -238,3 +238,21 @@ html:not([data-theme="dark"]) .adm-table th{ background:#faf9fd; }
 /* testimonials: approve button */
 .row-actions button.ok{ border-color:rgba(22,168,112,.5); color:#16a870; }
 .row-actions button.ok:hover{ background:rgba(22,168,112,.12); color:#16a870; }
+
+/* home trending panel */
+.mini-note{ margin:-.35rem 0 1rem; font-size:.84rem; color:var(--text-dim); line-height:1.55; max-width:52rem; }
+.trend-admin{ display:grid; grid-template-columns:1fr 1fr; gap:1.4rem; }
+.trend-admin > *{ min-width:0; }
+.pin-list{ display:flex; flex-direction:column; gap:.45rem; }
+.pin-row{ display:flex; align-items:center; gap:.7rem; padding:.55rem .7rem; border:1px solid var(--border); border-radius:12px; background:var(--bg-elev-2); font-size:.86rem; min-width:0; }
+.pin-n{ flex:none; width:1.5rem; height:1.5rem; display:grid; place-items:center; border-radius:50%; background:var(--surface-strong); font-size:.72rem; font-weight:800; color:var(--text-dim); }
+.pin-t{ flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-weight:600; }
+.pin-b{ flex:none; display:flex; gap:.3rem; align-items:center; font-size:.76rem; }
+.pin-b button{ width:1.9rem; height:1.9rem; border-radius:50%; border:1px solid var(--border); background:var(--bg-elev-1); color:var(--text-dim); cursor:pointer; font-size:.7rem; }
+.pin-b button:hover:not(:disabled){ color:var(--text); border-color:rgba(140,107,255,.5); }
+.pin-b button.danger:hover{ color:#d62b52; border-color:rgba(255,85,119,.5); }
+.pin-b button:disabled{ opacity:.35; cursor:default; }
+.pin-list.auto .pin-n{ background:transparent; border:1px dashed var(--border); }
+.pin-add{ display:flex; gap:.5rem; margin-top:.8rem; flex-wrap:wrap; }
+.pin-add .range-select{ flex:1; min-width:10rem; max-width:100%; }
+@media (max-width:900px){ .trend-admin{ grid-template-columns:1fr; } }

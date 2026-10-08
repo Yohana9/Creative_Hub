@@ -1,76 +1,54 @@
-# Yohan Records — v4: dynamic-ready, social features, private dashboard
+# Yohan Records — Creative Hub
 
-Everything below `assets/` is still an empty folder skeleton — put your real
-audio/image/video files back in the matching folders and every page works.
+Music, film and artwork hub of Yohannes R. A static front end (HTML/CSS/JS) plus a small PHP + MySQL API
+for likes, play counts, comments, testimonials, contact messages and a private analytics dashboard.
 
-## Static by default, dynamic when you're ready
-The site runs standalone with no server (hearts save on your device, view/play
-counts and comments stay hidden, the contact form opens an email draft). Follow
-`DEPLOY.md` to connect it to a real cPanel MySQL database on
-`creativehub.yeneflow.com`: after that, plays, views, likes and comments are
-counted for real and shown to everyone, and the contact form saves to your
-database and emails you.
+```
+index.html, singles.html, albums.html, remixes.html, Video.html, gallery.html,
+Software.html, testimonials.html, contact.html   ← pages
+styles/  scripts/  assets/                       ← front end (your audio/images/videos live in assets/)
+admin/                                           ← private dashboard (needs the admin key)
+api/                                             ← PHP API (runs on cPanel hosting, NOT on GitHub Pages)
+```
 
-**To flip it on:** edit `scripts/config.js`, set `API_BASE` to your uploaded
-`api/index.php` address. That's the only file you need to touch.
+## 1. Put the website on GitHub Pages (free)
 
-## New in v4
+1. Create a repository (for example `YohanRec`) and upload **everything in this folder**, including your own
+   `assets/audio`, `assets/images`, `assets/videos` and `assets/gallery` folders.
+   * GitHub allows files up to 100 MB each and recommends keeping a site under about 1 GB.
+   * `.nojekyll` is included so folders and file names are served as they are.
+2. Repository **Settings → Pages → Build and deployment → Deploy from a branch → `main` / `(root)` → Save**.
+3. After a minute the site is live at `https://<your-user>.github.io/<repo>/` (for you: `https://yohana9.github.io/YohanRec/`).
 
-**Sidebar & header**
-- Redesigned sidebar: rounded floating panel, icon chips, gradient active state,
-  collapses to an icon-only rail on desktop (click the menu button to toggle,
-  it remembers your choice) and becomes a slide-out drawer on tablet/phone with
-  swipe-to-open/close. Adapts automatically to light and dark theme.
-- Dark stays the default theme.
+All links in the pages are relative, so they work under `/YohanRec/` without changes.
 
-**Responsiveness**
-- Breakpoints tuned for large desktop/4K monitors, laptops, tablets, phones,
-  short landscape phones, and touch devices (bigger tap targets). Sizes use
-  `rem`/`clamp()` throughout instead of fixed pixels.
+## 2. The API (likes, plays, comments, testimonials, dashboard)
 
-**Social features (all four: views, likes, comments, shares)**
-- Every track, video and gallery piece shows a heart (like), a play/view
-  count, a comment count and a share button, YouTube-style. Counts only show
-  once the backend is connected; likes still work locally without it.
-- A comments drawer slides in from the side (bottom sheet on phones) — name +
-  comment, no account needed, with spam protections (honeypot field, a
-  minimum-time check, and rate limits) baked into the API.
-- A repeat button (off / repeat all / repeat one) and a shuffle button in the
-  player, both remembered between visits.
-- Search + sort ("Most played", "Most liked", "A–Z") on Singles, Remixes and
-  Videos.
-- Home page shows live totals (plays, likes, comments, visitors) and a
-  trending strip once the database is live.
+GitHub Pages only serves static files, so the PHP API stays on your cPanel hosting at `https://chub.yeneflow.com/api/`.
+`scripts/config.js` already points the site at it:
 
-**Contact page**
-- Replaced the newsletter box with a real contact form: full name, email,
-  phone, country, city, address, organization, subject and message, validated
-  both in the browser and on the server. Submissions are emailed to you and
-  saved to the database. Without a backend connected it falls back to opening
-  an email draft with the same details.
+```js
+API_BASE: "https://chub.yeneflow.com/api/index.php"
+```
 
-**Private dashboard**
-- `admin/` is a separate page, not linked anywhere on the public site and
-  blocked from search engines, protected by the `admin_key` you set in
-  `api/config.php` (no visitor accounts, exactly as you asked). It shows:
-  totals, a 30/7/90-day activity chart, device/country/browser/referrer
-  breakdowns, your most-played tracks and most-watched videos, every contact
-  message (search, mark read, delete, export to CSV, reply by email), and
-  every comment (hide, delete, reply as the owner).
+* Upload the `api/` folder to the server. **Do not upload or commit `api/config.php` from here**: it holds your
+  database password and admin key. Keep the one that is already on the server (use `api/config.sample.php` as a template).
+* In `api/config.php` make sure `allowed_origins` lists every address the site is served from, for example
+  `https://chub.yeneflow.com` and `https://yohana9.github.io` (no trailing slash). Without it the browser blocks the API.
+* Tables are created automatically the first time they are needed (testimonials, trending pins). `api/schema.sql` has the full schema.
 
-## Deployment
-See `DEPLOY.md` for the full cPanel + MySQL setup, step by step.
+## 3. Dashboard
 
-## v5: dual-hosting resilience, cleanup, and a calmer palette
+Open `/admin/` on either site and enter your admin key. You can:
 
-- **Automatic online/offline detection.** The site no longer decides "online or
-  static" once at page load. Every action checks reachability for itself, so
-  running the same files on GitHub Pages and cPanel at once — and having
-  cPanel go down and come back — is fully automatic. See `DEPLOY.md` section 5.
-- **No more duplicate page titles.** "Albums" / "Albums", "Videos" / "Videos"
-  and so on are gone — each page states its name once, in the hero, then goes
-  straight into an intro line and the content.
-- **Calmer, more professional hero title.** The glow is now a single soft
-  brand-colored halo instead of a multi-color neon flicker.
-- **Cards** now use one consistent glass surface in both themes instead of the
-  original site's loud purple-to-blue gradient.
+* see plays, likes, views, comments, messages and visitors,
+* **pin songs to the Home "Top 10 – Trending"** list and reorder them (the rest fills automatically from recent listening),
+* approve, hide or delete testimonials and comments.
+
+## Security checklist
+
+* `api/config.php` is in `.gitignore`. If it was ever pushed, change the database password and `admin_key` right away.
+* Delete `api/diagnose.php` from the server when you are done troubleshooting.
+* Use a long random `admin_key` (20+ characters).
+
+See `DEPLOY.md` for the cPanel upload steps.

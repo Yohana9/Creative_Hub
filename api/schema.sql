@@ -78,3 +78,24 @@ CREATE TABLE IF NOT EXISTS rate_limits (
   PRIMARY KEY (id),
   KEY idx_rl (bucket, ip_hash, created_at)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS testimonials (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  name VARCHAR(80) NOT NULL,
+  role VARCHAR(120) NOT NULL DEFAULT '',
+  message TEXT NOT NULL,
+  rating TINYINT UNSIGNED NOT NULL DEFAULT 5,
+  status VARCHAR(10) NOT NULL DEFAULT 'pending',
+  ip_hash CHAR(64) NOT NULL DEFAULT '',
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  KEY idx_status (status, id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS trending_pins (
+  item_key VARCHAR(191) NOT NULL,
+  pos SMALLINT UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY (item_key),
+  KEY idx_pos (pos)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+

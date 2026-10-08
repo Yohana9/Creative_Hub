@@ -178,24 +178,42 @@
     });
   }
 
-  /* ---------- trending (home) ---------- */
+  /* ---------- trending (home): Top 10 = pinned songs first, then most / most recently listened ---------- */
   function initTrending() {
     var box = document.querySelector("[data-trending]");
     var cat = window.YR_CATALOG;
     if (!box || !cat) return;
     var title = document.querySelector("[data-trending-title]");
-    function render(rows, label) {
+    var sub = title && title.nextElementSibling && title.nextElementSibling.classList.contains("section-sub") ? title.nextElementSibling : null;
+    var TOP = 10;
+    var songs = cat.filter(function (c) { return c.kind === "audio"; });
+    box.classList.add("trend-ten");
+    if (!document.getElementById("yrtr-css")) {
+      var st = document.createElement("style"); st.id = "yrtr-css";
+      st.textContent =
+        ".trend-grid.trend-ten{grid-template-columns:repeat(2,minmax(0,1fr));}" +
+        "@media(max-width:700px){.trend-grid.trend-ten{grid-template-columns:1fr;}}" +
+        ".trend-ten .trend-rank{width:1.7rem;font-size:1rem;}" +
+        ".trend-ten .trend-item:nth-child(1) .trend-rank{color:#f5b942;}.trend-ten .trend-item:nth-child(2) .trend-rank{color:#c9ccd6;}.trend-ten .trend-item:nth-child(3) .trend-rank{color:#d98a52;}" +
+        ".trend-ten .trend-item:nth-child(-n+3){border-color:rgba(245,185,66,.28);}" +
+        ".trend-pin{margin-left:.35rem;font-size:.62rem;color:var(--accent-2,#8c6bff);opacity:.9;}" +
+        ".trend-item.skel{min-height:4.6rem;animation:yrtrp 1.2s ease-in-out infinite;}@keyframes yrtrp{50%{opacity:.45}}";
+      document.head.appendChild(st);
+    }
+    function render(rows, label, note) {
       if (title) title.textContent = label;
+      if (sub && note) sub.textContent = note;
       box.textContent = "";
-      rows.forEach(function (row, i) {
+      rows.slice(0, TOP).forEach(function (row, i) {
         var c = row.cat, el = document.createElement("div");
         el.className = "trend-item"; el.dataset.key = c.key; el.dataset.title = c.title;
         var rank = document.createElement("span"); rank.className = "trend-rank"; rank.textContent = String(i + 1);
         var img = document.createElement("img"); img.src = c.img; img.alt = ""; img.loading = "lazy";
         var meta = document.createElement("div"); meta.className = "trend-meta";
-        var st = document.createElement("strong"); st.textContent = c.title;
-        var sm = document.createElement("small"); sm.textContent = row.plays !== null ? YR.fmt(row.plays) + " plays" : c.subtitle;
-        meta.appendChild(st); meta.appendChild(sm);
+        var stg = document.createElement("strong"); stg.textContent = c.title;
+        if (row.pinned) { var pin = document.createElement("i"); pin.className = "fas fa-thumbtack trend-pin"; pin.title = "Pinned pick"; stg.appendChild(pin); }
+        var sm = document.createElement("small"); sm.textContent = row.plays ? YR.fmt(row.plays) + " plays" : c.subtitle;
+        meta.appendChild(stg); meta.appendChild(sm);
         var btn = document.createElement("button"); btn.className = "play-btn"; btn.setAttribute("aria-label", "Play " + c.title);
         btn.dataset.group = "trending"; btn.dataset.src = c.key; btn.dataset.title = c.title; btn.dataset.subtitle = c.subtitle; btn.dataset.art = c.img;
         btn.innerHTML = '<i class="fas fa-play"></i>';
@@ -203,16 +221,22 @@
         setTimeout(function () { el.classList.add("reveal", "in"); }, 0);
       });
     }
-    var featured = cat.filter(function (c) { return c.kind === "audio"; }).slice(0, 6).map(function (c) { return { cat: c, plays: null }; });
-    render(featured, "Featured picks");
-    if (!YR.configured) return;
-    YR.api("top", { query: { kind: "audio", limit: 6 } }).then(function (r) {
-      if (!r || !r.items || !r.items.length) return;
-      var rows = r.items.map(function (it) {
+    function featured() {
+      render(songs.slice(0, TOP).map(function (c) { return { cat: c, plays: 0, pinned: false }; }), "Featured picks", "The tracks worth starting with.");
+    }
+    if (!YR.configured) { featured(); return; }
+    box.textContent = "";
+    for (var k = 0; k < 6; k++) { var sk = document.createElement("div"); sk.className = "trend-item skel"; box.appendChild(sk); }
+    YR.api("trending", { retries: 1, timeout: 12000 }).then(function (r) {
+      var rows = [];
+      if (r && r.items) r.items.forEach(function (it) {
         var c = cat.find(function (x) { return x.key === it.key; });
-        return c ? { cat: c, plays: it.plays } : null;
-      }).filter(Boolean);
-      if (rows.length) render(rows, "Trending now");
+        if (c) rows.push({ cat: c, plays: it.plays, pinned: !!it.pinned });
+      });
+      if (!rows.length) { featured(); return; }
+      var have = {}; rows.forEach(function (x) { have[x.cat.key] = 1; });
+      songs.forEach(function (c) { if (rows.length < TOP && !have[c.key]) rows.push({ cat: c, plays: 0, pinned: false }); });   // top up to 10
+      render(rows, "Trending now", "Top 10: my pinned picks first, then what people are playing most.");
     });
   }
 

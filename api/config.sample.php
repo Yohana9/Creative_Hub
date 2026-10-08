@@ -32,6 +32,7 @@ return [
     'timezone' => 'Africa/Addis_Ababa',
     'db_timezone' => '+03:00',
     'comments_need_approval' => false,  // true = every new comment waits for your approval
+    'testimonials_need_approval' => true,  // true = new testimonials wait for your approval in the dashboard
     'trust_cloudflare' => false,        // true only if the domain is behind Cloudflare
     'max_items' => 3000,
 ];

@@ -113,3 +113,11 @@ keep it private. There is no separate login system by design, as you asked.
 - The login retries automatically (3 attempts, 20 s each) on a flaky connection. "Couldn't get an answer" means a network/DNS/server problem; "Invalid key" means the key is wrong.
 - Change `admin_key` in `api/config.php` to rotate your key (use 20+ random characters, no spaces).
 - Delete `api/diagnose.php` from the server once everything works.
+
+## New in this version
+- **Home "Trending now" = Top 10.** Pinned songs (dashboard → *Home Top 10*) come first, the remaining places fill automatically:
+  score = 2 × plays in the last 7 days + plays in the last 30 days; ties go to the most recently played song.
+- **Testimonials** page + dashboard moderation (new ones wait for approval; set `'testimonials_need_approval' => false` to publish instantly).
+- **Logo & favicons** are in the project root (`favicon.ico`, `favicon.svg`, `favicon-16.png`, `favicon-32.png`, `apple-touch-icon.png`,
+  `android-chrome-*.png`, `site.webmanifest`, `og-image.png`) and `assets/images/Logo/` (`YR.png`, `YR.svg`, `Blogo22.png`).
+- `api/config.php` is **not** inside the zip on purpose. Keep the one on your server.

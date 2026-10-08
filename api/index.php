@@ -7,6 +7,7 @@ $action = $_GET['action'] ?? '';
 $map = [
     'ping' => 'act_ping', 'stats' => 'act_stats', 'top' => 'act_top', 'track' => 'act_track', 'react' => 'act_react',
     'comments' => 'act_comments', 'comment' => 'act_comment', 'contact' => 'act_contact',
+    'trending' => 'act_trending', 'admin_trending' => 'adm_trending', 'admin_trending_set' => 'adm_trending_set',
     'testimonials' => 'act_testimonials', 'testimonial' => 'act_testimonial',
     'admin_testimonials' => 'adm_testimonials', 'admin_testimonial_update' => 'adm_testimonial_update',
     'admin_check' => 'adm_check', 'admin_overview' => 'adm_overview', 'admin_items' => 'adm_items', 'admin_item_delete' => 'adm_item_delete',
@@ -141,6 +142,91 @@ function act_comment() {
        ->execute([$key, $name, $text, $pending ? 'pending' : 'visible', $ih]);
     if (!$pending) recount_comments($key);
     out(['ok' => true, 'pending' => $pending]);
+}
+
+/* ------------------------------------------------------------ trending (Home "Top 10")
+   Pinned songs (set in the dashboard) come first, in the order you chose. The remaining places are filled
+   automatically: score = 2 x plays in the last 7 days + plays in the last 30 days, ties go to the most
+   recently played song, then to all-time plays. */
+
+function ensure_trending() {
+    static $done = false; if ($done) return; $done = true;
+    pdo()->exec("CREATE TABLE IF NOT EXISTS trending_pins (
+      item_key VARCHAR(191) NOT NULL,
+      pos SMALLINT UNSIGNED NOT NULL DEFAULT 0,
+      PRIMARY KEY (item_key),
+      KEY idx_pos (pos)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
+}
+
+function trending_auto($limit = 60) {
+    $sql = "SELECT i.item_key, i.title, i.plays, i.last_event_at,
+                   COALESCE(SUM(e.created_at >= (NOW() - INTERVAL 7 DAY)), 0) AS p7,
+                   COUNT(e.id) AS p30,
+                   (2 * COALESCE(SUM(e.created_at >= (NOW() - INTERVAL 7 DAY)), 0) + COUNT(e.id)) AS score
+            FROM items i
+            LEFT JOIN events e ON e.item_key = i.item_key AND e.event_type = 'play' AND e.created_at >= (NOW() - INTERVAL 30 DAY)
+            WHERE i.kind = 'audio' AND i.plays > 0
+            GROUP BY i.item_key, i.title, i.plays, i.last_event_at
+            ORDER BY score DESC, i.last_event_at DESC, i.plays DESC
+            LIMIT " . (int)$limit;
+    $rows = pdo()->query($sql)->fetchAll();
+    foreach ($rows as &$r) { $r['plays'] = (int)$r['plays']; $r['p7'] = (int)$r['p7']; $r['p30'] = (int)$r['p30']; $r['score'] = (int)$r['score']; }
+    return $rows;
+}
+
+function trending_pins() {
+    return pdo()->query("SELECT item_key FROM trending_pins ORDER BY pos ASC, item_key ASC LIMIT 10")->fetchAll(PDO::FETCH_COLUMN);
+}
+
+function act_trending() {
+    ensure_trending();
+    $pins = trending_pins(); $auto = trending_auto(60);
+    $byKey = []; foreach ($auto as $r) $byKey[$r['item_key']] = $r;
+    $items = []; $seen = [];
+    if ($pins) {
+        $in = implode(',', array_fill(0, count($pins), '?'));
+        $st = pdo()->prepare("SELECT item_key, title, plays FROM items WHERE item_key IN ($in)"); $st->execute($pins);
+        $meta = []; foreach ($st as $r) $meta[$r['item_key']] = $r;
+        foreach ($pins as $k) {
+            $items[] = ['key' => $k, 'title' => $meta[$k]['title'] ?? '', 'plays' => (int)($meta[$k]['plays'] ?? 0), 'pinned' => true];
+            $seen[$k] = true;
+        }
+    }
+    foreach ($auto as $r) {
+        if (count($items) >= 10) break;
+        if (isset($seen[$r['item_key']])) continue;
+        $items[] = ['key' => $r['item_key'], 'title' => $r['title'], 'plays' => $r['plays'], 'pinned' => false];
+    }
+    out(['items' => array_slice($items, 0, 10), 'pinned' => count($pins)]);
+}
+
+function adm_trending() {
+    require_admin(); ensure_trending();
+    $auto = trending_auto(10);
+    foreach ($auto as &$r) $r['last_event_at'] = iso($r['last_event_at']);
+    out(['pins' => trending_pins(), 'auto' => $auto]);
+}
+
+function adm_trending_set() {
+    require_admin(); ensure_trending();
+    $b = body(); $keys = $b['keys'] ?? null;
+    if (!is_array($keys)) fail('Send a list of songs.');
+    $clean = [];
+    foreach ($keys as $k) {
+        $k = (string)$k;
+        if (!valid_key($k) || strpos($k, 'assets/audio/') !== 0) fail('Only songs can be pinned.');
+        if (!in_array($k, $clean, true)) $clean[] = $k;
+    }
+    if (count($clean) > 10) fail('You can pin up to 10 songs.');
+    $db = pdo(); $db->beginTransaction();
+    try {
+        $db->exec("DELETE FROM trending_pins");
+        $ins = $db->prepare("INSERT INTO trending_pins (item_key, pos) VALUES (?, ?)");
+        foreach ($clean as $i => $k) $ins->execute([$k, $i]);
+        $db->commit();
+    } catch (Throwable $e) { if ($db->inTransaction()) $db->rollBack(); fail('Could not save the list.', 500); }
+    out(['ok' => true, 'pins' => $clean]);
 }
 
 /* ------------------------------------------------------------ testimonials */
