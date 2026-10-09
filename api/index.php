@@ -19,7 +19,7 @@ call_user_func($map[$action]);
 
 /* ------------------------------------------------------------------ public */
 
-function act_ping() { out(['ok' => true, 'time' => date('c'), 'build' => '2026-10-trending-2', 'features' => ['admin_check', 'testimonials', 'trending']]); }
+function act_ping() { out(['ok' => true, 'time' => date('c'), 'build' => '2026-10-trending-3', 'features' => ['admin_check', 'testimonials', 'trending']]); }
 
 function act_stats() {
     $b = body();
@@ -151,12 +151,20 @@ function act_comment() {
 
 function ensure_trending() {
     static $done = false; if ($done) return; $done = true;
-    pdo()->exec("CREATE TABLE IF NOT EXISTS trending_pins (
+    $db = pdo();
+    $db->exec("CREATE TABLE IF NOT EXISTS trending_pins (
       item_key VARCHAR(191) NOT NULL,
       pos SMALLINT UNSIGNED NOT NULL DEFAULT 0,
+      title VARCHAR(190) NOT NULL DEFAULT '',
+      subtitle VARCHAR(190) NOT NULL DEFAULT '',
+      art VARCHAR(255) NOT NULL DEFAULT '',
       PRIMARY KEY (item_key),
       KEY idx_pos (pos)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
+    $cols = $db->query("SHOW COLUMNS FROM trending_pins")->fetchAll(PDO::FETCH_COLUMN);   // upgrade an older table in place
+    if (!in_array('title', $cols, true)) {
+        $db->exec("ALTER TABLE trending_pins ADD COLUMN title VARCHAR(190) NOT NULL DEFAULT '', ADD COLUMN subtitle VARCHAR(190) NOT NULL DEFAULT '', ADD COLUMN art VARCHAR(255) NOT NULL DEFAULT ''");
+    }
 }
 
 function trending_auto($limit = 60) {
@@ -175,28 +183,31 @@ function trending_auto($limit = 60) {
     return $rows;
 }
 
-function trending_pins() {
-    return pdo()->query("SELECT item_key FROM trending_pins ORDER BY pos ASC, item_key ASC LIMIT 10")->fetchAll(PDO::FETCH_COLUMN);
+function trending_pin_rows() {
+    return pdo()->query("SELECT item_key, title, subtitle, art FROM trending_pins ORDER BY pos ASC, item_key ASC LIMIT 10")->fetchAll();
 }
+function trending_pins() { return array_column(trending_pin_rows(), 'item_key'); }
 
 function act_trending() {
     ensure_trending();
-    $pins = trending_pins(); $auto = trending_auto(60);
-    $byKey = []; foreach ($auto as $r) $byKey[$r['item_key']] = $r;
+    $rows = trending_pin_rows(); $pins = array_column($rows, 'item_key');
+    $auto = trending_auto(60);
     $items = []; $seen = [];
-    if ($pins) {
+    if ($rows) {
         $in = implode(',', array_fill(0, count($pins), '?'));
         $st = pdo()->prepare("SELECT item_key, title, plays FROM items WHERE item_key IN ($in)"); $st->execute($pins);
         $meta = []; foreach ($st as $r) $meta[$r['item_key']] = $r;
-        foreach ($pins as $k) {
-            $items[] = ['key' => $k, 'title' => $meta[$k]['title'] ?? '', 'plays' => (int)($meta[$k]['plays'] ?? 0), 'pinned' => true];
+        foreach ($rows as $r) {
+            $k = $r['item_key'];
+            $items[] = ['key' => $k, 'title' => $r['title'] !== '' ? $r['title'] : ($meta[$k]['title'] ?? ''), 'subtitle' => $r['subtitle'], 'art' => $r['art'],
+                        'plays' => (int)($meta[$k]['plays'] ?? 0), 'pinned' => true];
             $seen[$k] = true;
         }
     }
     foreach ($auto as $r) {
         if (count($items) >= 10) break;
         if (isset($seen[$r['item_key']])) continue;
-        $items[] = ['key' => $r['item_key'], 'title' => $r['title'], 'plays' => $r['plays'], 'pinned' => false];
+        $items[] = ['key' => $r['item_key'], 'title' => $r['title'], 'subtitle' => '', 'art' => '', 'plays' => $r['plays'], 'pinned' => false];
     }
     out(['items' => array_slice($items, 0, 10), 'pinned' => count($pins)]);
 }
@@ -205,28 +216,37 @@ function adm_trending() {
     require_admin(); ensure_trending();
     $auto = trending_auto(10);
     foreach ($auto as &$r) $r['last_event_at'] = iso($r['last_event_at']);
-    out(['pins' => trending_pins(), 'auto' => $auto]);
+    $rows = trending_pin_rows();
+    out(['pins' => array_column($rows, 'item_key'), 'pin_meta' => $rows, 'auto' => $auto]);
 }
 
 function adm_trending_set() {
     require_admin(); ensure_trending();
-    $b = body(); $keys = $b['keys'] ?? null;
-    if (!is_array($keys)) fail('Send a list of songs.');
-    $clean = [];
-    foreach ($keys as $k) {
-        $k = (string)$k;
+    $b = body();
+    $in = isset($b['items']) && is_array($b['items']) ? $b['items'] : null;
+    if ($in === null) {                                   // older dashboard: just a list of keys
+        if (!isset($b['keys']) || !is_array($b['keys'])) fail('Send a list of songs.');
+        $in = []; foreach ($b['keys'] as $k) $in[] = ['key' => $k];
+    }
+    $clean = []; $seen = [];
+    foreach ($in as $it) {
+        $k = (string)(is_array($it) ? ($it['key'] ?? '') : $it);
         if (!valid_key($k) || strpos($k, 'assets/audio/') !== 0) fail('Only songs can be pinned.');
-        if (!in_array($k, $clean, true)) $clean[] = $k;
+        if (isset($seen[$k])) continue; $seen[$k] = true;
+        $art = clean_text($it['art'] ?? '', 255);
+        if ($art !== '' && !preg_match('#^assets/[\p{L}\p{N} _\-./()&,\'@+|\#]{1,240}$#u', $art)) $art = '';
+        $clean[] = ['key' => $k, 'title' => str_replace(["\r", "\n"], ' ', clean_text($it['title'] ?? '', 190)),
+                    'subtitle' => str_replace(["\r", "\n"], ' ', clean_text($it['subtitle'] ?? '', 190)), 'art' => $art];
     }
     if (count($clean) > 10) fail('You can pin up to 10 songs.');
     $db = pdo(); $db->beginTransaction();
     try {
         $db->exec("DELETE FROM trending_pins");
-        $ins = $db->prepare("INSERT INTO trending_pins (item_key, pos) VALUES (?, ?)");
-        foreach ($clean as $i => $k) $ins->execute([$k, $i]);
+        $ins = $db->prepare("INSERT INTO trending_pins (item_key, pos, title, subtitle, art) VALUES (?, ?, ?, ?, ?)");
+        foreach ($clean as $i => $c) $ins->execute([$c['key'], $i, $c['title'], $c['subtitle'], $c['art']]);
         $db->commit();
     } catch (Throwable $e) { if ($db->inTransaction()) $db->rollBack(); fail('Could not save the list.', 500); }
-    out(['ok' => true, 'pins' => $clean]);
+    out(['ok' => true, 'pins' => array_column($clean, 'key')]);
 }
 
 /* ------------------------------------------------------------ testimonials */

@@ -328,12 +328,44 @@
   }
 
   /* ---------------- home trending (pins) ---------------- */
-  var pins = [], autoRows = [];
+  var pins = [], pinMeta = {}, autoRows = [];
+  var songMap = {}, songsReady = false;
   function catalogList() { return window.YR_CATALOG || window.CATALOG || window.YR_ITEMS || []; }
-  function songs() {
-    return catalogList().filter(function (c) { return c && (c.kind === "audio" || /^assets\/audio\//.test(String(c.key || ""))); });
+  function isSongKey(k) { return /^assets\/audio\//.test(String(k || "")); }
+  function addSong(key, title, subtitle, art, src) {
+    if (!isSongKey(key)) return;
+    var cur = songMap[key];
+    if (!cur) songMap[key] = { key: key, title: title || "", subtitle: subtitle || "", art: art || "", src: src };
+    else { if (!cur.title && title) cur.title = title; if (!cur.subtitle && subtitle) cur.subtitle = subtitle; if (!cur.art && art) cur.art = art; }
   }
-  function songTitle(key) { var c = songs().find(function (x) { return x.key === key; }); return c ? c.title : key.replace(/^assets\/audio\//, ""); }
+  function songs() {
+    var list = Object.keys(songMap).map(function (k) { return songMap[k]; });
+    var count = {}; list.forEach(function (x) { var t = (x.title || "").toLowerCase(); count[t] = (count[t] || 0) + 1; });
+    list.forEach(function (x) {
+      var file = x.key.split("/").pop().replace(/\.[A-Za-z0-9]+$/, "");
+      x.label = (x.title || file) + (count[(x.title || "").toLowerCase()] > 1 || !x.title ? "  \u00b7  " + file : "");
+    });
+    return list.sort(function (a, b) { return a.label.localeCompare(b.label); });
+  }
+  function songTitle(key) { var c = songMap[key] || pinMeta[key]; return c && c.title ? c.title : key.replace(/^assets\/audio\//, ""); }
+  /* The song list is the union of: the pages themselves (always up to date), scripts/catalog.js, and songs people have played. */
+  function loadSongs() {
+    catalogList().forEach(function (c) { if (c && c.key) addSong(c.key, c.title, c.subtitle, c.img, "catalog"); });
+    var pages = ["albums.html", "singles.html", "remixes.html", "index.html"];
+    var jobs = pages.map(function (pg) {
+      return fetch("../" + pg, { cache: "no-store" }).then(function (r) { return r.ok ? r.text() : ""; }).then(function (html) {
+        if (!html) return;
+        var doc = new DOMParser().parseFromString(html, "text/html");
+        doc.querySelectorAll("[data-src]").forEach(function (el) {
+          addSong(el.getAttribute("data-src"), el.getAttribute("data-title"), el.getAttribute("data-subtitle"), el.getAttribute("data-art"), pg);
+        });
+      }).catch(function () {});
+    });
+    jobs.push(call("admin_items", {}).then(function (r) {
+      if (r && r.items) r.items.forEach(function (it) { if (it.kind === "audio") addSong(it.item_key, it.title, "", "", "played"); });
+    }).catch(function () {}));
+    return Promise.all(jobs).then(function () { songsReady = true; });
+  }
   function trendNote(msg, bad) {
     var n = document.getElementById("pinNote");
     if (!n) { n = document.createElement("p"); n.id = "pinNote"; n.className = "mini-note"; var add = document.querySelector("#trendPanel .pin-add"); if (add) add.parentNode.appendChild(n); else return; }
@@ -354,8 +386,11 @@
     });
   }
   function loadTrending() {
-    renderTrending();   // the song list comes from scripts/catalog.js, so show it straight away
-    if (!songs().length) trendNote("No songs found: scripts/catalog.js didn't load. Check that scripts/catalog.js is uploaded.", true);
+    renderTrending();
+    loadSongs().then(function () {
+      renderTrending();
+      if (!songs().length) trendNote("No songs found. Check that your pages and scripts/catalog.js are uploaded.", true);
+    });
     call("admin_trending", {}).then(function (r) {
       if (!r || r.error) {
         document.getElementById("pinList").innerHTML = '<p class="muted">Pinned list unavailable.</p>';
@@ -363,14 +398,23 @@
         if (r && /unknown action/i.test(r.error || "")) explainOutdated();
         return;
       }
-      if (songs().length) trendNote("");
-      pins = r.pins || []; autoRows = r.auto || []; renderTrending();
+      trendNote("");
+      pins = r.pins || []; autoRows = r.auto || [];
+      pinMeta = {}; (r.pin_meta || []).forEach(function (m) { pinMeta[m.item_key] = { title: m.title, subtitle: m.subtitle, art: m.art }; });
+      renderTrending();
     });
   }
   function savePins(next) {
-    call("admin_trending_set", { method: "POST", body: { keys: next } }).then(function (r) {
-      if (r && !r.error) { pins = r.pins || next; renderTrending(); if (YR.toast) YR.toast("Home Top 10 updated.", "ok"); }
-      else { trendNote(apiProblem(r), true); if (r && /unknown action/i.test(r.error || "")) explainOutdated(); if (YR.toast) YR.toast(/unknown action/i.test((r && r.error) || "") ? "Server needs the new api/index.php." : ((r && r.error) || "Couldn't save. Try again."), "error"); }
+    var items = next.map(function (k) {
+      var m = songMap[k] || pinMeta[k] || {};
+      return { key: k, title: m.title || "", subtitle: m.subtitle || "", art: m.art || m.img || "" };
+    });
+    call("admin_trending_set", { method: "POST", body: { items: items, keys: next } }).then(function (r) {
+      if (r && !r.error) {
+        pins = r.pins || next;
+        items.forEach(function (it) { pinMeta[it.key] = { title: it.title, subtitle: it.subtitle, art: it.art }; });
+        renderTrending(); trendNote(""); if (YR.toast) YR.toast("Home Top 10 updated.", "ok");
+      } else { trendNote(apiProblem(r), true); if (r && /unknown action/i.test(r.error || "")) explainOutdated(); if (YR.toast) YR.toast(/unknown action/i.test((r && r.error) || "") ? "Server needs the new api/index.php." : ((r && r.error) || "Couldn't save. Try again."), "error"); }
     });
   }
   function renderTrending() {
@@ -388,9 +432,9 @@
         savePins(next);
       });
     });
-    var sel = document.getElementById("pinSelect");
-    sel.innerHTML = '<option value="">Choose a song to pin\u2026</option>' + songs().filter(function (c) { return pins.indexOf(c.key) < 0; })
-      .map(function (c) { return '<option value="' + esc(c.key) + '">' + esc(c.title) + "</option>"; }).join("");
+    var sel = document.getElementById("pinSelect"), avail = songs().filter(function (c) { return pins.indexOf(c.key) < 0; });
+    sel.innerHTML = '<option value="">' + (songsReady ? "Choose a song to pin\u2026 (" + avail.length + " available)" : "Loading songs\u2026") + "</option>" +
+      avail.map(function (c) { return '<option value="' + esc(c.key) + '">' + esc(c.label) + "</option>"; }).join("");
     var al = document.getElementById("autoList");
     al.innerHTML = autoRows.length ? autoRows.map(function (r, i) {
       return '<div class="pin-row"><span class="pin-n">' + (i + 1) + '</span><span class="pin-t">' + esc(r.title || songTitle(r.item_key)) + '</span><span class="pin-b muted">' + fmt(r.p7) + " this week \u00b7 " + fmt(r.plays) + " total</span></div>";

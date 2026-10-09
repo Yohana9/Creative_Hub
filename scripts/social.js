@@ -231,6 +231,8 @@
       var rows = [];
       if (r && r.items) r.items.forEach(function (it) {
         var c = cat.find(function (x) { return x.key === it.key; });
+        if (!c && it.title) c = { key: it.key, kind: "audio", title: it.title, subtitle: it.subtitle || "Yohannes R.", img: it.art || "assets/images/Logo/YR.png" };   // newer song the catalog doesn't list yet
+        else if (c && it.pinned && (it.art || it.subtitle)) c = { key: c.key, kind: c.kind, title: it.title || c.title, subtitle: it.subtitle || c.subtitle, img: it.art || c.img };
         if (c) rows.push({ cat: c, plays: it.plays, pinned: !!it.pinned });
       });
       if (!rows.length) { featured(); return; }
