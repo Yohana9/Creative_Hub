@@ -329,18 +329,37 @@
 
   /* ---------------- home trending (pins) ---------------- */
   var pins = [], autoRows = [];
-  function songs() { return (window.YR_CATALOG || []).filter(function (c) { return c.kind === "audio"; }); }
+  function catalogList() { return window.YR_CATALOG || window.CATALOG || window.YR_ITEMS || []; }
+  function songs() {
+    return catalogList().filter(function (c) { return c && (c.kind === "audio" || /^assets\/audio\//.test(String(c.key || ""))); });
+  }
   function songTitle(key) { var c = songs().find(function (x) { return x.key === key; }); return c ? c.title : key.replace(/^assets\/audio\//, ""); }
+  function trendNote(msg, bad) {
+    var n = document.getElementById("pinNote");
+    if (!n) { n = document.createElement("p"); n.id = "pinNote"; n.className = "mini-note"; var add = document.querySelector("#trendPanel .pin-add"); if (add) add.parentNode.appendChild(n); else return; }
+    n.textContent = msg || ""; n.style.color = bad ? "#d62b52" : ""; n.hidden = !msg;
+  }
+  function apiProblem(r) {
+    var m = (r && r.error) || "";
+    if (/unknown action/i.test(m)) return "The server's api/index.php is out of date. Upload the new api/index.php and lib.php, then press Refresh.";
+    return "Couldn't reach the server" + (m ? " (" + m + ")" : "") + ". The song list below still works once it's back.";
+  }
   function loadTrending() {
+    renderTrending();   // the song list comes from scripts/catalog.js, so show it straight away
+    if (!songs().length) trendNote("No songs found: scripts/catalog.js didn't load. Check that scripts/catalog.js is uploaded.", true);
     call("admin_trending", {}).then(function (r) {
-      if (!r || r.error) { document.getElementById("pinList").innerHTML = '<p class="muted">Couldn\'t load' + (r && r.error ? " (" + esc(r.error) + ")" : "") + ".</p>"; return; }
+      if (!r || r.error) {
+        document.getElementById("pinList").innerHTML = '<p class="muted">Pinned list unavailable.</p>';
+        trendNote(apiProblem(r), true); return;
+      }
+      if (songs().length) trendNote("");
       pins = r.pins || []; autoRows = r.auto || []; renderTrending();
     });
   }
   function savePins(next) {
     call("admin_trending_set", { method: "POST", body: { keys: next } }).then(function (r) {
       if (r && !r.error) { pins = r.pins || next; renderTrending(); if (YR.toast) YR.toast("Home Top 10 updated.", "ok"); }
-      else if (YR.toast) YR.toast((r && r.error) || "Couldn't save. Try again.", "error");
+      else { trendNote(apiProblem(r), true); if (YR.toast) YR.toast(/unknown action/i.test((r && r.error) || "") ? "Server needs the new api/index.php." : ((r && r.error) || "Couldn't save. Try again."), "error"); }
     });
   }
   function renderTrending() {
