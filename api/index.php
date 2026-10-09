@@ -19,7 +19,7 @@ call_user_func($map[$action]);
 
 /* ------------------------------------------------------------------ public */
 
-function act_ping() { out(['ok' => true, 'time' => date('c')]); }
+function act_ping() { out(['ok' => true, 'time' => date('c'), 'build' => '2026-10-trending-2', 'features' => ['admin_check', 'testimonials', 'trending']]); }
 
 function act_stats() {
     $b = body();

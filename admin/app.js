@@ -341,8 +341,17 @@
   }
   function apiProblem(r) {
     var m = (r && r.error) || "";
-    if (/unknown action/i.test(m)) return "The server's api/index.php is out of date. Upload the new api/index.php and lib.php, then press Refresh.";
+    if (/unknown action/i.test(m)) return "The API on the server doesn't know the Trending actions yet. Checking which version is live\u2026";
     return "Couldn't reach the server" + (m ? " (" + m + ")" : "") + ". The song list below still works once it's back.";
+  }
+  /* Ask the live API which build it is, so the message says exactly what to do. */
+  function explainOutdated() {
+    var where = (YR.cfg && YR.cfg.API_BASE) || "your API folder";
+    YR.api("ping", { retries: 1 }).then(function (p) {
+      if (!p || p.error) { trendNote("Couldn't reach " + where + ". Check the connection and press Refresh.", true); return; }
+      if (p.build) trendNote("The live API reports build " + p.build + " but still doesn't know Trending. Ask your host to clear PHP OPcache (or wait a minute) and press Refresh.", true);
+      else trendNote("The api/index.php live at " + where + " is the OLD version (it has no build number). Upload the new api/index.php and lib.php into the folder that serves that address, replacing the old files, then press Refresh. Tip: in cPanel File Manager the file's \u201cLast modified\u201d time should be today.", true);
+    });
   }
   function loadTrending() {
     renderTrending();   // the song list comes from scripts/catalog.js, so show it straight away
@@ -350,7 +359,9 @@
     call("admin_trending", {}).then(function (r) {
       if (!r || r.error) {
         document.getElementById("pinList").innerHTML = '<p class="muted">Pinned list unavailable.</p>';
-        trendNote(apiProblem(r), true); return;
+        trendNote(apiProblem(r), true);
+        if (r && /unknown action/i.test(r.error || "")) explainOutdated();
+        return;
       }
       if (songs().length) trendNote("");
       pins = r.pins || []; autoRows = r.auto || []; renderTrending();
@@ -359,7 +370,7 @@
   function savePins(next) {
     call("admin_trending_set", { method: "POST", body: { keys: next } }).then(function (r) {
       if (r && !r.error) { pins = r.pins || next; renderTrending(); if (YR.toast) YR.toast("Home Top 10 updated.", "ok"); }
-      else { trendNote(apiProblem(r), true); if (YR.toast) YR.toast(/unknown action/i.test((r && r.error) || "") ? "Server needs the new api/index.php." : ((r && r.error) || "Couldn't save. Try again."), "error"); }
+      else { trendNote(apiProblem(r), true); if (r && /unknown action/i.test(r.error || "")) explainOutdated(); if (YR.toast) YR.toast(/unknown action/i.test((r && r.error) || "") ? "Server needs the new api/index.php." : ((r && r.error) || "Couldn't save. Try again."), "error"); }
     });
   }
   function renderTrending() {
